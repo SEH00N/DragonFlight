@@ -29,11 +29,14 @@ public class DragonMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         if(Input.GetKey(KeyCode.LeftShift) && speed < runSpeed)
-            speed += Time.deltaTime * 2f;
+            speed += Time.deltaTime * 3f;
         else if(!Input.GetKey(KeyCode.LeftShift) && speed > walkSpeed)
-            speed -= Time.deltaTime * 2f;
+            speed -= Time.deltaTime * 3f;
 
-        transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
+        // transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
+        Vector3 moveDir = (x * transform.right + z * transform.forward) * speed;
+        moveDir.y = rb.velocity.y;
+        rb.velocity = moveDir;
 
         animBelnd = Mathf.Lerp(0, speed, Mathf.Abs(z));
         anim.SetFloat("Move", animBelnd);
