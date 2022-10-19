@@ -7,6 +7,7 @@ public class DragonMovement : MonoBehaviour
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float flyingSpeed = 15f;
     [SerializeField] float rotationFactor = 0.5f;
+    [SerializeField] float rayDistance = 0.5f;
     
     private Vector3 input = new Vector3();
     private Vector3 dir = new Vector3();
@@ -48,11 +49,16 @@ public class DragonMovement : MonoBehaviour
         {
             onGround = false;
             onFlying = true;
-            characterController.Move(Vector3.up * flyingSpeed * 20f * Time.deltaTime);
+            characterController.Move(Vector3.up * flyingSpeed * Time.deltaTime);
+
+            currentSpeed = flyingSpeed;
         }
 
         if(onFlying && onGround)
+        {
             onFlying = false;
+            currentSpeed = walkSpeed;
+        }
 
         onGround = CheckGround();
     }
@@ -94,8 +100,8 @@ public class DragonMovement : MonoBehaviour
 
     private bool CheckGround()
     {
-        if (characterController.isGrounded) return true;
+        if (onGround) return true;
 
-        return Physics.Raycast(characterController.center, Vector3.down, 10f, DEFINE.GroundLayer);
+        return Physics.Raycast(characterController.bounds.center, Vector3.down, rayDistance, DEFINE.GroundLayer);
     }
 }
