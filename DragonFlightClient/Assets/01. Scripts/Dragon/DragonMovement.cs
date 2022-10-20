@@ -11,7 +11,7 @@ public class DragonMovement : MonoBehaviour
     
     private Vector3 input = new Vector3();
     private Vector3 dir = new Vector3();
-    private float animBelnd = 0f;
+    private float animBlend = 0f;
     private float currentSpeed;
 
     [SerializeField] private bool onFlying = false;
@@ -38,8 +38,8 @@ public class DragonMovement : MonoBehaviour
         Fly();
         Rotate();
 
-        animBelnd = Mathf.Lerp(0, currentSpeed, Mathf.Abs(input.z));
-        anim.SetFloat("Move", animBelnd);
+        animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(input.z));
+        anim.SetFloat("Move", animBlend);
         anim.SetBool("OnFly", onFlying);
     }
 
