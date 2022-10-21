@@ -44470,6 +44470,7 @@ MonoBehaviour:
   speedIncreaseFactor: 5
   rotationFactor: 4
   animBlend: 0
+  dir: {x: 0, y: 0, z: 0}
 --- !u!4 &4548762040744433909
 Transform:
   m_ObjectHideFlags: 0

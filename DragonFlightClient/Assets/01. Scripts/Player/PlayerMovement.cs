@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Space(10f)] private float animBlend = 0f;
 
     private Vector3 input = new Vector3();
-    private Vector3 dir = new Vector3();
+    [SerializeField] private Vector3 dir = new Vector3();
     
 
     private void Awake()
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
         dir = (input.x * transform.right + input.z * transform.forward);
 
-        dir.y += DEFINE.GravityScale * Time.deltaTime;
+        dir.y += DEFINE.GravityScale;
 
         characterController.Move(dir * currentSpeed * Time.deltaTime);
     }

@@ -1,0 +1,5 @@
+{
+    "t" : 0, //type of packet
+    "e" : 1, //event of packet
+    "v" : "data" //data of packet
+}
