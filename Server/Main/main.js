@@ -8,11 +8,11 @@ const handlers = []; //handler list
 handlers[Enums.Types.Room] = require('../Handlers/RoomHandler.js').roomHandler;
 
 server.once('listening', () => {
-    console.log(`[ServerSystem] server opened on port ${server.options.port}`);
+    console.log('\x1b[33m%s\x1b[0m', `[ServerSystem] server opened on port ${server.options.port}`);
 });
 
 server.on('connection', (socket, req) => {
-    console.log('[ServerSystem] client connected');
+    console.log('\x1b[33m%s\x1b[0m', '[ServerSystem] client connected');
 
     socket.on('message', msg => {
         data = JSON.stringify(msg);
