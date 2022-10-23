@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] bool active = false;
+    public bool Active {
+        get  => active;
+        set {
+            characterController.enabled = value;
+            active = value;
+
+            if(!value)
+            {
+                anim.SetFloat("Move", 0f);
+                currentSpeed = 0f;
+            }
+        }
+    }
+
     [Header("Speed")]
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float runSpeed = 10f;
@@ -14,14 +29,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speedIncreaseFactor = 5f;
     [SerializeField] float rotationFactor = 4f;
     
+    [Header("Transform")]
+    public Transform cameraFollow = null;
+
     private CharacterController characterController = null;
 
+    private float animBlend = 0f;
     private Animator anim = null;
-    [SerializeField, Space(10f)] private float animBlend = 0f;
 
     private Vector3 input = new Vector3();
-    [SerializeField] private Vector3 dir = new Vector3();
-    
+    private Vector3 dir = new Vector3();
 
     private void Awake()
     {
@@ -31,11 +48,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Rotate();
+        if(active)
+        {
+            Move();
+            Rotate();
 
-        animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(Mathf.Abs(input.x) > Mathf.Abs(input.z) ? input.x : input.z));
-        anim.SetFloat("Move", animBlend);
+            animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(Mathf.Abs(input.x) > Mathf.Abs(input.z) ? input.x : input.z));
+            anim.SetFloat("Move", animBlend);
+        }
     }
 
     private void Move()
@@ -65,10 +85,18 @@ public class PlayerMovement : MonoBehaviour
     private void Rotate()
     {
         Vector3 rotate = transform.eulerAngles;
+        float xFactor = Input.GetAxis("Mouse Y") * rotationFactor;
+        float yFactor = Input.GetAxis("Mouse X") * rotationFactor;
 
-        rotate.x -= Input.GetAxis("Mouse Y") * rotationFactor;
-        rotate.y += Input.GetAxis("Mouse X") * rotationFactor;
-
+        rotate.y += yFactor;
         transform.rotation = Quaternion.Euler(rotate);
+
+        Vector3 headRotate = cameraFollow.localEulerAngles;
+        headRotate.x -= xFactor;
+        if(headRotate.x >= 90f)
+            headRotate.x -= 360f;
+
+        headRotate.x = Mathf.Clamp(headRotate.x, -85f, 85f);
+        cameraFollow.localRotation = Quaternion.Euler(headRotate);
     }
 }

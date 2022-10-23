@@ -3,19 +3,43 @@ using UnityEngine;
 
 public class DragonMovement : MonoBehaviour
 {
+    [SerializeField] bool active = false;
+    public bool Active {
+        get  => active;
+        set {
+            characterController.enabled = value;
+            active = value;
+
+            if(!value)
+            {
+                anim.SetFloat("Move", 0f);
+                currentSpeed = 0f;
+            }
+        }
+    }
+
+    [Header("Speed")]
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float flyingSpeed = 15f;
+
+    [Header("Factor")]
     [SerializeField] float rotationFactor = 0.5f;
+    [SerializeField] float speedIncreaseFactor = 3f;
+    [SerializeField] float jumpFactor = 2f;
     [SerializeField] float rayDistance = 0.5f;
     
+    [Header("Tranfrom")] 
+    public Transform playerRidePosition = null;
+    public Transform cameraFollow = null;
+
     private Vector3 input = new Vector3();
     private Vector3 dir = new Vector3();
     private float animBlend = 0f;
     private float currentSpeed;
 
-    [SerializeField] private bool onFlying = false;
-    [SerializeField] private bool onGround = false;
+    private bool onFlying = false;
+    private bool onGround = false;
 
     private Animator anim = null;
     private CharacterController characterController = null;
@@ -34,13 +58,16 @@ public class DragonMovement : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Fly();
-        Rotate();
+        if(active)
+        {
+            Move();
+            Fly();
+            Rotate();
 
-        animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(input.z));
-        anim.SetFloat("Move", animBlend);
-        anim.SetBool("OnFly", onFlying);
+            animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(input.z));
+            anim.SetFloat("Move", animBlend);
+            anim.SetBool("OnFly", onFlying);
+        }
     }
 
     private void Fly()
@@ -49,7 +76,15 @@ public class DragonMovement : MonoBehaviour
         {
             onGround = false;
             onFlying = true;
-            characterController.Move(Vector3.up * flyingSpeed * Time.deltaTime);
+            characterController.Move(Vector3.up * flyingSpeed * jumpFactor * Time.deltaTime);
+
+            Vector3 rotate = transform.eulerAngles;
+            rotate.x = cameraFollow.eulerAngles.x;
+            transform.rotation = Quaternion.Euler(rotate);
+
+            rotate = cameraFollow.localEulerAngles;
+            rotate.x = 0f;
+            cameraFollow.localRotation = Quaternion.Euler(rotate);
 
             currentSpeed = flyingSpeed;
         }
@@ -58,6 +93,10 @@ public class DragonMovement : MonoBehaviour
         {
             onFlying = false;
             currentSpeed = walkSpeed;
+
+            Vector3 rotate = transform.eulerAngles;
+            rotate.x = 0f;
+            transform.rotation = Quaternion.Euler(rotate);
         }
 
         onGround = CheckGround();
@@ -66,18 +105,24 @@ public class DragonMovement : MonoBehaviour
     private void Rotate()
     {
         Vector3 rotate = transform.eulerAngles;
+        float xFactor = Input.GetAxis("Mouse Y") * rotationFactor;
+        float yFactor = Input.GetAxis("Mouse X") * rotationFactor;
 
-        if(onFlying)
-        {
-            rotate.x -= Input.GetAxis("Mouse Y") * rotationFactor;
-            rotate.y += Input.GetAxis("Mouse X") * rotationFactor;
-        }
+        rotate.y += yFactor;
+
+        if (onFlying)
+            rotate.x -= xFactor;
         else
         {
-            rotate.y += input.x * rotationFactor;
-            rotate.x = 0;
+            Vector3 headRotate = cameraFollow.localEulerAngles;
+            headRotate.x -= xFactor;
+            if (headRotate.x >= 90f)
+                headRotate.x -= 360f;
+
+            headRotate.x = Mathf.Clamp(headRotate.x, -85f, 20f);
+            cameraFollow.localRotation = Quaternion.Euler(headRotate);
         }
-        
+
         transform.rotation = Quaternion.Euler(rotate);
     }
 
@@ -86,12 +131,19 @@ public class DragonMovement : MonoBehaviour
         input.x = Input.GetAxisRaw("Horizontal");
         input.z = Input.GetAxis("Vertical");
 
-        if(Input.GetKey(KeyCode.LeftShift) && currentSpeed < runSpeed)
-            currentSpeed += Time.deltaTime * 3f;
-        else if(!Input.GetKey(KeyCode.LeftShift) && currentSpeed > walkSpeed)
-            currentSpeed -= Time.deltaTime * 3f;
+        if(input != Vector3.zero)
+        {
+            if(Input.GetKey(KeyCode.LeftShift) && currentSpeed < runSpeed)
+                currentSpeed += Time.deltaTime * speedIncreaseFactor;
+            else if(currentSpeed < walkSpeed)
+                currentSpeed += Time.deltaTime * speedIncreaseFactor;
+            else if(currentSpeed > walkSpeed)
+                currentSpeed -= Time.deltaTime * speedIncreaseFactor;    
+        }
+        else if(currentSpeed > 0.1f)
+            currentSpeed -= Time.deltaTime * speedIncreaseFactor;
 
-        dir = (input.z * transform.forward);
+        dir = (input.z * currentSpeed * transform.forward);
         if(!onFlying)
             dir.y += DEFINE.GravityScale * Time.deltaTime;
 
