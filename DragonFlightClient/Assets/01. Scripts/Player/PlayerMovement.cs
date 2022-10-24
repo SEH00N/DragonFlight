@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         else if(currentSpeed > 0.1f)
             currentSpeed -= Time.deltaTime * speedIncreaseFactor;
 
+        currentSpeed = Mathf.Max(0f, currentSpeed);
+
         dir = (input.x * transform.right + input.z * transform.forward);
 
         dir.y += DEFINE.GravityScale;
