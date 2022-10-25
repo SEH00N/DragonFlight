@@ -8,7 +8,7 @@ public class FireBallSkill : Skill
 
     public override void ActiveSkill()
     {
-        //슈웅 해야됨
+        //서버한테 요청 후 res로 소환하는 방식으로 수정해야됨
         FireBall fireball = PoolManager.Instance.Pop("FireBall") as FireBall;
         fireball.Init(firePosition.position, new Vector3(xRotation.localEulerAngles.x, transform.eulerAngles.y));
     }
