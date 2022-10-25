@@ -9,6 +9,9 @@ public class RideDragon : MonoBehaviour
     [Header("Origin")]
     [SerializeField] Vector3 cameraOriginRotation = new Vector3();
 
+    [Header("Text")]
+    [SerializeField] string rideNoticeText = "[E] : RIDE";
+
     private PlayerMovement playerMovement = null;
     private DragonMovement currentDragon = null;
 
@@ -54,7 +57,7 @@ public class RideDragon : MonoBehaviour
         if(currentRideText == null) 
         {
             currentRideText = PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
-            currentRideText.Init("[E] : Ride", DEFINE.MainCanvas);
+            currentRideText.Init(rideNoticeText, DEFINE.MainCanvas);
         }
 
         currentRideText.transform.position = DEFINE.MainCam.WorldToScreenPoint(currentDragon.playerRidePosition.position);
@@ -63,9 +66,9 @@ public class RideDragon : MonoBehaviour
     private bool TargetingDragon(out DragonMovement targetDragon)
     {
         targetDragon = null;
-        // Debug.DrawRay(rayPosition.position, DEFINE.CmMainCam.transform.forward, Color.red, 1f);
+        // Debug.DrawRay(rayPosition.position, playerMovement.cameraFollow.forward, Color.red, 1f);
 
-        bool isDragon = Physics.Raycast(rayPosition.position, DEFINE.CmMainCam.transform.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
+        bool isDragon = Physics.Raycast(rayPosition.position, playerMovement.cameraFollow.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
         if(isDragon)
             isDragon &= hit.collider.transform.root.TryGetComponent<DragonMovement>(out targetDragon);
 
