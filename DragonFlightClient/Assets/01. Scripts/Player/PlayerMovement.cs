@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         input.x = Input.GetAxisRaw("Horizontal");
-        input.z = Input.GetAxis("Vertical");
+        input.z = Input.GetAxisRaw("Vertical");
 
         if(input != Vector3.zero)
         {
