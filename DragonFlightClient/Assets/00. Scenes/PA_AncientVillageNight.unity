@@ -22269,6 +22269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingList:
   - {fileID: 505171132808573852, guid: 3246c55e9dd7c564cbdb42f94363027a, type: 3}
+  - {fileID: 463030053805587231, guid: a535f9f256169034d9b4df766ae2fdd1, type: 3}
 --- !u!4 &1151425661
 Transform:
   m_ObjectHideFlags: 0
@@ -22983,6 +22984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeKey: 113
+  firePosition: {fileID: 3985446191666304710}
+  xRotation: {fileID: 1616203008}
 --- !u!4 &1275262726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9065110103404677943, guid: 669e1e710f7741e4aa5ea10e28dc816b,
@@ -26023,7 +26026,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616203007}
   m_LocalRotation: {x: -0.0764126, y: -0.702966, z: -0.07641258, w: 0.702966}
-  m_LocalPosition: {x: 309.1, y: 525, z: 0.000023841858}
+  m_LocalPosition: {x: 309.09973, y: 525, z: 0.000023841858}
   m_LocalScale: {x: 99.99998, y: 100, z: 99.99998}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37843,7 +37846,7 @@ GameObject:
   m_Layer: 10
   m_Name: Jaw02
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
