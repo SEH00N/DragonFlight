@@ -12,6 +12,7 @@ public class RideDragon : MonoBehaviour
     private PlayerMovement playerMovement = null;
     private DragonMovement currentDragon = null;
 
+    private TextPrefab currentRideText = null;
     private bool isRide = false;
 
     private void Awake()
@@ -21,22 +22,49 @@ public class RideDragon : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(!isRide)
         {
-            if(!isRide)
+            if (TargetingDragon(out currentDragon))
             {
-                if(TargetingDragon(out currentDragon))
+                ShowNoitceText();
+                if(Input.GetKeyDown(KeyCode.E))
                     DoRideOn();
             }
-            else if(currentDragon != null)
-                DoRideOff();
+            else if(currentRideText != null)
+                HideNoticeText();
         }
+        else if (currentDragon != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+                DoRideOff();
+
+            if(currentRideText != null)
+                HideNoticeText();
+        }
+    }
+
+    private void HideNoticeText()
+    {
+        PoolManager.Instance.Push(currentRideText);
+        currentRideText = null;
+    }
+
+    private void ShowNoitceText()
+    {
+        if(currentRideText == null) 
+        {
+            currentRideText = PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
+            currentRideText.Init("[E] : Ride", DEFINE.MainCanvas);
+        }
+
+        currentRideText.transform.position = DEFINE.MainCam.WorldToScreenPoint(currentDragon.playerRidePosition.position);
     }
 
     private bool TargetingDragon(out DragonMovement targetDragon)
     {
         targetDragon = null;
-        Debug.DrawRay(rayPosition.position, DEFINE.CmMainCam.transform.forward, Color.red, 1f);
+        // Debug.DrawRay(rayPosition.position, DEFINE.CmMainCam.transform.forward, Color.red, 1f);
+
         bool isDragon = Physics.Raycast(rayPosition.position, DEFINE.CmMainCam.transform.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
         if(isDragon)
             isDragon &= hit.collider.transform.root.TryGetComponent<DragonMovement>(out targetDragon);
