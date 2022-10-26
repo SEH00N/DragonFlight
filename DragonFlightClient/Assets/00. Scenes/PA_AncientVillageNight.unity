@@ -22269,7 +22269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingList:
   - {fileID: 505171132808573852, guid: 3246c55e9dd7c564cbdb42f94363027a, type: 3}
-  - {fileID: 463030053805587231, guid: a535f9f256169034d9b4df766ae2fdd1, type: 3}
+  - {fileID: 2728811807978932170, guid: a535f9f256169034d9b4df766ae2fdd1, type: 3}
 --- !u!4 &1151425661
 Transform:
   m_ObjectHideFlags: 0
@@ -22983,6 +22983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f9232636807c348b7fb34fedebc1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillCoolTime: 10
   activeKey: 113
   firePosition: {fileID: 3985446191666304710}
   xRotation: {fileID: 1616203008}
@@ -33555,7 +33556,7 @@ GameObject:
   - component: {fileID: 4540228999236674789}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38642,12 +38643,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3985446191666322322}
   - component: {fileID: 3985446191656765732}
+  - component: {fileID: 3985446191666322325}
   - component: {fileID: 3985446191656765733}
+  - component: {fileID: 3985446191666322324}
   - component: {fileID: 3985446191666322323}
   - component: {fileID: 336154919}
   m_Layer: 10
   m_Name: BlueThinDragon
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39816,6 +39819,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skills:
   - {fileID: 1254157790}
+--- !u!114 &3985446191666322324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985446191666164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d586fed3efd2642ba2646c4dd9071d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+--- !u!114 &3985446191666322325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985446191666164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8860ea5a990464084a73d6f7dfff21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3985446191666323472
 Transform:
   m_ObjectHideFlags: 0

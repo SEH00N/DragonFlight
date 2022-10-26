@@ -13,7 +13,7 @@ public class RideDragon : MonoBehaviour
     [SerializeField] string rideNoticeText = "[E] : RIDE";
 
     private PlayerMovement playerMovement = null;
-    private DragonMovement currentDragon = null;
+    private Dragon currentDragon = null;
 
     private TextPrefab currentRideText = null;
     private bool isRide = false;
@@ -60,17 +60,17 @@ public class RideDragon : MonoBehaviour
             currentRideText.Init(rideNoticeText, DEFINE.MainCanvas);
         }
 
-        currentRideText.transform.position = DEFINE.MainCam.WorldToScreenPoint(currentDragon.playerRidePosition.position);
+        currentRideText.transform.position = DEFINE.MainCam.WorldToScreenPoint(currentDragon.DragonMovement.playerRidePosition.position);
     }
 
-    private bool TargetingDragon(out DragonMovement targetDragon)
+    private bool TargetingDragon(out Dragon targetDragon)
     {
         targetDragon = null;
         // Debug.DrawRay(rayPosition.position, playerMovement.cameraFollow.forward, Color.red, 1f);
 
         bool isDragon = Physics.Raycast(rayPosition.position, playerMovement.cameraFollow.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
         if(isDragon)
-            isDragon &= hit.collider.transform.root.TryGetComponent<DragonMovement>(out targetDragon);
+            isDragon &= hit.collider.transform.root.TryGetComponent<Dragon>(out targetDragon);
 
         return isDragon;
     }
@@ -80,21 +80,21 @@ public class RideDragon : MonoBehaviour
         isRide = true;
 
         playerMovement.Active = false;
-        currentDragon.Active = true;
+        currentDragon.DragonMovement.Active = true;
 
-        transform.position = currentDragon.playerRidePosition.position;
-        transform.SetParent(currentDragon.playerRidePosition);
+        transform.position = currentDragon.DragonMovement.playerRidePosition.position;
+        transform.SetParent(currentDragon.DragonMovement.playerRidePosition);
         transform.localRotation = Quaternion.Euler(Vector3.zero);
 
-        DEFINE.CmMainCam.Follow = currentDragon.cameraFollow;
-        DEFINE.CmMainCam.transform.SetParent(currentDragon.cameraFollow);
+        DEFINE.CmMainCam.Follow = currentDragon.DragonMovement.cameraFollow;
+        DEFINE.CmMainCam.transform.SetParent(currentDragon.DragonMovement.cameraFollow);
         DEFINE.CmMainCam.transform.localRotation = Quaternion.Euler(cameraOriginRotation);
     }
 
     private void DoRideOff()
     {
         playerMovement.Active = true;
-        currentDragon.Active = false;
+        currentDragon.DragonMovement.Active = false;
 
         transform.SetParent(null);
         currentDragon = null;

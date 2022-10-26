@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class FireBall : PoolableMono
 {
+    [Header("Factor")]
     [SerializeField] float speed = 3f;
     [SerializeField] float lifeTime = 3f;
-    private float currentTimer = 0f;
+    [SerializeField] float damage = 10f;
 
+    private float currentTimer = 0f;
+    
     public override void Reset()
     {
         currentTimer = 0f;
@@ -19,6 +22,15 @@ public class FireBall : PoolableMono
 
         if(currentTimer > lifeTime)
             PoolManager.Instance.Push(this);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Dragon"))
+        {
+            if(other.gameObject.TryGetComponent<IDamageable>(out IDamageable id))
+                id.OnDamage(damage);
+        }
     }
 
     //터지는 거
