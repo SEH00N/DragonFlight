@@ -13355,7 +13355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &789457871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22270,6 +22270,7 @@ MonoBehaviour:
   poolingList:
   - {fileID: 505171132808573852, guid: 3246c55e9dd7c564cbdb42f94363027a, type: 3}
   - {fileID: 2728811807978932170, guid: a535f9f256169034d9b4df766ae2fdd1, type: 3}
+  - {fileID: 4685101633216279974, guid: 249eae9f1bd756e438904225befe4cc9, type: 3}
 --- !u!4 &1151425661
 Transform:
   m_ObjectHideFlags: 0
@@ -22983,7 +22984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f9232636807c348b7fb34fedebc1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCoolTime: 10
+  skillCoolTime: 0
   activeKey: 113
   firePosition: {fileID: 3985446191666304710}
   xRotation: {fileID: 1616203008}

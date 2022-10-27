@@ -8,10 +8,16 @@ public class FireBall : PoolableMono
     [SerializeField] float damage = 10f;
 
     private float currentTimer = 0f;
+    private Rigidbody rb = null;
     
     public override void Reset()
     {
         currentTimer = 0f;
+
+        if(rb == null)
+            rb = GetComponent<Rigidbody>();
+
+        rb.velocity = Vector3.zero;
     }
 
     private void Update()
@@ -26,11 +32,9 @@ public class FireBall : PoolableMono
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Dragon"))
-        {
-            if(other.gameObject.TryGetComponent<IDamageable>(out IDamageable id))
-                id.OnDamage(damage);
-        }
+        PoolManager.Instance.Pop("FireBallHitEffect");
+        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable id))
+            id.OnDamage(damage);
     }
 
     //터지는 거
