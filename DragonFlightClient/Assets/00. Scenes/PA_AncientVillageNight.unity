@@ -13355,7 +13355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &789457871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22298,7 +22298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c4e5e6d2d4d624cbef6b5199f2cb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorVisible: 0
+  cursorVisible: 1
 --- !u!1001 &1152832815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36896,7 +36896,7 @@ MonoBehaviour:
   rotationFactor: 4
   speedIncreaseFactor: 3
   jumpFactor: 2
-  rayDistance: 0.5
+  rayDistance: 0.3
   playerRidePosition: {fileID: 316469917}
   cameraFollow: {fileID: 1616203008}
 --- !u!33 &3985446191660943272
