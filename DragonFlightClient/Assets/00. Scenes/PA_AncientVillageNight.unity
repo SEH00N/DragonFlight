@@ -14717,6 +14717,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1254157789}
+  - {fileID: 1820466271}
   m_Father: {fileID: 3985446191666322322}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22920,6 +22921,51 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &1250672303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1250672304}
+  - component: {fileID: 1250672305}
+  m_Layer: 10
+  m_Name: BiteRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1250672304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250672303}
+  m_LocalRotation: {x: 0.7064401, y: 0.030699968, z: -0.70644003, w: 0.030699832}
+  m_LocalPosition: {x: -123.345505, y: -15.579824, z: -0.000038146973}
+  m_LocalScale: {x: 99.999954, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3985446191666312804}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1250672305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250672303}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1250854089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 934698452653546609, guid: 73793fc1c8a9f624bb3f5ff90269b349,
@@ -27904,6 +27950,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1818137769}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1820466270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1820466271}
+  - component: {fileID: 1820466272}
+  m_Layer: 10
+  m_Name: Bite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1820466271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820466270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 969860791}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1820466272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820466270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21d90f462d6ed84287da96697a3abcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillCoolTime: 2
+  activeKey: 323
+  biteRange: {fileID: 1250672305}
+  damage: 10
 --- !u!1001 &1827557280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38675,10 +38769,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3985446191666322322}
   - component: {fileID: 3985446191656765732}
-  - component: {fileID: 3985446191666322325}
+  - component: {fileID: 3985446191666322323}
   - component: {fileID: 3985446191656765733}
   - component: {fileID: 3985446191666322324}
-  - component: {fileID: 3985446191666322323}
+  - component: {fileID: 3985446191666322325}
   - component: {fileID: 336154919}
   m_Layer: 10
   m_Name: BlueThinDragon
@@ -39668,6 +39762,7 @@ Transform:
   m_Children:
   - {fileID: 3985446191666304710}
   - {fileID: 1944952346}
+  - {fileID: 1250672304}
   m_Father: {fileID: 3985446191666321384}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39852,6 +39947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skills:
   - {fileID: 1254157790}
+  - {fileID: 1820466272}
 --- !u!114 &3985446191666322324
 MonoBehaviour:
   m_ObjectHideFlags: 0

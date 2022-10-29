@@ -35,6 +35,16 @@ public class Dragon : PoolableMono
         }
     }
 
+    private Animator animator = null;
+    public Animator Animator {
+        get {
+            if(animator == null)
+                animator = GetComponent<Animator>();
+
+            return animator;
+        }
+    }
+
     #endregion
 
     public override void Reset()
