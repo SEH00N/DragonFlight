@@ -15,6 +15,6 @@ public class FireBallSkill : Skill
         skillCoolTimer = 0f;
 
         FireBall fireball = PoolManager.Instance.Pop("FireBall") as FireBall;
-        fireball.Init(firePosition.position, new Vector3(xRotation.localEulerAngles.x, transform.eulerAngles.y));
+        fireball.Init(firePosition.position, new Vector3(xRotation.eulerAngles.x, transform.eulerAngles.y));
     }
 }

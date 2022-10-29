@@ -111,7 +111,13 @@ public class DragonMovement : MonoBehaviour
         rotate.y += yFactor;
 
         if (onFlying)
+        {
             rotate.x -= xFactor;
+            if(rotate.x >= 90f)
+                rotate.x -= 360f;
+
+            rotate.x = Mathf.Clamp(rotate.x, -85f, 85f);
+        }
         else
         {
             Vector3 headRotate = cameraFollow.localEulerAngles;

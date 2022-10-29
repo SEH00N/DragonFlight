@@ -18,6 +18,7 @@ public class FireBall : PoolableMono
             rb = GetComponent<Rigidbody>();
 
         rb.velocity = Vector3.zero;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
     private void Update()
@@ -32,7 +33,10 @@ public class FireBall : PoolableMono
 
     private void OnCollisionEnter(Collision other)
     {
-        PoolManager.Instance.Pop("FireBallHitEffect");
+        PoolManager.Instance.Push(this);
+        ParticlePrefab particle = PoolManager.Instance.Pop("FireBallHitEffect") as ParticlePrefab;
+        particle.Init(transform.position, Quaternion.identity);
+
         if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable id))
             id.OnDamage(damage);
     }
