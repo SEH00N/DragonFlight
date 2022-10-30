@@ -22249,6 +22249,8 @@ GameObject:
   - component: {fileID: 1151425661}
   - component: {fileID: 1151425660}
   - component: {fileID: 1151425662}
+  - component: {fileID: 1151425664}
+  - component: {fileID: 1151425663}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -22301,6 +22303,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorActive: 0
+--- !u!114 &1151425663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151425659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d93a423acad2f488e7d5d89e71bbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ip: localhost
+  port: 3030
+--- !u!114 &1151425664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151425659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6578a51239928b440b6dbaa650f1074b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1152832815
 PrefabInstance:
   m_ObjectHideFlags: 0
