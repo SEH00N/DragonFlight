@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDisappearable: 1
-  lifeTime: 10
+  lifeTime: 2
 --- !u!1 &1495622827040864270
 GameObject:
   m_ObjectHideFlags: 0

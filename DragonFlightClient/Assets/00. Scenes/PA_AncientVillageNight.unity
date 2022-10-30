@@ -347,9 +347,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 0
-  m_YDamping: 0
-  m_ZDamping: 0
+  m_XDamping: 0.1
+  m_YDamping: 0.1
+  m_ZDamping: 0.1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -22961,7 +22961,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250672303}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 1, z: 3}
@@ -39960,6 +39960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d586fed3efd2642ba2646c4dd9071d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdingTime: 3
   maxHp: 100
 --- !u!114 &3985446191666322325
 MonoBehaviour:
