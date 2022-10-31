@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Newtonsoft.Json;
 
-public class UserSetting : MonoBehaviour
+public struct UserSetting
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [JsonProperty("sfxVolume")] public float sfxVolume;
+    [JsonProperty("bgmVolume")] public float bgmVolume;
 }

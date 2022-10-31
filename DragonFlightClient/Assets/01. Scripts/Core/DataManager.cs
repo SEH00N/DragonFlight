@@ -8,20 +8,20 @@ public class DataManager : MonoBehaviour
 
     private string saveFolderPath = "./Save";
 
-    private UserSetting ud = null;
+    public UserSetting userSetting;
 
     private void Awake()
     {
         saveFolderPath = Path.Combine(Application.dataPath, saveFolderPath);
         if (!Directory.Exists(saveFolderPath)) Directory.CreateDirectory(saveFolderPath);
 
-        if(!TryReadJson<UserSetting>(out ud))
-            ud = new UserSetting();
+        if(!TryReadJson<UserSetting>(out userSetting))
+            userSetting = new UserSetting();
     }
 
     private void OnDisable()
     {
-        SaveData<UserSetting>(ud);
+        SaveData<UserSetting>(userSetting);
     }
 
     private bool TryReadJson<T>(out T data)
