@@ -7,5 +7,7 @@ public class TWindow
     private static void WhatIsThis()
     {
         Debug.Log("Hello, World!");
+        Debug.LogWarning("Hello, World!");
+        Debug.LogError("Hello, World!");
     }
 }
