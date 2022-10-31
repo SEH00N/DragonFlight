@@ -27,14 +27,14 @@ public class AudioManager : MonoBehaviour
             CreateAudioPool(clip);
     }
 
-    public void PlayBGM(string clipName)
-    {
-        
-    }
+    public void PlayBGM(string clipName) => PlayAudio(clipName, bgmPlayer);
+    public void PauseBGM() => bgmPlayer.Pause();
 
-    public void PauseBGM()
+    public void PlayAudio(string clipName, AudioSource player)
     {
-        
+        player.clip = clipPool[clipName];
+
+        player.Play();
     }
 
     private void CreateAudioPool(AudioClip clip)
