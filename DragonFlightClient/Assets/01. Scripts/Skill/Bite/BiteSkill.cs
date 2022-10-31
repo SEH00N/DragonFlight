@@ -24,8 +24,6 @@ public class BiteSkill : Skill
                 if(!ids.Contains(id))
                     ids.Add(id);
 
-        Debug.Log(enemies.Length + " " + ids.Count);
-
         if(ids.Count <= 0)
             return;
 
