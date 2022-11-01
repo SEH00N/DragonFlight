@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public static DataManager Instance = null;
+    private static DataManager instance = null;
+    public static DataManager Instance {
+        get {
+            if(instance == null)
+                instance = FindObjectOfType<DataManager>();
+
+            return instance;
+        }
+    }
 
     private string saveFolderPath = "./Save";
 
@@ -16,7 +24,7 @@ public class DataManager : MonoBehaviour
         if (!Directory.Exists(saveFolderPath)) Directory.CreateDirectory(saveFolderPath);
 
         if(!TryReadJson<UserSetting>(out userSetting))
-            userSetting = new UserSetting();
+            userSetting = new UserSetting().Generate();
     }
 
     private void OnDisable()
