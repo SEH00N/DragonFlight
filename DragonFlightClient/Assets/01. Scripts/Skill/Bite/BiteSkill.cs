@@ -16,7 +16,7 @@ public class BiteSkill : Skill
     {
         dragon.Animator.SetTrigger("OnBite");
 
-        Collider[] enemies = Physics.OverlapBox(biteRange.transform.position, biteRange.bounds.size / 2f, biteRange.transform.rotation, DEFINE.EnemyLayer);
+        Collider[] enemies = Physics.OverlapBox(biteRange.transform.position, biteRange.bounds.size / 2f, biteRange.transform.rotation, DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer);
         List<IDamageable> ids = new List<IDamageable>();
 
         foreach(Collider enemy in enemies)

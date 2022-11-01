@@ -11,7 +11,8 @@ public static class DEFINE
     public const float GravityScale = -9.81f;
     public const int GroundLayer = 1 << 7;
     public const int DragonLayer = 1 << 10; 
-    public const int EnemyLayer = 1 << 11;
+    public const int EnemyDragonLayer = 1 << 11;
+    public const int EnemyPlayerLayer = 1 << 12;
 
     private static Transform mainCanvas = null;
     public static Transform MainCanvas {

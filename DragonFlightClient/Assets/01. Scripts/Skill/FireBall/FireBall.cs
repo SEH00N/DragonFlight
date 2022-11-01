@@ -6,7 +6,7 @@ public class FireBall : PoolableMono
     [SerializeField] float speed = 3f;
     [SerializeField] float lifeTime = 3f;
     [SerializeField] float damage = 10f;
-    [SerializeField] Collider bombArea = null;
+    [SerializeField] Collider[] bombAreas = null;
 
     private float currentTimer = 0f;
     private Rigidbody rb = null;
@@ -34,7 +34,8 @@ public class FireBall : PoolableMono
 
     private void OnCollisionEnter(Collision other)
     {
-        Bomb();
+        foreach(Collider collider in bombAreas)
+            Bomb(collider);
 
         PoolManager.Instance.Push(this);
         ParticlePrefab particle = PoolManager.Instance.Pop("FireBallHitEffect") as ParticlePrefab;
@@ -42,18 +43,19 @@ public class FireBall : PoolableMono
     }
 
     //터지는 거
-    private void Bomb()
+    private void Bomb(Collider collider)
     {
-        Collider[] enemies = Physics.OverlapBox(transform.position, bombArea.bounds.size / 2f, Quaternion.identity, DEFINE.EnemyLayer);
+        Collider[] enemies = Physics.OverlapBox(transform.position, collider.bounds.size / 2f, Quaternion.identity, DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer);
 
         List<IDamageable> ids = new List<IDamageable>();
 
         foreach (Collider enemy in enemies)
             if (enemy.transform.root.TryGetComponent<IDamageable>(out IDamageable id))
                 if (!ids.Contains(id))
+                {
                     ids.Add(id);
-
-        Debug.Log(enemies.Length + " " + ids.Count);
+                    Debug.LogWarning(enemy.transform.root.name);
+                }
 
         if (ids.Count <= 0)
             return;

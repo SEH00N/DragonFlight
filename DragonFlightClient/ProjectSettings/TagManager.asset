@@ -17,8 +17,8 @@ TagManager:
   - 
   - Player
   - Dragon
-  - Enemy
-  - 
+  - EnemyDragon
+  - EnemyPlayer
   - 
   - 
   - 

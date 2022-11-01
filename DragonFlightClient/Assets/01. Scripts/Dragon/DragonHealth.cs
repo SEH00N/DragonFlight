@@ -25,6 +25,7 @@ public class DragonHealth : MonoBehaviour, IDamageable
         if(currentHp <= 0f)
             return;
 
+        // Debug.LogWarning(damage + " " + currentHp);
         currentHp -= damage;
 
         if(currentHp <= 0f)
