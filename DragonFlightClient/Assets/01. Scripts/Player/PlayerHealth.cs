@@ -16,13 +16,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     private Player player = null;
-
     private Image hpBar = null;
 
     private void Awake()
     {
         player = GetComponent<Player>();
-        hpBar = DEFINE.MainCanvas.Find("PlayerHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
+        hpBar = DEFINE.MainCanvas.Find("HP/PlayerHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
         CurrentHp = maxHp;
     }
 

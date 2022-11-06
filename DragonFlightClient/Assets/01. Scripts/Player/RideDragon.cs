@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class RideDragon : MonoBehaviour
@@ -18,9 +19,14 @@ public class RideDragon : MonoBehaviour
     private TextPrefab currentRideText = null;
     private bool isRide = false;
 
+    private GameObject playerHPObj;
+    private GameObject dragonHPObj;
+
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerHPObj = DEFINE.MainCanvas.Find("HP/PlayerHPBar").gameObject;//.transform.GetChild(0).gameObject;
+        dragonHPObj = DEFINE.MainCanvas.Find("HP/DragonHPBar").gameObject;//.transform.GetChild(1).gameObject;
     }
 
     private void Update()
@@ -78,6 +84,7 @@ public class RideDragon : MonoBehaviour
     private void DoRideOn()
     {
         isRide = true;
+        HPBarController(true);
 
         playerMovement.Active = false;
         currentDragon.DragonMovement.Active = true;
@@ -93,6 +100,8 @@ public class RideDragon : MonoBehaviour
 
     private void DoRideOff()
     {
+        HPBarController(false);
+
         playerMovement.Active = true;
         currentDragon.DragonMovement.Active = false;
 
@@ -104,5 +113,11 @@ public class RideDragon : MonoBehaviour
         DEFINE.CmMainCam.transform.localRotation = Quaternion.Euler(cameraOriginRotation);
 
         isRide = false;
+    }
+
+    private void HPBarController(bool isRiding)
+    {
+        playerHPObj.SetActive(!isRiding);
+        dragonHPObj.SetActive(isRiding);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DragonHealth : MonoBehaviour, IDamageable
 {
@@ -12,11 +13,14 @@ public class DragonHealth : MonoBehaviour, IDamageable
     public float CurrentHp { get => currentHp; set => currentHp = value; }
 
     private Dragon dragon = null;
+    public Image hpBar = null;
 
     private void Awake()
     {
         dragon = GetComponent<Dragon>();
-        
+        hpBar = DEFINE.MainCanvas.Find("HP/DragonHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
+
+
         CurrentHp = maxHp;
     }
 
