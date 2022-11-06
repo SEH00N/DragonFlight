@@ -4711,7 +4711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+  m_Color: {r: 0.8207547, g: 0.58381987, b: 0.8144342, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17907,10 +17907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 792968732}
   - component: {fileID: 792968731}
-  - component: {fileID: 792968730}
-  - component: {fileID: 792968729}
-  - component: {fileID: 792968728}
-  - component: {fileID: 792968727}
+  - component: {fileID: 792968733}
   - component: {fileID: 792968726}
   m_Layer: 11
   m_Name: EnemyDragon
@@ -17937,70 +17934,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.02, z: 0}
---- !u!114 &792968727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792968725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b8860ea5a990464084a73d6f7dfff21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &792968728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792968725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7d586fed3efd2642ba2646c4dd9071d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdingTime: 3
-  maxHp: 100
-  hpBar: {fileID: 0}
---- !u!114 &792968729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792968725}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec4b28717575b042bffdc6b9515e619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 0
-  walkSpeed: 3
-  runSpeed: 5
-  flyingSpeed: 7
-  rotationFactor: 4
-  speedIncreaseFactor: 3
-  jumpFactor: 2
-  rayDistance: 0.3
-  playerRidePosition: {fileID: 1754208260}
-  cameraFollow: {fileID: 1191292296}
---- !u!114 &792968730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792968725}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68b89a8b15a09a049bf336638ecf9eef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skills:
-  - {fileID: 1539326337}
-  - {fileID: 1000403439}
 --- !u!95 &792968731
 Animator:
   serializedVersion: 4
@@ -18039,6 +17972,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &792968733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792968725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30e1f70d1cb5fb42af8facf944275ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &795867821
 GameObject:
   m_ObjectHideFlags: 0
@@ -30108,7 +30053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1217811665}
   - component: {fileID: 1217811666}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: BiteRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30357,7 +30302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1250672304}
   - component: {fileID: 1250672305}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BiteRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

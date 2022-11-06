@@ -7,7 +7,7 @@ public class DragonHealth : MonoBehaviour, IDamageable
     [SerializeField] float holdingTime = 3f;
 
     [SerializeField] float maxHp = 100f;
-    public float MaxHp => MaxHp;
+    public float MaxHp => maxHp;
 
     private float currentHp = 0f;
     public float CurrentHp { get => currentHp; set => currentHp = value; }
@@ -19,9 +19,6 @@ public class DragonHealth : MonoBehaviour, IDamageable
     {
         dragon = GetComponent<Dragon>();
         hpBar = DEFINE.MainCanvas.Find("HP/DragonHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
-
-
-        CurrentHp = maxHp;
     }
 
     public void OnDamage(float damage)

@@ -7,9 +7,12 @@ public abstract class Handler : MonoBehaviour
 
     public Action<Packet>[] handlers;
 
-    public Action<Packet> this[int index] => handlers[index];
+    public Action<Packet> this[int index] {
+        get => handlers[index];
+        set => handlers[index] = value;
+    } 
 
-    protected virtual void Awake()
+    public virtual void CreateHandler()
     {
         handlers = new Action<Packet>[HandlersSize];
     }

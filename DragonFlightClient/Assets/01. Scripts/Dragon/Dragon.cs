@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,8 +48,16 @@ public class Dragon : PoolableMono
 
     #endregion
 
+    private void Start()
+    {
+        //임시코드
+        Reset();
+    }
+
     public override void Reset()
     {
-        dragonHealth.CurrentHp = dragonHealth.MaxHp;
+        DragonHealth.CurrentHp = DragonHealth.MaxHp;
+
+        DragonMovement.StartSendData();
     }
 }

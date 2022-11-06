@@ -6,6 +6,18 @@ using System.Collections.Generic;
 
 public class Client : MonoBehaviour
 {
+    #region singleton
+    private static Client instance = null;
+    public static Client Instance {
+        get {
+            if(instance == null)
+                instance = FindObjectOfType<Client>();
+
+            return instance;
+        }
+    }
+    #endregion
+
     [SerializeField] string ip = "localhost";
     [SerializeField] string port = "3030";
     private WebSocket server;
@@ -65,5 +77,9 @@ public class Client : MonoBehaviour
     private void HandlerInit()
     {
         handlers[(int)Types.RoomEvent] = gameObject.AddComponent<RoomHandler>();
+        handlers[(int)Types.GameEvent] = gameObject.AddComponent<GameHandler>();
+
+        foreach(Handler handler in handlers)
+            handler.CreateHandler();
     }
 }

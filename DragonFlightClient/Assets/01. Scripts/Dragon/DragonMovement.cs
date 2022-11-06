@@ -70,6 +70,11 @@ public class DragonMovement : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Fly()
     {
         if(Input.GetKeyDown(KeyCode.Space) && onGround)
@@ -161,5 +166,29 @@ public class DragonMovement : MonoBehaviour
         if (onGround) return true;
 
         return Physics.Raycast(characterController.bounds.center, Vector3.down, rayDistance, DEFINE.GroundLayer);
+    }
+
+    public void StartSendData()
+    {
+        StartCoroutine(SendData());
+    }
+
+    private IEnumerator SendData()
+    {
+        Vector3 lastPos = new Vector3();
+        Quaternion lastRotate = new Quaternion();
+        while(true)
+        {
+            if(lastPos != transform.position || lastRotate != transform.rotation)
+            {
+                lastPos = transform.position;
+                lastRotate = transform.rotation;
+
+                MovePacket movePacket = new MovePacket(lastPos, lastRotate, animBlend);
+                Client.Instance.SendMessages((int)Types.GameEvent, (int)GameEvents.DragonMove, movePacket);
+            }
+
+            yield return new WaitForSeconds(1f/20f);
+        }
     }
 }

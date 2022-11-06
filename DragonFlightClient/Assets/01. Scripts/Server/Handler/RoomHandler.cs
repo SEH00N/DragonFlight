@@ -3,10 +3,9 @@ using UnityEngine;
 public class RoomHandler : Handler
 {
     public override int HandlersSize => (int)RoomEvents.Last;
-
-    protected override void Awake()
+    
+    public override void CreateHandler()
     {
-        base.Awake();
-
+        base.CreateHandler();
     }
 }
