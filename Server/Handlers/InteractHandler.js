@@ -6,7 +6,7 @@ handler[Enums.InteractEvents.DragonMove] = (socket, data) => broadCast(socket, d
 
 const broadCast = (socket, data, toAll = false) => {
     socket.room.players.forEach(soc => {
-        if (toAll == false && soc != socket)
+        if (toAll == false && soc == socket)
             return;
         soc.send(data.asPacket());
     });

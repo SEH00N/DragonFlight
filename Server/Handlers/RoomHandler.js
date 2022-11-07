@@ -27,7 +27,15 @@ handler[Enums.RoomEvents.Create] = function(socket, packet) {
 
 handler[Enums.RoomEvents.Join] = function(socket, packet) {
     try {
-        packet.value = rooms[packet.value] == undefined || !(rooms[packet.value].tryJoin(socket));
+        id = packet.value;
+
+        if(rooms[id] != undefined && rooms[id].tryJoin(socket))
+        {
+            socket.room = rooms[id];
+            packet.value = true;
+        }
+        else 
+            packet.value = false;
 
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client joined room | code : ${packet.value}`);
         socket.send(packet.asPacket());
