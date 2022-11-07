@@ -3,7 +3,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class GameHandler : Handler
+public class InteractHandler : Handler
 {
     public override int HandlersSize => (int)InteractEvents.Last;
 
@@ -49,6 +49,31 @@ public class GameHandler : Handler
         handlers[(int)InteractEvents.Damage] = DamageEvent;
         handlers[(int)InteractEvents.PlayerMove] = PlayerMoveEvent;
         handlers[(int)InteractEvents.DragonMove] = DragonMoveEvent;
+        handlers[(int)InteractEvents.Spawn] = SpawnEvent;
+        handlers[(int)InteractEvents.BoolAnim] = BoolAnimEvent;
+        handlers[(int)InteractEvents.Ride] = RideEvent;
+    }
+
+    private void RideEvent(Packet packet)
+    {
+        bool isRide = bool.Parse(packet.value);
+
+        OtherPlayer.Riding(isRide);
+    }
+
+    private void BoolAnimEvent(Packet packet)
+    {
+        BoolAnimPacket boolAnimPacket = JsonConvert.DeserializeObject<BoolAnimPacket>(packet.value);
+        Animator anim = (boolAnimPacket.target == "Player") ? OtherPlayer.animator : OtherDragon.animator;
+        anim.SetBool(boolAnimPacket.key, boolAnimPacket.value);
+    }
+
+    private void SpawnEvent(Packet packet)
+    {
+        SpawnPacket spawnPacket = JsonConvert.DeserializeObject<SpawnPacket>(packet.value);
+        PoolableMono obj = PoolManager.Instance.Pop(spawnPacket.name);
+        obj.transform.position = spawnPacket.position;
+        obj.transform.localRotation = Quaternion.Euler(spawnPacket.rotation);
     }
 
     private void PlayerMoveEvent(Packet packet)

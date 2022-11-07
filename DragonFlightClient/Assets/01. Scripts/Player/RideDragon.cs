@@ -96,6 +96,8 @@ public class RideDragon : MonoBehaviour
         DEFINE.CmMainCam.Follow = currentDragon.DragonMovement.cameraFollow;
         DEFINE.CmMainCam.transform.SetParent(currentDragon.DragonMovement.cameraFollow);
         DEFINE.CmMainCam.transform.localRotation = Quaternion.Euler(cameraOriginRotation);
+
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Ride, isRide.ToString());
     }
 
     private void DoRideOff()
@@ -106,6 +108,7 @@ public class RideDragon : MonoBehaviour
         currentDragon.DragonMovement.Active = false;
 
         transform.SetParent(null);
+        transform.localRotation = Quaternion.Euler(Vector3.zero);
         currentDragon = null;
         
         DEFINE.CmMainCam.Follow = playerMovement.cameraFollow;
@@ -113,6 +116,8 @@ public class RideDragon : MonoBehaviour
         DEFINE.CmMainCam.transform.localRotation = Quaternion.Euler(cameraOriginRotation);
 
         isRide = false;
+
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Ride, isRide.ToString());
     }
 
     private void HPBarController(bool isRiding)

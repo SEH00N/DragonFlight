@@ -7,7 +7,9 @@ public class OtherDragon : PoolableMono, IDamageable
 
     public float CurrentHp { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    private Animator animator = null;
+    public Transform playerRidePosition;
+
+    public Animator animator = null;
     
     private void Awake()
     {

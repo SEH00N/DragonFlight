@@ -8,7 +8,7 @@ public class OtherPlayer : PoolableMono, IDamageable
 
     public float CurrentHp { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    private Animator animator = null;
+    public Animator animator = null;
 
     private void Awake()
     {
@@ -24,8 +24,21 @@ public class OtherPlayer : PoolableMono, IDamageable
     public void DoMove(Vector3 position, Vector3 rotation, float animValue)
     {
         transform.position = position;
-        transform.rotation = Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation);
         animator.SetFloat("Move", animValue);
+    }
+
+    public void Riding(bool isRide)
+    {
+        if(isRide)
+        {
+            transform.position = DEFINE.OtherDragon.playerRidePosition.position;
+            transform.SetParent(DEFINE.OtherDragon.playerRidePosition);
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
+        } else {
+            transform.SetParent(null);
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
+        }
     }
 
     public override void Reset()

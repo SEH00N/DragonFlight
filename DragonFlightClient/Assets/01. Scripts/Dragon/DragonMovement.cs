@@ -66,7 +66,6 @@ public class DragonMovement : MonoBehaviour
 
             animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(input.z));
             anim.SetFloat("Move", animBlend);
-            anim.SetBool("OnFly", onFlying);
         }
     }
 
@@ -77,10 +76,13 @@ public class DragonMovement : MonoBehaviour
 
     private void Fly()
     {
+        // Do Fly
         if(Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             onGround = false;
             onFlying = true;
+            SetFlyAnimation(onFlying);
+
             characterController.Move(Vector3.up * flyingSpeed * jumpFactor * Time.deltaTime);
 
             Vector3 rotate = transform.eulerAngles;
@@ -90,13 +92,16 @@ public class DragonMovement : MonoBehaviour
             rotate = cameraFollow.localEulerAngles;
             rotate.x = 0f;
             cameraFollow.localRotation = Quaternion.Euler(rotate);
-
+            
             currentSpeed = flyingSpeed;
         }
 
+        // Do Grounding
         if(onFlying && onGround)
         {
             onFlying = false;
+            SetFlyAnimation(onFlying);
+
             currentSpeed = walkSpeed;
 
             Vector3 rotate = transform.eulerAngles;
@@ -105,6 +110,13 @@ public class DragonMovement : MonoBehaviour
         }
 
         onGround = CheckGround();
+    }
+
+    private void SetFlyAnimation(bool value)
+    {
+        anim.SetBool("OnFly", onFlying);
+        BoolAnimPacket boolAnimPacket = new BoolAnimPacket("Dragon", "OnFly", onFlying);
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.BoolAnim, boolAnimPacket);
     }
 
     private void Rotate()
@@ -177,17 +189,14 @@ public class DragonMovement : MonoBehaviour
         float lastBlend = 0f;
         while(true)
         {
-            if(Active)
+            if (lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
             {
-                if(lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
-                {
-                    lastPos = transform.position;
-                    lastRotate = transform.eulerAngles;
-                    lastBlend = animBlend;
+                lastPos = transform.position;
+                lastRotate = transform.eulerAngles;
+                lastBlend = animBlend;
 
-                    MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
-                    Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonMove, movePacket);
-                }
+                MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonMove, movePacket);
             }
 
             yield return new WaitForSeconds(1f/20f);

@@ -24,5 +24,7 @@ exports.InteractEvents = {
     Damage : 0,
     PlayerMove : 1,
     DragonMove : 2,
-
+    Spawn : 3,
+    BoolAnim : 4,
+    Ride : 5,
 };

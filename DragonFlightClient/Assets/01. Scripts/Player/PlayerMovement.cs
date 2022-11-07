@@ -110,14 +110,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 lastPos = new Vector3();
         Vector3 lastRotate = new Vector3();
         float lastBlend = 0f;
-        while(true)
+        while (true)
         {
             if(Active)
             {
-                if (lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
+                if (lastPos != transform.position || lastRotate != transform.localEulerAngles || lastBlend != animBlend)
                 {
                     lastPos = transform.position;
-                    lastRotate = transform.eulerAngles;
+                    lastRotate = transform.localEulerAngles;
                     lastBlend = animBlend;
 
                     MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
