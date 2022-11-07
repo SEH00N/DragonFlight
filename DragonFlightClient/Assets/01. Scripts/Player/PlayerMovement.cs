@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(active)
+        if(Active)
         {
             Move();
             Rotate();

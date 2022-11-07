@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Transform startPositions;
+
     private void Awake()
     {
         if(instance != null)
@@ -41,5 +43,29 @@ public class GameManager : MonoBehaviour
             if(Input.GetKey(KeyCode.LeftShift))
                 if(Input.GetKeyDown(KeyCode.Comma))
                     CursorActive = !CursorActive;
+    }
+
+    public void SetGame(int order)
+    {
+        startPositions = GameObject.Find("StartPositions").transform;
+        Transform firstPlayerStartPosition = startPositions.GetChild(0);
+        Transform firstDragonStartPosition = startPositions.GetChild(1);
+        Transform secondPlayerStartPosition = startPositions.GetChild(2);
+        Transform secondDragonStartPosition = startPositions.GetChild(3);
+
+        if(order == 0)
+        {
+            PoolManager.Instance.Pop("Player", firstPlayerStartPosition.position, firstPlayerStartPosition.rotation);
+            PoolManager.Instance.Pop("Dragon", firstDragonStartPosition.position, firstDragonStartPosition.rotation);
+            PoolManager.Instance.Pop("EnemyPlayer", secondPlayerStartPosition.position, secondPlayerStartPosition.rotation);
+            PoolManager.Instance.Pop("EnemyDragon", secondDragonStartPosition.position, secondDragonStartPosition.rotation);
+        }
+        else 
+        {
+            PoolManager.Instance.Pop("Player", secondPlayerStartPosition.position, secondPlayerStartPosition.rotation);
+            PoolManager.Instance.Pop("Dragon", secondDragonStartPosition.position, secondDragonStartPosition.rotation);
+            PoolManager.Instance.Pop("EnemyPlayer", firstPlayerStartPosition.position, firstPlayerStartPosition.rotation);
+            PoolManager.Instance.Pop("EnemyDragon", firstDragonStartPosition.position, firstDragonStartPosition.rotation);
+        }
     }
 }

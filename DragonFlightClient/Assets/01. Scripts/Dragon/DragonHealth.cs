@@ -13,7 +13,7 @@ public class DragonHealth : MonoBehaviour, IDamageable
     public float CurrentHp { get => currentHp; set => currentHp = value; }
 
     private Dragon dragon = null;
-    public Image hpBar = null;
+    private Image hpBar = null;
 
     private void Awake()
     {

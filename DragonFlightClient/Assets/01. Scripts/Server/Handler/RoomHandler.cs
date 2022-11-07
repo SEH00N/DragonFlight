@@ -18,7 +18,7 @@ public class RoomHandler : Handler
     {
         if(bool.TryParse(packet.value, out bool success) && success)
         {
-            SceneManager.LoadScene("InGame");
+            SceneManager.LoadScene("WaitingRoom");
         }
     }
 
@@ -26,7 +26,7 @@ public class RoomHandler : Handler
     {
         if(bool.TryParse(packet.value, out bool success) && success)
         {
-            SceneManager.LoadScene("InGame");
+            SceneManager.LoadScene("WaitingRoom");
         }
     }
 }

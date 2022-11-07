@@ -17,7 +17,8 @@ exports.RoomEvents = {
 exports.GameManagerEvents = {
     MatchMaking : 0,
     Ready : 1,
-    SetStage : 2,
+    Start : 2,
+    SetStage : 3,
 };
 
 exports.InteractEvents = {
