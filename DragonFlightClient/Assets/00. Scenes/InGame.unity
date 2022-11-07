@@ -15654,9 +15654,8 @@ GameObject:
   - component: {fileID: 640261306}
   - component: {fileID: 640261305}
   - component: {fileID: 640261308}
-  - component: {fileID: 640261309}
   m_Layer: 12
-  m_Name: Player (1)
+  m_Name: EnemyPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15719,7 +15718,7 @@ Transform:
   - {fileID: 817612021}
   - {fileID: 576713201}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &640261308
 MonoBehaviour:
@@ -15730,20 +15729,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 640261304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e5c8ff3a5f57f84e97f7f5ae70e5b41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 50
---- !u!114 &640261309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640261304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06853ed2e4b25914696d892c8fee30e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a00b9dbb7b3e864ebb5d9e165f52bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &644372566
@@ -21851,7 +21837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1065980383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21910,7 +21896,7 @@ Transform:
   - {fileID: 1709426637}
   - {fileID: 717462489}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1068464159
 PrefabInstance:
@@ -45399,6 +45385,8 @@ GameObject:
   - component: {fileID: 1438546958311656833}
   - component: {fileID: 4540228999236674791}
   - component: {fileID: 4540228999236674790}
+  - component: {fileID: 4540228999236674793}
+  - component: {fileID: 4540228999236674792}
   - component: {fileID: 4540228999236674788}
   - component: {fileID: 4540228999236674789}
   m_Layer: 0
@@ -53908,6 +53896,31 @@ MonoBehaviour:
   rayDistance: 10
   cameraOriginRotation: {x: 10, y: 0, z: 0}
   rideNoticeText: '[E] : RIDE'
+--- !u!114 &4540228999236674792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782702500463433531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06853ed2e4b25914696d892c8fee30e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4540228999236674793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782702500463433531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5c8ff3a5f57f84e97f7f5ae70e5b41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50
 --- !u!4 &4548762040744433909
 Transform:
   m_ObjectHideFlags: 0

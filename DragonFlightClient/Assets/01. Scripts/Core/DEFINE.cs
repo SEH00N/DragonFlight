@@ -69,7 +69,7 @@ public static class DEFINE
     public static OtherPlayer OtherPlayer {
         get {
             if(otherPlayer == null)  
-                otherPlayer = GameObject.Find("OtherPlayer").GetComponent<OtherPlayer>();
+                otherPlayer = GameObject.Find("EnemyPlayer").GetComponent<OtherPlayer>();
 
             return otherPlayer;
         }
@@ -79,7 +79,7 @@ public static class DEFINE
     public static OtherDragon OtherDragon {
         get {
             if(otherDragon == null)  
-                otherDragon = GameObject.Find("OtherDragon").GetComponent<OtherDragon>();
+                otherDragon = GameObject.Find("EnemyDragon").GetComponent<OtherDragon>();
 
             return otherDragon;
         }

@@ -39,6 +39,7 @@ public class DataManager : MonoBehaviour
         if (json.Length > 0)
         {
             data = JsonConvert.DeserializeObject<T>(json);
+
             return true;
         }
         else

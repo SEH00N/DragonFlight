@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameHandler : Handler
 {
-    public override int HandlersSize => (int)GameEvents.Last;
+    public override int HandlersSize => (int)InteractEvents.Last;
 
     #region property
     private Player player = null;
@@ -46,17 +46,21 @@ public class GameHandler : Handler
     {
         base.CreateHandler();
 
-        handlers[(int)GameEvents.Damage] = DamageEvent;
+        handlers[(int)InteractEvents.Damage] = DamageEvent;
+        handlers[(int)InteractEvents.PlayerMove] = PlayerMoveEvent;
+        handlers[(int)InteractEvents.DragonMove] = DragonMoveEvent;
     }
 
     private void PlayerMoveEvent(Packet packet)
     {
-
+        MovePacket movePacket = JsonConvert.DeserializeObject<MovePacket>(packet.value);
+        OtherPlayer.DoMove(movePacket.position, movePacket.rotation, movePacket.animationValue);
     }
 
     private void DragonMoveEvent(Packet packet)
     {
-        
+        MovePacket movePacket = JsonConvert.DeserializeObject<MovePacket>(packet.value);
+        OtherDragon.DoMove(movePacket.position, movePacket.rotation, movePacket.animationValue);
     }
 
     private void DamageEvent(Packet packet)

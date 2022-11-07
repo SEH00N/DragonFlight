@@ -1,7 +1,4 @@
 class Packet {
-    type;
-    event;
-    value;
 
     constructor(type, event, value) {
         this.type = type;
@@ -17,3 +14,5 @@ class Packet {
         });
     }
 }
+
+exports.Packet = Packet;

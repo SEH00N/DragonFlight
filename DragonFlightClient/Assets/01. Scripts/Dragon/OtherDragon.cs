@@ -17,13 +17,13 @@ public class OtherDragon : PoolableMono, IDamageable
     public void OnDamage(float damage)
     {
         DamagePacket damagePacket = new DamagePacket("Dragon", damage);
-        Client.Instance.SendMessages((int)Types.GameEvent, (int)GameEvents.Damage, damagePacket);
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Damage, damagePacket);
     }
 
-    public void DoMove(Vector3 position, Quaternion rotation, float animValue)
+    public void DoMove(Vector3 position, Vector3 rotation, float animValue)
     {
         transform.position = position;
-        transform.rotation = rotation;
+        transform.rotation = Quaternion.Euler(rotation);
         animator.SetFloat("Move", animValue);
     }
 

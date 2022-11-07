@@ -35,8 +35,15 @@ public class Player : PoolableMono
     
     #endregion
 
+    private void Start()
+    {
+        Reset();
+    }
+
     public override void Reset()
     {
-        playerHealth.CurrentHp = playerHealth.MaxHp;
+        PlayerHealth.CurrentHp = PlayerHealth.MaxHp;
+
+        PlayerMovement.StartSendData();
     }
 }

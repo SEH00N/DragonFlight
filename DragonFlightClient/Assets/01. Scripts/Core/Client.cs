@@ -32,6 +32,7 @@ public class Client : MonoBehaviour
         server = new WebSocket($"ws://{ip}:{port}");
 
         server.OnMessage += GetMessages;
+        HandlerInit();
 
         server.ConnectAsync();
     }
@@ -60,7 +61,7 @@ public class Client : MonoBehaviour
             Packet packet = new Packet(type, eventType, value);
             server.Send(JsonConvert.SerializeObject(packet));
         } catch (Exception err) {
-            Debug.Log(err.Message);
+            Debug.LogWarning(err.Message);
         }
     }
 
@@ -70,16 +71,17 @@ public class Client : MonoBehaviour
             Packet packet = new Packet(type, eventType, JsonConvert.SerializeObject(value));
             server.Send(JsonConvert.SerializeObject(packet));
         } catch (Exception err) {
-            Debug.Log(err.Message);
+            Debug.LogWarning(err.Message);
         }
     }
 
     private void HandlerInit()
     {
         handlers[(int)Types.RoomEvent] = gameObject.AddComponent<RoomHandler>();
-        handlers[(int)Types.GameEvent] = gameObject.AddComponent<GameHandler>();
+        handlers[(int)Types.InteractEvent] = gameObject.AddComponent<GameHandler>();
 
         foreach(Handler handler in handlers)
-            handler.CreateHandler();
+            if(handler != null)
+                handler.CreateHandler();
     }
 }

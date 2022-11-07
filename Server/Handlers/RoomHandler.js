@@ -1,17 +1,20 @@
-const enums = require('../Enums/Enums.js');
+const Enums = require('../Enums/Enums.js');
+const Room = require('../Classes/Room.js').Room;
+const Packet = require('../Classes/Packet.js').Packet;
 
-const roomHandler = [];
+const handler = [];
 let rooms = {};
 
-roomHandler[enums.RoomEvents.Create] = function(socket, packet) {
+handler[Enums.RoomEvents.Create] = function(socket, packet) {
     try {
         var room = new Room(socket, rooms);
+        console.log();
         rooms[room.id] = room;
-    
+        
         socket.room = room;
-    
+        
         packet.value = true;
-
+        
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] room created | code : ${room.id}`);
         socket.send(packet.asPacket());
     } catch {
@@ -22,7 +25,7 @@ roomHandler[enums.RoomEvents.Create] = function(socket, packet) {
     }
 }
 
-roomHandler[enums.RoomEvents.Join] = function(socket, packet) {
+handler[Enums.RoomEvents.Join] = function(socket, packet) {
     try {
         packet.value = rooms[packet.value] == undefined || !(rooms[packet.value].tryJoin(socket));
 
@@ -36,7 +39,7 @@ roomHandler[enums.RoomEvents.Join] = function(socket, packet) {
     }
 }
 
-roomHandler[enums.RoomEvents.Quit] = function(socket, packet) {
+handler[Enums.RoomEvents.Quit] = function(socket, packet) {
     packet.value = socket.room.tryQuit(socket, rooms);
     
     console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client ${packet.value ? 'succeed' : 'failed'} to quit room | code : ${socket.room.id}`);
@@ -46,9 +49,9 @@ roomHandler[enums.RoomEvents.Quit] = function(socket, packet) {
     socket.send(packet.asPacket);
 }
 
-roomHandler[enums.RoomEvents.Remove] = function(socket, packet) {
+handler[Enums.RoomEvents.Remove] = function(socket, packet) {
     try {
-        var quitPacket = new Packet(enums.Types.Room, enums.RoomEvents.Quit, '');
+        var quitPacket = new Packet(Enums.Types.Room, Enums.RoomEvents.Quit, '');
         socket.room.players.forEach(soc => {
             if(soc != socket)
                 soc.send(quitPacket);
@@ -71,4 +74,4 @@ roomHandler[enums.RoomEvents.Remove] = function(socket, packet) {
     }
 }
 
-exports.roomHandler;
+exports.handler = handler;

@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -100,5 +101,28 @@ public class PlayerMovement : MonoBehaviour
 
         headRotate.x = Mathf.Clamp(headRotate.x, -85f, 85f);
         cameraFollow.localRotation = Quaternion.Euler(headRotate);
+    }
+
+    public void StartSendData() => StartCoroutine(SendData());
+
+    private IEnumerator SendData()
+    {
+        Vector3 lastPos = new Vector3();
+        Vector3 lastRotate = new Vector3();
+        float lastBlend = 0f;
+        while(true)
+        {
+            if(lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
+            {
+                lastPos = transform.position;
+                lastRotate = transform.eulerAngles;
+                lastBlend = animBlend;
+
+                MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.PlayerMove, movePacket);
+            }
+
+            yield return new WaitForSeconds(1f/20f);
+        }
     }
 }

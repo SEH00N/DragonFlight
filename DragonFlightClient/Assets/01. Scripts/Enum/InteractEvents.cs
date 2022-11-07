@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameEvents
+public enum InteractEvents
 {
     Damage = 0,
     PlayerMove = 1,

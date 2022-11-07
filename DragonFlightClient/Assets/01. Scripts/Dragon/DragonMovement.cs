@@ -168,24 +168,23 @@ public class DragonMovement : MonoBehaviour
         return Physics.Raycast(characterController.bounds.center, Vector3.down, rayDistance, DEFINE.GroundLayer);
     }
 
-    public void StartSendData()
-    {
-        StartCoroutine(SendData());
-    }
+    public void StartSendData() => StartCoroutine(SendData());
 
     private IEnumerator SendData()
     {
         Vector3 lastPos = new Vector3();
-        Quaternion lastRotate = new Quaternion();
+        Vector3 lastRotate = new Vector3();
+        float lastBlend = 0f;
         while(true)
         {
-            if(lastPos != transform.position || lastRotate != transform.rotation)
+            if(lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
             {
                 lastPos = transform.position;
-                lastRotate = transform.rotation;
+                lastRotate = transform.eulerAngles;
+                lastBlend = animBlend;
 
-                MovePacket movePacket = new MovePacket(lastPos, lastRotate, animBlend);
-                Client.Instance.SendMessages((int)Types.GameEvent, (int)GameEvents.DragonMove, movePacket);
+                MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonMove, movePacket);
             }
 
             yield return new WaitForSeconds(1f/20f);

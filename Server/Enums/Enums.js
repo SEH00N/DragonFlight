@@ -21,8 +21,8 @@ exports.GameManagerEvents = {
 };
 
 exports.InteractEvents = {
-    Move : 0,
-    Rotate : 1,
-    Spawn : 3,
+    Damage : 0,
+    PlayerMove : 1,
+    DragonMove : 2,
 
 };

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomHandler : Handler
 {
@@ -7,5 +9,24 @@ public class RoomHandler : Handler
     public override void CreateHandler()
     {
         base.CreateHandler();
+
+        handlers[(int)RoomEvents.Create] = CreateEvent;
+        handlers[(int)RoomEvents.Join] = JoinEvent;
+    }
+
+    private void JoinEvent(Packet packet)
+    {
+        if(bool.TryParse(packet.value, out bool success) && success)
+        {
+            SceneManager.LoadScene("InGame");
+        }
+    }
+
+    private void CreateEvent(Packet packet)
+    {
+        if(bool.TryParse(packet.value, out bool success) && success)
+        {
+            SceneManager.LoadScene("InGame");
+        }
     }
 }
