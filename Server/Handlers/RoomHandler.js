@@ -3,15 +3,13 @@ const Room = require('../Classes/Room.js').Room;
 const Packet = require('../Classes/Packet.js').Packet;
 
 const handler = [];
-let rooms = {};
+global.rooms = {};
 
 handler[Enums.RoomEvents.Create] = function(socket, packet) {
     try {
-        var room = new Room(socket, rooms);
-        console.log();
-        rooms[room.id] = room;
-        
-        socket.room = room;
+        var room = new Room(socket);
+        global.rooms[room.id] = room;
+        socket.roomId = room.id;
         
         packet.value = true;
         
@@ -29,9 +27,9 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
     try {
         id = packet.value;
 
-        if(rooms[id] != undefined && rooms[id].tryJoin(socket))
+        if(global.rooms[id] != undefined && global.rooms[id].tryJoin(socket))
         {
-            socket.room = rooms[id];
+            socket.roomId = id;
             packet.value = true;
         }
         else 
@@ -48,11 +46,11 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
 }
 
 handler[Enums.RoomEvents.Quit] = function(socket, packet) {
-    packet.value = socket.room.tryQuit(socket, rooms);
+    packet.value = global.rooms[socket.roomId].tryQuit(socket);
     
-    console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client ${packet.value ? 'succeed' : 'failed'} to quit room | code : ${socket.room.id}`);
+    console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client ${packet.value ? 'succeed' : 'failed'} to quit room | code : ${socket.roomId}`);
 
-    if(packet.value) socket.room = undefined;
+    if(packet.value) socket.roomId = undefined;
 
     socket.send(packet.asPacket);
 }
@@ -60,24 +58,24 @@ handler[Enums.RoomEvents.Quit] = function(socket, packet) {
 handler[Enums.RoomEvents.Remove] = function(socket, packet) {
     try {
         var quitPacket = new Packet(Enums.Types.Room, Enums.RoomEvents.Quit, '');
-        socket.room.players.forEach(soc => {
+        global.rooms[socket.roomId].players.forEach(soc => {
             if(soc != socket)
                 soc.send(quitPacket);
         });
         
-        rooms[socket.room.id] = undefined;
+        global.rooms[socket.room.id] = undefined;
         
         packet.value = true;
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] room removed | code : ${socket.room.id}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] room removed | code : ${socket.roomId}`);
 
-        socket.room = undefined;
+        socket.roomId = undefined;
 
         socket.send(packet.asPacket());
     } catch {
         packet.value = false;
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] failed to remove room | code : ${socket.room.id}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] failed to remove room | code : ${socket.roomId}`);
         socket.send(packet.asPacket());
     }
 }

@@ -3,15 +3,15 @@ const enums = require('../Enums/Enums.js');
 class Room {
     players = [];
 
-    constructor(host, rooms) {
-        this.create(rooms);
+    constructor(host) {
+        this.create();
         this.host = host;
         this.players.push(host);
     }
 
-    create(rooms) {
+    create() {
         do this.id = Math.random().toString(36).substring(2, 11).toUpperCase();
-        while (rooms[this.id] != undefined)
+        while (global.rooms[this.id] != undefined)
     }
 
     tryJoin(socket) {

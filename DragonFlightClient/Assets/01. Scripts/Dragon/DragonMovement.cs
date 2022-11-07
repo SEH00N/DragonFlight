@@ -177,14 +177,17 @@ public class DragonMovement : MonoBehaviour
         float lastBlend = 0f;
         while(true)
         {
-            if(lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
+            if(Active)
             {
-                lastPos = transform.position;
-                lastRotate = transform.eulerAngles;
-                lastBlend = animBlend;
+                if(lastPos != transform.position || lastRotate != transform.eulerAngles || lastBlend != animBlend)
+                {
+                    lastPos = transform.position;
+                    lastRotate = transform.eulerAngles;
+                    lastBlend = animBlend;
 
-                MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
-                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonMove, movePacket);
+                    MovePacket movePacket = new MovePacket(lastPos, lastRotate, lastBlend);
+                    Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonMove, movePacket);
+                }
             }
 
             yield return new WaitForSeconds(1f/20f);
