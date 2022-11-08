@@ -16,7 +16,7 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void LoadAsync(string name, Action callback) => StartCoroutine(LoadAsyncCoroutine(name, callback));
+    public void LoadAsync(string name, Action callback = null) => StartCoroutine(LoadAsyncCoroutine(name, callback));
 
     private IEnumerator LoadAsyncCoroutine(string name, Action callback)
     {

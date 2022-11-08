@@ -12,6 +12,7 @@ exports.RoomEvents = {
     Join : 1,
     Quit : 2,
     Remove : 3,
+    OtherJoin : 4,
 };
 
 exports.GameManagerEvents = {

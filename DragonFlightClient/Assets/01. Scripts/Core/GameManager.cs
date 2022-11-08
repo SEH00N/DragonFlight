@@ -56,14 +56,14 @@ public class GameManager : MonoBehaviour
         if(order == 0)
         {
             PoolManager.Instance.Pop("Player", firstPlayerStartPosition.position, firstPlayerStartPosition.rotation);
-            PoolManager.Instance.Pop("Dragon", firstDragonStartPosition.position, firstDragonStartPosition.rotation);
+            PoolManager.Instance.Pop("BlueThinDragon", firstDragonStartPosition.position, firstDragonStartPosition.rotation);
             PoolManager.Instance.Pop("EnemyPlayer", secondPlayerStartPosition.position, secondPlayerStartPosition.rotation);
             PoolManager.Instance.Pop("EnemyDragon", secondDragonStartPosition.position, secondDragonStartPosition.rotation);
         }
         else 
         {
             PoolManager.Instance.Pop("Player", secondPlayerStartPosition.position, secondPlayerStartPosition.rotation);
-            PoolManager.Instance.Pop("Dragon", secondDragonStartPosition.position, secondDragonStartPosition.rotation);
+            PoolManager.Instance.Pop("BlueThinDragon", secondDragonStartPosition.position, secondDragonStartPosition.rotation);
             PoolManager.Instance.Pop("EnemyPlayer", firstPlayerStartPosition.position, firstPlayerStartPosition.rotation);
             PoolManager.Instance.Pop("EnemyDragon", firstDragonStartPosition.position, firstDragonStartPosition.rotation);
         }

@@ -47,6 +47,7 @@ public class Client : MonoBehaviour
     {
         lock(locker)
         {
+            Debug.Log(msg.Data);
             Packet packet = JsonConvert.DeserializeObject<Packet>(msg.Data);
 
             handlerActions.Enqueue(() => {
@@ -78,6 +79,7 @@ public class Client : MonoBehaviour
     private void HandlerInit()
     {
         handlers[(int)Types.RoomEvent] = gameObject.AddComponent<RoomHandler>();
+        handlers[(int)Types.GameManagerEvent] = gameObject.AddComponent<GameManagerHandler>();
         handlers[(int)Types.InteractEvent] = gameObject.AddComponent<InteractHandler>();
 
         foreach(Handler handler in handlers)

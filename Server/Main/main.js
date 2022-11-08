@@ -7,6 +7,7 @@ const Packet = require('../Classes/Packet.js').Packet;
 const handlers = []; //handler list
 
 handlers[Enums.Types.Room] = require('../Handlers/RoomHandler.js').handler;
+handlers[Enums.Types.GameManager] = require('../Handlers/GameManagerHandler.js').handler;
 handlers[Enums.Types.Interact] = require('../Handlers/InteractHandler.js').handler;
 
 server.once('listening', () => {

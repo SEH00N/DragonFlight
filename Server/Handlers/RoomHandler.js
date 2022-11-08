@@ -11,12 +11,18 @@ handler[Enums.RoomEvents.Create] = function(socket, packet) {
         global.rooms[room.id] = room;
         socket.roomId = room.id;
         
-        packet.value = true;
-        
+        packet.value = JSON.stringify({
+            c : room.id,
+            s : true,
+        });
+
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] room created | code : ${room.id}`);
         socket.send(packet.asPacket());
     } catch {
-        packet.value = false;
+        packet.value = JSON.stringify({
+            c : room.id,
+            s : false,
+        });
 
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] failed to creat room | code : ${room.id}`);
         socket.send(packet.asPacket());
@@ -30,18 +36,27 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
         if(global.rooms[id] != undefined && global.rooms[id].tryJoin(socket))
         {
             socket.roomId = id;
-            packet.value = true;
+            packet.value = JSON.stringify({
+                c: id,
+                s: true,
+            });
         }
-        else 
-            packet.value = false;
+        else
+            packet.value = JSON.stringify({
+                c: id,
+                s: false,
+            });
 
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client joined room | code : ${packet.value}`);
         socket.send(packet.asPacket());
     } catch {
-        packet.value = false;
+        packet.value = JSON.stringify({
+            c : id,
+            s : false,
+        });
 
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client failed to join room | code : ${packet.value}`);
-        socket.send(packet.asPacket);
+        socket.send(packet.asPacket());
     }
 }
 
@@ -52,7 +67,7 @@ handler[Enums.RoomEvents.Quit] = function(socket, packet) {
 
     if(packet.value) socket.roomId = undefined;
 
-    socket.send(packet.asPacket);
+    socket.send(packet.asPacket());
 }
 
 handler[Enums.RoomEvents.Remove] = function(socket, packet) {
@@ -60,7 +75,7 @@ handler[Enums.RoomEvents.Remove] = function(socket, packet) {
         var quitPacket = new Packet(Enums.Types.Room, Enums.RoomEvents.Quit, '');
         global.rooms[socket.roomId].players.forEach(soc => {
             if(soc != socket)
-                soc.send(quitPacket);
+                soc.send(quitPacket.asPacket());
         });
         
         global.rooms[socket.room.id] = undefined;
@@ -78,6 +93,19 @@ handler[Enums.RoomEvents.Remove] = function(socket, packet) {
         console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] failed to remove room | code : ${socket.roomId}`);
         socket.send(packet.asPacket());
     }
+}
+
+handler[Enums.RoomEvents.OtherJoin] = function(socket, packet) {
+    var readyPacket = new Packet(Enums.Types.GameManager, Enums.GameManagerEvents.Ready, false);
+
+    global.rooms[socket.roomId].players.forEach(soc => {
+        if(socket != soc)
+        {
+            readyPacket.value = soc.ready;
+            socket.send(readyPacket.asPacket());
+            soc.send(packet.asPacket());
+        }
+    });
 }
 
 exports.handler = handler;

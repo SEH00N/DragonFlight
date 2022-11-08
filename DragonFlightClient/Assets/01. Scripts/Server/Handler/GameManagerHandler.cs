@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
@@ -23,12 +24,13 @@ public class GameManagerHandler : Handler
 
     private void StartEvent(Packet packet)
     {
-        // LoadAsync로 끝났을 때 애들 소환
+        if(int.TryParse(packet.value, out int order))
+            SceneLoader.Instance.LoadAsync("InGame", () => GameManager.Instance.SetGame(order) );
     }
 
     private void ReadyEvent(Packet packet)
     {
-        DEFINE.MainCanvas.Find("OtherInfo/ReadyText").GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY" : ""; 
+        DEFINE.MainCanvas.Find("OtherInfo/ReadyText").GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY!!" : ""; 
     }
 
     private void MatchMakingEvent(Packet packet)
