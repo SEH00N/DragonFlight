@@ -15,6 +15,14 @@ public class GameManagerHandler : Handler
         handlers[(int)GameManagerEvents.Ready] = ReadyEvent;
         handlers[(int)GameManagerEvents.Start] = StartEvent;
         handlers[(int)GameManagerEvents.SetStage] = SetStageEvent;
+        handlers[(int)GameManagerEvents.Fight] = FightEvent;
+    }
+
+    private void FightEvent(Packet packet)
+    {
+        DEFINE.MainCanvas.Find("BlockPanel").gameObject.SetActive(false);
+        DEFINE.Ready2Start = true;
+        DEFINE.Player.PlayerMovement.Active = true;
     }
 
     private void SetStageEvent(Packet packet)
@@ -30,7 +38,7 @@ public class GameManagerHandler : Handler
 
     private void ReadyEvent(Packet packet)
     {
-        DEFINE.MainCanvas.Find("OtherInfo/ReadyText").GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY!!" : ""; 
+        DEFINE.MainCanvas.Find("OtherInfo/ReadyButton/ReadyText").GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY!!" : ""; 
     }
 
     private void MatchMakingEvent(Packet packet)

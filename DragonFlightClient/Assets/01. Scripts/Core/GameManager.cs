@@ -67,7 +67,5 @@ public class GameManager : MonoBehaviour
             PoolManager.Instance.Pop("EnemyPlayer", firstPlayerStartPosition.position, firstPlayerStartPosition.rotation);
             PoolManager.Instance.Pop("EnemyDragon", firstDragonStartPosition.position, firstDragonStartPosition.rotation);
         }
-
-        DEFINE.Ready2Start = true;
     }
 }

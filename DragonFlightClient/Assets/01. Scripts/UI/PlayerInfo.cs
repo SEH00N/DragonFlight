@@ -12,7 +12,7 @@ public class PlayerInfo : MonoBehaviour
     private void Awake()
     {
         playerImage = transform.GetChild(0).GetComponent<Image>();
-        readyText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        readyText = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     public void Init(string textValue)

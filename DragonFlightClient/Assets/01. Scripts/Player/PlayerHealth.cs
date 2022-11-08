@@ -11,7 +11,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         get => currentHp; 
         set {
             currentHp = value;
-            hpBar.fillAmount = currentHp / maxHp;
+            if(hpBar)
+                hpBar.fillAmount = currentHp / maxHp;
         }
     }
 
@@ -24,12 +25,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         hpBar = DEFINE.MainCanvas.Find("HP/PlayerHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
         CurrentHp = maxHp;
     }
-
-    // private void Update()
-    // {
-    //     if(Input.GetButtonDown("Jump"))
-    //         OnDamage(3f);
-    // }
 
     public void OnDamage(float damage)
     {

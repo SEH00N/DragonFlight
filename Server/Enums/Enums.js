@@ -20,6 +20,7 @@ exports.GameManagerEvents = {
     Ready : 1,
     Start : 2,
     SetStage : 3,
+    Fight : 4,
 };
 
 exports.InteractEvents = {

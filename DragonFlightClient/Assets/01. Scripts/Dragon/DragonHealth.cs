@@ -10,7 +10,14 @@ public class DragonHealth : MonoBehaviour, IDamageable
     public float MaxHp => maxHp;
 
     private float currentHp = 0f;
-    public float CurrentHp { get => currentHp; set => currentHp = value; }
+    public float CurrentHp { 
+        get => currentHp; 
+        set {
+            currentHp = value;
+            if(hpBar)
+                hpBar.fillAmount = currentHp / maxHp;
+        }
+    }
 
     private Dragon dragon = null;
     private Image hpBar = null;
@@ -23,13 +30,13 @@ public class DragonHealth : MonoBehaviour, IDamageable
 
     public void OnDamage(float damage)
     {
-        if(currentHp <= 0f)
+        if(CurrentHp <= 0f)
             return;
 
-        // Debug.LogWarning(damage + " " + currentHp);
-        currentHp -= damage;
+        // Debug.LogWarning(damage + " " + CurrentHp);
+        CurrentHp -= damage;
 
-        if(currentHp <= 0f)
+        if(CurrentHp <= 0f)
             Die();
         else
             dragon.Animator.SetTrigger("OnDamage");

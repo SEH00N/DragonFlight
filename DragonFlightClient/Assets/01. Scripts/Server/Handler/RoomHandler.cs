@@ -1,9 +1,16 @@
 using Newtonsoft.Json;
 using TMPro;
+using UnityEngine;
 
 public class RoomHandler : Handler
 {
     public override int HandlersSize => (int)RoomEvents.Last;
+
+    // public static string Clipboard
+    // {
+    //     get { return GUIUtility.systemCopyBuffer; }
+    //     set { GUIUtility.systemCopyBuffer = value; }
+    // }
     
     public override void CreateHandler()
     {
@@ -29,6 +36,7 @@ public class RoomHandler : Handler
                 DEFINE.MainCanvas.Find("MyInfo").GetComponent<PlayerInfo>().Init("READY?");
                 DEFINE.MainCanvas.Find("OtherInfo").GetComponent<PlayerInfo>().Init("");
                 DEFINE.MainCanvas.Find("CodeInfo/RoomCode").GetComponent<TextMeshProUGUI>().text = roomPacket.code;
+                DEFINE.MainCanvas.Find("RemoveButton").gameObject.SetActive(false);
                 Client.Instance.SendMessages((int)Types.RoomEvent, (int)RoomEvents.OtherJoin, "");
             });
         }
@@ -43,6 +51,8 @@ public class RoomHandler : Handler
             SceneLoader.Instance.LoadAsync("Lobby", () => {
                 DEFINE.MainCanvas.Find("MyInfo").GetComponent<PlayerInfo>().Init("READY?");
                 DEFINE.MainCanvas.Find("CodeInfo/RoomCode").GetComponent<TextMeshProUGUI>().text = roomPacket.code;
+                DEFINE.MainCanvas.Find("QuitButton").gameObject.SetActive(false);
+                GUIUtility.systemCopyBuffer = roomPacket.code;
             });
         }
     }

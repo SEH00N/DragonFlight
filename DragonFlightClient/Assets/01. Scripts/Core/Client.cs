@@ -47,7 +47,6 @@ public class Client : MonoBehaviour
     {
         lock(locker)
         {
-            Debug.Log(msg.Data);
             Packet packet = JsonConvert.DeserializeObject<Packet>(msg.Data);
 
             handlerActions.Enqueue(() => {

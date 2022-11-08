@@ -104,6 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator SendData()
     {
+        yield return new WaitUntil(() => DEFINE.Ready2Start);
+
         Vector3 lastPos = new Vector3();
         Vector3 lastRotate = new Vector3();
         float lastBlend = 0f;
