@@ -12,6 +12,7 @@ public static class DEFINE
     public const int DragonLayer = 1 << 10; 
     public const int EnemyDragonLayer = 1 << 11;
     public const int EnemyPlayerLayer = 1 << 12;
+    public static bool Ready2Start = false;
 
     private static Transform mainCanvas = null;
     public static Transform MainCanvas {
@@ -59,7 +60,7 @@ public static class DEFINE
     public static Dragon Dragon {
         get {
             if(dragon == null)  
-                dragon = GameObject.Find("Dragon").GetComponent<Dragon>();
+                dragon = GameObject.Find("BlueThinDragon").GetComponent<Dragon>();
 
             return dragon;
         }

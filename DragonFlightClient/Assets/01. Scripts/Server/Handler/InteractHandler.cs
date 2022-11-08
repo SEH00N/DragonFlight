@@ -11,7 +11,7 @@ public class InteractHandler : Handler
     private Player player = null;
     private Player Player {  
         get {
-            if(player == null && DEFINE.Player != null)
+            if(player == null)
                 player = DEFINE.Player;
             return player;
         }
@@ -19,7 +19,7 @@ public class InteractHandler : Handler
     private OtherPlayer otherPlayer = null;
     private OtherPlayer OtherPlayer {
         get {
-            if(otherPlayer == null && DEFINE.OtherPlayer != null)
+            if(otherPlayer == null)
                 otherPlayer = DEFINE.OtherPlayer;
             return otherPlayer;
         }
@@ -27,7 +27,7 @@ public class InteractHandler : Handler
     private Dragon dragon = null;
     private Dragon Dragon {
         get {
-            if(dragon == null && DEFINE.Dragon != null)
+            if(dragon == null)
                 dragon = DEFINE.Dragon;
             return dragon;
         }
@@ -35,7 +35,7 @@ public class InteractHandler : Handler
     private OtherDragon otherDragon = null;
     private OtherDragon OtherDragon {
         get {
-            if(otherDragon == null && DEFINE.OtherDragon != null)
+            if(otherDragon == null)
                 otherDragon = DEFINE.OtherDragon;
             return otherDragon;
         }
@@ -66,7 +66,7 @@ public class InteractHandler : Handler
 
     private void BoolAnimEvent(Packet packet)
     {
-        if(OtherDragon == null || OtherPlayer == null)
+        if(!DEFINE.Ready2Start)
             return;
 
         BoolAnimPacket boolAnimPacket = JsonConvert.DeserializeObject<BoolAnimPacket>(packet.value);
@@ -84,7 +84,7 @@ public class InteractHandler : Handler
 
     private void PlayerMoveEvent(Packet packet)
     {
-        if(OtherPlayer == null)
+        if(!DEFINE.Ready2Start)
             return;
 
         MovePacket movePacket = JsonConvert.DeserializeObject<MovePacket>(packet.value);
@@ -93,7 +93,7 @@ public class InteractHandler : Handler
 
     private void DragonMoveEvent(Packet packet)
     {
-        if(OtherDragon == null)
+        if(!DEFINE.Ready2Start)
             return;
 
         MovePacket movePacket = JsonConvert.DeserializeObject<MovePacket>(packet.value);
@@ -102,7 +102,7 @@ public class InteractHandler : Handler
 
     private void DamageEvent(Packet packet)
     {
-        if(Player == null || Dragon == null)
+        if(!DEFINE.Ready2Start)
             return;
 
         DamagePacket damagePacket = JsonConvert.DeserializeObject<DamagePacket>(packet.value);
