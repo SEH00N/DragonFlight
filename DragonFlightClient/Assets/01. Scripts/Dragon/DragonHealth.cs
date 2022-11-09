@@ -46,6 +46,8 @@ public class DragonHealth : MonoBehaviour, IDamageable
     {
         dragon.DragonMovement.Active = false;
         dragon.Animator.SetTrigger("OnDie");
+        DEFINE.Player.GetComponent<RideDragon>().DoRideOff();
+        gameObject.layer = 0;
         StartCoroutine(FallingDown());
     }
 

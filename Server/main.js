@@ -1,14 +1,14 @@
 const ws = require('ws');
 const server = new ws.Server( { port : 3030 } );
 
-const Enums = require('../Enums/Enums.js');
-const Packet = require('../Classes/Packet.js').Packet;
+const Enums = require('./Enums/Enums.js');
+const Packet = require('./Classes/Packet.js').Packet;
 
 const handlers = []; //handler list
 
-handlers[Enums.Types.Room] = require('../Handlers/RoomHandler.js').handler;
-handlers[Enums.Types.GameManager] = require('../Handlers/GameManagerHandler.js').handler;
-handlers[Enums.Types.Interact] = require('../Handlers/InteractHandler.js').handler;
+handlers[Enums.Types.Room] = require('./Handlers/RoomHandler.js').handler;
+handlers[Enums.Types.GameManager] = require('./Handlers/GameManagerHandler.js').handler;
+handlers[Enums.Types.Interact] = require('./Handlers/InteractHandler.js').handler;
 
 server.once('listening', () => {
     console.log('\x1b[33m%s\x1b[0m', `[ServerSystem] server opened on port ${server.options.port}`);

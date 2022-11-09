@@ -97,10 +97,10 @@ public class RideDragon : MonoBehaviour
         DEFINE.CmMainCam.transform.SetParent(currentDragon.DragonMovement.cameraFollow);
         DEFINE.CmMainCam.transform.localRotation = Quaternion.Euler(cameraOriginRotation);
 
-                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Ride, isRide.ToString());
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Ride, isRide.ToString());
     }
 
-    private void DoRideOff()
+    public void DoRideOff()
     {
         HPBarController(false);
 
