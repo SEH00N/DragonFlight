@@ -19,6 +19,9 @@ handler[Enums.GameManagerEvents.Ready] = function(socket, packet) {
 }
 
 handler[Enums.GameManagerEvents.Start] = function(socket, packet) {
+    if(global.rooms[socket.roomId].players.length < 2)
+        return;
+
     ready2Start = true;
     global.rooms[socket.roomId].players.forEach(soc => ready2Start &= soc.ready );
 
