@@ -17,6 +17,9 @@ public class DashSkill : Skill
         if(!dragon.DragonMovement.OnFlying || dragon.DragonMovement.OnDash)
             return;
         
+        // dragon.Animator.SetTrigger("OnDash");
+        // TriggerAnimPacket triggerAnimPacket = new TriggerAnimPacket("Dragon", "OnDash");
+        // Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
         skillCoolTimer = 0f;
         StartCoroutine(DashCoroutine());
     }
