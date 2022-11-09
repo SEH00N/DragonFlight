@@ -3172,6 +3172,7 @@ MonoBehaviour:
   skills:
   - {fileID: 196075102732258682}
   - {fileID: 196075103172525252}
+  - {fileID: 5028881391245807481}
 --- !u!114 &3888787317191993729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3185,15 +3186,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  walkSpeed: 3
-  runSpeed: 5
-  flyingSpeed: 7
+  walkSpeed: 6
+  runSpeed: 10
+  flyingSpeed: 14
   rotationFactor: 4
   speedIncreaseFactor: 3
   jumpFactor: 2
   rayDistance: 0.3
+  dashFactor: 5
   playerRidePosition: {fileID: 196075101257175609}
   cameraFollow: {fileID: 196075103093665188}
+  onDash: 0
 --- !u!114 &3888787317201255216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4871,3 +4874,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillCoolTime: 5
   activeKey: 99
+  dashTime: 0.5

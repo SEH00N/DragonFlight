@@ -18,7 +18,7 @@ public class DragonSkillController : MonoBehaviour
 
         if(Input.anyKeyDown)
             skills.ForEach(skill => {
-                if(Input.GetKeyDown(skill.ActiveKey))
+                if(Input.GetKeyDown(skill.ActiveKey) && skill.skillCoolTimer > skill.skillCoolTime)
                     skill.ActiveSkill();
             });
     }

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public abstract class Skill : MonoBehaviour
 {
-    [SerializeField] protected float skillCoolTime = 0f;
     [SerializeField] KeyCode activeKey = KeyCode.Q;
     public KeyCode ActiveKey => activeKey;
+    public float skillCoolTime = 0f;
 
-    protected float skillCoolTimer = 0f;
+    public float skillCoolTimer = 0f;
 
     public abstract void ActiveSkill();
 

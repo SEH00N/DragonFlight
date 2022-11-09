@@ -29,5 +29,7 @@ public class BiteSkill : Skill
 
         foreach(IDamageable id in ids)
             id.OnDamage(damage);
+
+        skillCoolTimer = 0f;
     }
 }

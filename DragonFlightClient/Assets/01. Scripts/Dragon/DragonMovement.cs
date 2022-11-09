@@ -28,6 +28,7 @@ public class DragonMovement : MonoBehaviour
     [SerializeField] float speedIncreaseFactor = 3f;
     [SerializeField] float jumpFactor = 2f;
     [SerializeField] float rayDistance = 0.5f;
+    [SerializeField] float dashFactor = 5f;
     
     [Header("Tranfrom")] 
     public Transform playerRidePosition = null;
@@ -39,6 +40,10 @@ public class DragonMovement : MonoBehaviour
     private float currentSpeed;
 
     private bool onFlying = false;
+    public bool OnFlying => onFlying;
+    [SerializeField] private bool onDash = false;
+    public bool OnDash { get => onDash; set => onDash = value; }
+
     private bool onGround = false;
 
     private Animator anim = null;
@@ -165,11 +170,11 @@ public class DragonMovement : MonoBehaviour
         else if(currentSpeed > 0.1f)
             currentSpeed -= Time.deltaTime * speedIncreaseFactor;
 
-        dir = (input.z * currentSpeed * transform.forward);
+        dir = (input.z * transform.forward + input.x * transform.right);
         if(!onFlying)
             dir.y += DEFINE.GravityScale * Time.deltaTime;
 
-        characterController.Move(dir * currentSpeed * Time.deltaTime);
+        characterController.Move(dir * (onDash ? currentSpeed * dashFactor : currentSpeed) * Time.deltaTime);
     }
 
     private bool CheckGround()

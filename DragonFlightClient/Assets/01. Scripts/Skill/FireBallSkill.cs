@@ -8,9 +8,6 @@ public class FireBallSkill : Skill
 
     public override void ActiveSkill()
     {
-        if(skillCoolTimer < skillCoolTime)
-            return;
-
         //서버한테 요청 후 res로 소환하는 방식으로 수정해야됨
         skillCoolTimer = 0f;
 
