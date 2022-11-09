@@ -30,4 +30,5 @@ exports.InteractEvents = {
     Spawn : 3,
     BoolAnim : 4,
     Ride : 5,
+    TriggerAnim : 6,
 };

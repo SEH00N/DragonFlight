@@ -6,6 +6,7 @@ handler[Enums.InteractEvents.DragonMove] = (socket, data) => broadCast(socket, d
 handler[Enums.InteractEvents.Damage] = (socket, data) => broadCast(socket, data, false);
 handler[Enums.InteractEvents.Spawn] = (socket, data) => broadCast(socket, data, true);
 handler[Enums.InteractEvents.BoolAnim] = (socket, data) => broadCast(socket, data, false);
+handler[Enums.InteractEvents.TriggerAnim] = (socket, data) => broadCast(socket, data, false);
 handler[Enums.InteractEvents.Ride] = (socket, data) => broadCast(socket, data, false);
 
 const broadCast = (socket, data, toAll = false) => {

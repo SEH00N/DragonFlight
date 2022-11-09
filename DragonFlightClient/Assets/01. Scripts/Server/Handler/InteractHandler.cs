@@ -51,7 +51,18 @@ public class InteractHandler : Handler
         handlers[(int)InteractEvents.DragonMove] = DragonMoveEvent;
         handlers[(int)InteractEvents.Spawn] = SpawnEvent;
         handlers[(int)InteractEvents.BoolAnim] = BoolAnimEvent;
+        handlers[(int)InteractEvents.TriggerAnim] = TriggerAnimEvent;
         handlers[(int)InteractEvents.Ride] = RideEvent;
+    }
+
+    private void TriggerAnimEvent(Packet packet)
+    {
+        if(!DEFINE.Ready2Start)
+            return;
+
+        TriggerAnimPacket tirggetAnimPacket = JsonConvert.DeserializeObject<TriggerAnimPacket>(packet.value);
+        Animator anim = (packet.value == "Player") ? OtherPlayer.animator : OtherDragon.animator;
+        anim.SetTrigger(tirggetAnimPacket.value);
     }
 
     private void RideEvent(Packet packet)
@@ -76,6 +87,9 @@ public class InteractHandler : Handler
 
     private void SpawnEvent(Packet packet)
     {
+        if(!DEFINE.Ready2Start)
+            return;
+
         SpawnPacket spawnPacket = JsonConvert.DeserializeObject<SpawnPacket>(packet.value);
         PoolableMono obj = PoolManager.Instance.Pop(spawnPacket.name);
         obj.transform.position = spawnPacket.position;
