@@ -36,6 +36,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (CurrentHp <= 0f)
         {
             Debug.Log("쥬금");
+            OnDie();
             return;
         }
 

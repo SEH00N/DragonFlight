@@ -8,7 +8,7 @@ const startInterval = 3;
 handler[Enums.GameManagerEvents.Finish] = function(socket, packet) {
     console.log('\x1b[33m%s\x1b[0m', `[GameManager] game finished | room : ${socket.roomId}`);
 
-    global.rooms[socket.roomId].player.forEach(soc => {
+    global.rooms[socket.roomId].players.forEach(soc => {
         if(soc == socket) {
             packet.value = false;
             soc.send(packet.asPacket());
