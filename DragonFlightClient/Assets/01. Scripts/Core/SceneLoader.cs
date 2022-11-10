@@ -20,6 +20,9 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
+        if(instance != null)
+            return;
+
         CurrentScene = SceneManager.GetActiveScene();
     }
 

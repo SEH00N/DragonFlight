@@ -1,6 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -14,6 +11,10 @@ public static class DEFINE
     public const int EnemyPlayerLayer = 1 << 12;
     public static bool Ready2Start = false;
 
+    #endregion
+
+    #region canvas
+
     private static Transform mainCanvas = null;
     public static Transform MainCanvas {
         get {
@@ -23,6 +24,20 @@ public static class DEFINE
             return mainCanvas;
         }
     }
+
+    private static Transform staticCanvas = null;
+    public static Transform StaticCanvas {
+        get {
+            if(staticCanvas == null)
+                staticCanvas = GameObject.Find("StaticCanvas").transform;
+
+            return staticCanvas;
+        }
+    }
+
+    #endregion
+
+    #region camera
 
     private static Camera mainCam = null;
     public static Camera MainCam {
@@ -42,6 +57,7 @@ public static class DEFINE
             return cmMainCam;
         }
     }
+
     #endregion
 
     #region player properties
@@ -56,16 +72,6 @@ public static class DEFINE
         }
     }
 
-    private static Dragon dragon = null;
-    public static Dragon Dragon {
-        get {
-            if(dragon == null)  
-                dragon = GameObject.Find("BlueThinDragon").GetComponent<Dragon>();
-
-            return dragon;
-        }
-    }
-
     private static OtherPlayer otherPlayer = null;
     public static OtherPlayer OtherPlayer {
         get {
@@ -73,6 +79,20 @@ public static class DEFINE
                 otherPlayer = GameObject.Find("EnemyPlayer").GetComponent<OtherPlayer>();
 
             return otherPlayer;
+        }
+    }
+
+    #endregion
+
+    #region dragon properties
+
+    private static Dragon dragon = null;
+    public static Dragon Dragon {
+        get {
+            if(dragon == null)  
+                dragon = GameObject.Find("BlueThinDragon").GetComponent<Dragon>();
+
+            return dragon;
         }
     }
 

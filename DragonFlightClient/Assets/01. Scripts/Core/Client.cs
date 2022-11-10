@@ -29,6 +29,9 @@ public class Client : MonoBehaviour
 
     private void Awake()
     {
+        if(instance != null)
+            return;
+
         server = new WebSocket($"ws://{ip}:{port}");
 
         server.OnMessage += GetMessages;

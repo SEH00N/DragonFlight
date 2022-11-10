@@ -19,6 +19,9 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
+        if(instance != null)
+            return;
+
         parent = transform.GetChild(0);
         foreach(PoolableMono p in poolingList)
             CreatePool(p, parent);

@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
@@ -6,12 +7,6 @@ public class RoomHandler : Handler
 {
     public override int HandlersSize => (int)RoomEvents.Last;
 
-    // public static string Clipboard
-    // {
-    //     get { return GUIUtility.systemCopyBuffer; }
-    //     set { GUIUtility.systemCopyBuffer = value; }
-    // }
-    
     public override void CreateHandler()
     {
         base.CreateHandler();
@@ -19,6 +14,16 @@ public class RoomHandler : Handler
         handlers[(int)RoomEvents.Create] = CreateEvent;
         handlers[(int)RoomEvents.Join] = JoinEvent;
         handlers[(int)RoomEvents.OtherJoin] = OtherJoinEvent;
+        handlers[(int)RoomEvents.Quit] = QuitEvent;
+        handlers[(int)RoomEvents.Remove] = QuitEvent;
+    }
+
+    private void QuitEvent(Packet packet)
+    {
+        SceneLoader.Instance.LoadAsync("MainMenu", () => {
+            TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
+            txt.Init("퇴장되었습니다.");
+        }); 
     }
 
     private void OtherJoinEvent(Packet packet)

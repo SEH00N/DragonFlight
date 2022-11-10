@@ -28,4 +28,5 @@ server.on('connection', (socket, req) => {
         if(typeof(callback) == 'function')
             callback(socket, packet);
     });
+
 });

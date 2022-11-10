@@ -88,7 +88,7 @@ handler[Enums.RoomEvents.Remove] = function(socket, packet) {
                 soc.send(quitPacket.asPacket());
         });
         
-        global.rooms[socket.room.id] = undefined;
+        global.rooms[socket.roomId] = undefined;
         
         packet.value = true;
 
