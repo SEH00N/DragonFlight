@@ -951,6 +951,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c3b494ee45c5f44861202f84f534cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentScene:
+    m_Handle: 0
 --- !u!114 &811395217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2205,17 +2207,17 @@ PrefabInstance:
     - target: {fileID: 3888787317191993729, guid: 955d8eac4bc0cf14c8ff454a39611701,
         type: 3}
       propertyPath: runSpeed
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3888787317191993729, guid: 955d8eac4bc0cf14c8ff454a39611701,
         type: 3}
       propertyPath: walkSpeed
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3888787317191993729, guid: 955d8eac4bc0cf14c8ff454a39611701,
         type: 3}
       propertyPath: flyingSpeed
-      value: 14
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3888787317201255222, guid: 955d8eac4bc0cf14c8ff454a39611701,
         type: 3}

@@ -13,6 +13,7 @@ exports.RoomEvents = {
     Quit : 2,
     Remove : 3,
     OtherJoin : 4,
+    Back2Lobby : 5,
 };
 
 exports.GameManagerEvents = {
@@ -21,6 +22,7 @@ exports.GameManagerEvents = {
     Start : 2,
     SetStage : 3,
     Fight : 4,
+    Finish : 5,
 };
 
 exports.InteractEvents = {

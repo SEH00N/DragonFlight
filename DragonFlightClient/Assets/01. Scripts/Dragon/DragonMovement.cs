@@ -68,8 +68,8 @@ public class DragonMovement : MonoBehaviour
             Fly();
             Rotate();
 
-            animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(input.z));
-            anim.SetFloat("Move", animBlend);
+            animBlend = Mathf.Lerp(0, currentSpeed / flyingSpeed, Mathf.Abs(input.z));
+            anim.SetFloat("Move", animBlend * 10f);
         }
     }
 
@@ -185,6 +185,7 @@ public class DragonMovement : MonoBehaviour
     }
 
     public void StartSendData() => StartCoroutine(SendData());
+    public void StopSending() => StopAllCoroutines();
 
     private IEnumerator SendData()
     {

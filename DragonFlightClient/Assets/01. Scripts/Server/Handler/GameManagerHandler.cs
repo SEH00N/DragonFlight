@@ -16,6 +16,20 @@ public class GameManagerHandler : Handler
         handlers[(int)GameManagerEvents.Start] = StartEvent;
         handlers[(int)GameManagerEvents.SetStage] = SetStageEvent;
         handlers[(int)GameManagerEvents.Fight] = FightEvent;
+        handlers[(int)GameManagerEvents.Finish] = FinishEvent;
+    }
+
+    private void FinishEvent(Packet packet)
+    {
+        if(!bool.TryParse(packet.value, out bool win))
+            return;
+
+        if(DEFINE.Dragon != null)
+            DEFINE.Dragon.OnFinish();
+        if(DEFINE.Player != null)
+            DEFINE.Player.OnFinish();
+
+        DEFINE.MainCanvas.Find("GameOverPanel").GetComponent<GameOverPanel>().GameOver(win);
     }
 
     private void FightEvent(Packet packet)

@@ -101,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartSendData() => StartCoroutine(SendData());
+    public void StopSending() => StopAllCoroutines();
 
     private IEnumerator SendData()
     {

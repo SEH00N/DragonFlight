@@ -7,5 +7,6 @@ public enum GameManagerEvents
     Start = 2,
     SetStage = 3,
     Fight = 4,
+    Finish = 5,
     Last,
 }

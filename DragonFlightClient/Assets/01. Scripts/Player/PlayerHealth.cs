@@ -34,9 +34,19 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         CurrentHp -= damage;
 
         if (CurrentHp <= 0f)
+        {
             Debug.Log("쥬금");
-        else
-            player.Animator.SetTrigger("OnDamage");
+            return;
+        }
+
+        player.Animator.SetTrigger("OnDamage");
     }
 
+    private void OnDie()
+    {
+        TriggerAnimPacket triggerAnimPacket = new TriggerAnimPacket("Player", "OnDie");
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
+
+        Client.Instance.SendMessages((int)Types.GameManagerEvent, (int)GameManagerEvents.Finish, "");
+    }
 }

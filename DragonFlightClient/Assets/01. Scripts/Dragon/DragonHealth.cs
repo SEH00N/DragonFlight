@@ -45,24 +45,28 @@ public class DragonHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         dragon.DragonMovement.Active = false;
-        dragon.Animator.SetTrigger("OnDie");
+        dragon.targetable = false;
         DEFINE.Player.GetComponent<RideDragon>().DoRideOff();
-        gameObject.layer = 0;
+
+        TriggerAnimPacket triggerAnimPacket = new TriggerAnimPacket("Dragon", "OnDie");
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
+        dragon.Animator.SetTrigger("OnDie");
+
         StartCoroutine(FallingDown());
     }
 
     private IEnumerator FallingDown()
     {
-        StopAllCoroutines();
         float timer = 0f;
 
         while(timer <= holdingTime)
         {
             transform.position -= Vector3.down * DEFINE.GravityScale * Time.deltaTime;
             timer += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         //dissolve 해야됨
+        //드래곤 죽었을 때 서버에 보내기 (상대방 입장에서 디졸브)
     }
 }

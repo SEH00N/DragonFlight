@@ -109,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f9232636807c348b7fb34fedebc1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCoolTime: 3
   activeKey: 324
+  skillCoolTime: 3
+  skillCoolTimer: 0
   firePosition: {fileID: 196075102847827646}
   xRotation: {fileID: 196075103093665188}
 --- !u!1 &196075102736801291
@@ -264,8 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e21d90f462d6ed84287da96697a3abcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCoolTime: 2
   activeKey: 323
+  skillCoolTime: 2
+  skillCoolTimer: 0
   biteRange: {fileID: 196075102736801301}
   damage: 10
 --- !u!1 &3888787317201404028
@@ -3186,9 +3188,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  walkSpeed: 6
-  runSpeed: 10
-  flyingSpeed: 14
+  walkSpeed: 15
+  runSpeed: 25
+  flyingSpeed: 30
   rotationFactor: 4
   speedIncreaseFactor: 3
   jumpFactor: 2
@@ -3223,6 +3225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8860ea5a990464084a73d6f7dfff21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetable: 1
 --- !u!143 &196075101151441283
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4872,6 +4875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2edb7c7527f05864285ac0a490ee345a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCoolTime: 5
   activeKey: 99
+  skillCoolTime: 5
+  skillCoolTimer: 0
   dashTime: 0.5

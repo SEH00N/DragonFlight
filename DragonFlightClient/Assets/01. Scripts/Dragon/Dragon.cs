@@ -45,6 +45,8 @@ public class Dragon : PoolableMono
 
     #endregion
 
+    public bool targetable = true;
+
     private void Start()
     {
         //임시코드
@@ -56,5 +58,11 @@ public class Dragon : PoolableMono
         DragonHealth.CurrentHp = DragonHealth.MaxHp;
 
         DragonMovement.StartSendData();
+    }
+
+    public void OnFinish()
+    {
+        DragonMovement.Active = false;
+        DragonMovement.StopSending();
     }
 }

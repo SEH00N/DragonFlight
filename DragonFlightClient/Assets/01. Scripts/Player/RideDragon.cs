@@ -33,7 +33,7 @@ public class RideDragon : MonoBehaviour
     {
         if(!isRide)
         {
-            if (TargetingDragon(out currentDragon))
+            if (TargettingDragon(out currentDragon))
             {
                 ShowNoitceText();
                 if(Input.GetKeyDown(KeyCode.E))
@@ -69,7 +69,7 @@ public class RideDragon : MonoBehaviour
         currentRideText.transform.position = DEFINE.MainCam.WorldToScreenPoint(currentDragon.DragonMovement.playerRidePosition.position);
     }
 
-    private bool TargetingDragon(out Dragon targetDragon)
+    private bool TargettingDragon(out Dragon targetDragon)
     {
         targetDragon = null;
         // Debug.DrawRay(rayPosition.position, playerMovement.cameraFollow.forward, Color.red, 1f);
@@ -77,6 +77,8 @@ public class RideDragon : MonoBehaviour
         bool isDragon = Physics.Raycast(rayPosition.position, playerMovement.cameraFollow.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
         if(isDragon)
             isDragon &= hit.collider.transform.root.TryGetComponent<Dragon>(out targetDragon);
+        if(isDragon)
+            isDragon &= targetDragon.targetable;
 
         return isDragon;
     }

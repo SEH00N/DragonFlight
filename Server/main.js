@@ -20,10 +20,10 @@ server.on('connection', (socket, req) => {
     socket.on('message', msg => {
         data = JSON.parse(msg.toString());
         var packet = new Packet(data.t, data.e, data.v);
-        console.log(data.t + " " + data.e);
-
+        // console.log(data.t + " " + data.e);
+        
         callback = handlers[packet.type][packet.event];
-        console.log(typeof(callback));
+        // console.log(typeof(callback));
 
         if(typeof(callback) == 'function')
             callback(socket, packet);

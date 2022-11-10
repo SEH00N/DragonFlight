@@ -49,6 +49,7 @@ public class PoolManager : MonoBehaviour
 
         obj = Pools[_prefabName].Pop();
         obj.transform.SetParent(null);
+        SceneLoader.Instance.RemoveDontDestroyOnLoad(obj.gameObject);
         obj.Reset();
         
         return obj;
@@ -66,6 +67,7 @@ public class PoolManager : MonoBehaviour
 
         obj = Pools[_prefabName].Pop();
         obj.transform.SetParent(null);
+        SceneLoader.Instance.RemoveDontDestroyOnLoad(obj.gameObject);
         obj.Reset();
 
         obj.transform.position = position;

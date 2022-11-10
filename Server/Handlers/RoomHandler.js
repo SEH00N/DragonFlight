@@ -5,6 +5,16 @@ const Packet = require('../Classes/Packet.js').Packet;
 const handler = [];
 global.rooms = {};
 
+handler[Enums.RoomEvents.Back2Lobby] = function(socket, packet) {
+    try {
+         packet.event = Enums.RoomEvents.Join;
+        packet.value = socket.roomId;
+
+        joinHandler = handler[Enums.RoomEvents.Join];
+        joinHandler(socket, packet);
+    } catch {}
+}
+
 handler[Enums.RoomEvents.Create] = function(socket, packet) {
     try {
         var room = new Room(socket);
@@ -47,7 +57,7 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
                 s: false,
             });
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client joined room | code : ${packet.value}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client joined room | code : ${packet.value.c}`);
         socket.send(packet.asPacket());
     } catch {
         packet.value = JSON.stringify({
@@ -55,7 +65,7 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
             s : false,
         });
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client failed to join room | code : ${packet.value}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client failed to join room | code : ${packet.value.c}`);
         socket.send(packet.asPacket());
     }
 }

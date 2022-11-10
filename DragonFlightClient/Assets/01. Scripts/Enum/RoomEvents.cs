@@ -7,5 +7,6 @@ public enum RoomEvents
     Quit = 2,
     Remove = 3,
     OtherJoin = 4,
+    Back2Lobby = 5,
     Last,
 }

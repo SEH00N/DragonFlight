@@ -16,6 +16,15 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    public Scene CurrentScene;
+
+    private void Awake()
+    {
+        CurrentScene = SceneManager.GetActiveScene();
+    }
+
+    public void RemoveDontDestroyOnLoad(GameObject target) => SceneManager.MoveGameObjectToScene(target, CurrentScene);
+
     public void LoadAsync(string name, Action callback = null) => StartCoroutine(LoadAsyncCoroutine(name, callback));
 
     private IEnumerator LoadAsyncCoroutine(string name, Action callback)
@@ -25,6 +34,7 @@ public class SceneLoader : MonoBehaviour
             yield return null;
 
         yield return null;
+        CurrentScene = SceneManager.GetActiveScene();
         callback?.Invoke();
     }
 }

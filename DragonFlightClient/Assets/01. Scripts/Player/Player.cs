@@ -46,4 +46,11 @@ public class Player : PoolableMono
 
         PlayerMovement.StartSendData();
     }
+
+    public void OnFinish()
+    {
+        PlayerMovement.Active = false;
+        playerMovement.StopSending();
+        //디졸브 시작
+    }
 }
