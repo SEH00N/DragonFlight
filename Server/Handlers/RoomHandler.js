@@ -78,10 +78,10 @@ handler[Enums.RoomEvents.Quit] = function(socket, packet) {
     socket.send(packet.asPacket());
 
     if(packet.value) {
-        socket.roomId = undefined;
-
         var otherQuitPacket = new Packet(Enums.Types.Room, Enums.RoomEvents.OtherQuit, '');
         global.rooms[socket.roomId].host.send(otherQuitPacket.asPacket());
+        
+        socket.roomId = undefined;
     }
 }
 

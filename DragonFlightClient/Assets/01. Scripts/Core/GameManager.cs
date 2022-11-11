@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance = null;
+    private static GameManager instance;
     public static GameManager Instance {
         get {
             if(instance == null)
@@ -29,8 +29,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if(instance != null)
+        {
             Destroy(gameObject);
+            Debug.Log("as");
+        }
 
+        instance = this;
         DontDestroyOnLoad(gameObject);
 
         Cursor.visible = cursorActive;

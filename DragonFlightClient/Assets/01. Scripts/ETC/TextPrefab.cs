@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TextPrefab : PoolableMono
 {
+    public Vector3 NoticePosition = new Vector3();
     private TextMeshProUGUI tmp;
 
     private void Awake()
@@ -26,4 +27,6 @@ public class TextPrefab : PoolableMono
 
         transform.localScale = Vector3.one;
     }
+
+    // public static implicit operator TextMeshProUGUI(TextPrefab txt) => txt.tmp;
 }
