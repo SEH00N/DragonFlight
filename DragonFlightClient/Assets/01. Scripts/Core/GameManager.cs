@@ -29,10 +29,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if(instance != null)
-        {
             Destroy(gameObject);
-            Debug.Log("as");
-        }
 
         instance = this;
         DontDestroyOnLoad(gameObject);

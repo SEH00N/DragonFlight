@@ -25,7 +25,7 @@ public class RoomHandler : Handler
 
         TextPrefab txt = PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
         txt.Init("상대방이 퇴장하였습니다.", DEFINE.StaticCanvas);
-        txt.transform.localPosition = txt.NoticePosition;
+        txt.DoNoticeTrail();
     }
 
     private void QuitEvent(Packet packet)
@@ -34,12 +34,12 @@ public class RoomHandler : Handler
             SceneLoader.Instance.LoadAsync("MainMenu", () => {
                 TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
                 txt.Init("퇴장되었습니다.", DEFINE.StaticCanvas);
-                txt.transform.localPosition = txt.NoticePosition;
+                txt.DoNoticeTrail();
             }); 
         else {
             TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
             txt.Init("퇴장에 실패하였습니다.", DEFINE.StaticCanvas);
-            txt.transform.localPosition = txt.NoticePosition;
+            txt.DoNoticeTrail();
         }
     }
 

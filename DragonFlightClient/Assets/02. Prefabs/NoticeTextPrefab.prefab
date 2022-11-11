@@ -148,3 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47236f217172c9149be108bc7951459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noticePosition: {x: 0, y: 40, z: 0}
+  trailDuration: 1
+  trailDistance: 300

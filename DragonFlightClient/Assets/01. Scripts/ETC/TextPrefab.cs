@@ -1,10 +1,14 @@
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class TextPrefab : PoolableMono
 {
-    public Vector3 NoticePosition = new Vector3();
+    [SerializeField] Vector3 noticePosition = new Vector3();
+    [SerializeField] float trailDuration = 0.5f;
+    [SerializeField] float trailDistance = 10f;
     private TextMeshProUGUI tmp;
+    private Sequence seq;
 
     private void Awake()
     {
@@ -13,6 +17,7 @@ public class TextPrefab : PoolableMono
 
     public override void Reset()
     {
+        seq.Kill();
         if(tmp == null)
             tmp = GetComponent<TextMeshProUGUI>();
         tmp.alpha = 1f;
@@ -26,6 +31,17 @@ public class TextPrefab : PoolableMono
             transform.SetParent(parent);
 
         transform.localScale = Vector3.one;
+    }
+
+    public void DoNoticeTrail()
+    {
+        seq = DOTween.Sequence();
+        transform.localPosition = noticePosition;
+        seq.Append(tmp.DOFade(0, trailDuration));
+        seq.Join(transform.DOLocalMoveY(noticePosition.y + trailDistance, trailDuration));
+        seq.AppendCallback(() => {
+            PoolManager.Instance.Push(this);
+        });
     }
 
     // public static implicit operator TextMeshProUGUI(TextPrefab txt) => txt.tmp;

@@ -17,6 +17,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     public Scene CurrentScene;
+    private GameObject loadingPanel = null;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class SceneLoader : MonoBehaviour
             return;
 
         CurrentScene = SceneManager.GetActiveScene();
+        loadingPanel = DEFINE.StaticCanvas.Find("LoadImage").gameObject;
     }
 
     public void RemoveDontDestroyOnLoad(GameObject target) => SceneManager.MoveGameObjectToScene(target, CurrentScene);
@@ -33,10 +35,13 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadAsyncCoroutine(string name, Action callback)
     {
         AsyncOperation oper = SceneManager.LoadSceneAsync(name);
+        loadingPanel.SetActive(true);
+
         while(!oper.isDone)
             yield return null;
 
         yield return null;
+        loadingPanel.SetActive(false);
         CurrentScene = SceneManager.GetActiveScene();
         callback?.Invoke();
     }
