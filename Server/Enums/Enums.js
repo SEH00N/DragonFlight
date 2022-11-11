@@ -14,6 +14,7 @@ exports.RoomEvents = {
     Remove : 3,
     OtherJoin : 4,
     Back2Lobby : 5,
+    OtherQuit : 6,
 };
 
 exports.GameManagerEvents = {

@@ -1,3 +1,4 @@
+using System.Xml;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,12 @@ public class PlayerInfo : MonoBehaviour
     {
         readyText.text = textValue;
         playerImage.color = Color.gray;
+    }
+
+    public void Quit()
+    {
+        readyText.text = "";
+        playerImage.color = Color.white;
     }
 
     public void SetReady()

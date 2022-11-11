@@ -16,14 +16,25 @@ public class RoomHandler : Handler
         handlers[(int)RoomEvents.OtherJoin] = OtherJoinEvent;
         handlers[(int)RoomEvents.Quit] = QuitEvent;
         handlers[(int)RoomEvents.Remove] = QuitEvent;
+        handlers[(int)RoomEvents.OtherQuit] = OtherQuitEvent;
+    }
+
+    private void OtherQuitEvent(Packet packet)
+    {
+        DEFINE.MainCanvas.Find("OtherInfo").GetComponent<PlayerInfo>().Quit();
     }
 
     private void QuitEvent(Packet packet)
     {
-        SceneLoader.Instance.LoadAsync("MainMenu", () => {
+        if(bool.TryParse(packet.value, out bool success) && success)
+            SceneLoader.Instance.LoadAsync("MainMenu", () => {
+                TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
+                txt.Init("퇴장되었습니다.", DEFINE.StaticCanvas);
+            }); 
+        else {
             TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
-            txt.Init("퇴장되었습니다.");
-        }); 
+            txt.Init("퇴장에 실패하였습니다.", DEFINE.StaticCanvas);
+        }
     }
 
     private void OtherJoinEvent(Packet packet)
@@ -36,15 +47,10 @@ public class RoomHandler : Handler
         RoomPacket roomPacket = JsonConvert.DeserializeObject<RoomPacket>(packet.value);
 
         if(roomPacket.success)
-        {
             SceneLoader.Instance.LoadAsync("Lobby", () => {
-                DEFINE.MainCanvas.Find("MyInfo").GetComponent<PlayerInfo>().Init("READY?");
-                DEFINE.MainCanvas.Find("OtherInfo").GetComponent<PlayerInfo>().Init("");
-                DEFINE.MainCanvas.Find("CodeInfo/RoomCode").GetComponent<TextMeshProUGUI>().text = roomPacket.code;
-                DEFINE.MainCanvas.Find("RemoveButton").gameObject.SetActive(false);
+                SetUI(false, roomPacket.otherReady, roomPacket.code);
                 Client.Instance.SendMessages((int)Types.RoomEvent, (int)RoomEvents.OtherJoin, "");
             });
-        }
     }
 
     private void CreateEvent(Packet packet)
@@ -52,13 +58,19 @@ public class RoomHandler : Handler
         RoomPacket roomPacket = JsonConvert.DeserializeObject<RoomPacket>(packet.value);
 
         if(roomPacket.success)
-        {
             SceneLoader.Instance.LoadAsync("Lobby", () => {
-                DEFINE.MainCanvas.Find("MyInfo").GetComponent<PlayerInfo>().Init("READY?");
-                DEFINE.MainCanvas.Find("CodeInfo/RoomCode").GetComponent<TextMeshProUGUI>().text = roomPacket.code;
-                DEFINE.MainCanvas.Find("QuitButton").gameObject.SetActive(false);
+                SetUI(true, false, roomPacket.code);
                 GUIUtility.systemCopyBuffer = roomPacket.code;
             });
-        }
+    }
+
+    private void SetUI(bool isHost, bool otherReady, string code)
+    {
+        Transform mainCanvas = DEFINE.MainCanvas;
+
+        mainCanvas.Find("MyInfo").GetComponent<PlayerInfo>().Init("READY?");
+        mainCanvas.Find("OtherInfo").GetComponent<PlayerInfo>().Init(otherReady ? "READY!!" : "");
+        mainCanvas.Find("CodeInfo/RoomCode").GetComponent<TextMeshProUGUI>().text = code;
+        mainCanvas.Find(isHost ? "QuitButton" : "RemoveButton").gameObject.SetActive(false);
     }
 }

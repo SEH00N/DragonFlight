@@ -6,13 +6,10 @@ const handler = [];
 global.rooms = {};
 
 handler[Enums.RoomEvents.Back2Lobby] = function(socket, packet) {
-    try {
-         packet.event = Enums.RoomEvents.Join;
-        packet.value = socket.roomId;
+    packet.event = Enums.RoomEvents.Join;
+    packet.value = (global.rooms[socket.roomId] != undefined);
 
-        joinHandler = handler[Enums.RoomEvents.Join];
-        joinHandler(socket, packet);
-    } catch {}
+    socket.send(packet.asPacket());
 }
 
 handler[Enums.RoomEvents.Create] = function(socket, packet) {
@@ -46,14 +43,17 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
         if(global.rooms[id] != undefined && global.rooms[id].tryJoin(socket))
         {
             socket.roomId = id;
+
             packet.value = JSON.stringify({
                 c: id,
+                r: global.rooms[id].host.ready,
                 s: true,
             });
         }
         else
             packet.value = JSON.stringify({
                 c: id,
+                r: false,
                 s: false,
             });
 
@@ -75,9 +75,14 @@ handler[Enums.RoomEvents.Quit] = function(socket, packet) {
     
     console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client ${packet.value ? 'succeed' : 'failed'} to quit room | code : ${socket.roomId}`);
 
-    if(packet.value) socket.roomId = undefined;
-
     socket.send(packet.asPacket());
+
+    if(packet.value) {
+        socket.roomId = undefined;
+
+        var otherQuitPacket = new Packet(Enums.Types.Room, Enums.RoomEvents.OtherQuit, '');
+        global.rooms[socket.roomId].host.send(otherQuitPacket.asPacket());
+    }
 }
 
 handler[Enums.RoomEvents.Remove] = function(socket, packet) {
@@ -106,16 +111,7 @@ handler[Enums.RoomEvents.Remove] = function(socket, packet) {
 }
 
 handler[Enums.RoomEvents.OtherJoin] = function(socket, packet) {
-    var readyPacket = new Packet(Enums.Types.GameManager, Enums.GameManagerEvents.Ready, false);
-
-    global.rooms[socket.roomId].players.forEach(soc => {
-        if(socket != soc)
-        {
-            readyPacket.value = soc.ready;
-            socket.send(readyPacket.asPacket());
-            soc.send(packet.asPacket());
-        }
-    });
+    global.rooms[socket.roomId].host.send(packet.asPacket());
 }
 
 exports.handler = handler;
