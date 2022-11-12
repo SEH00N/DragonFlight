@@ -7,7 +7,13 @@ global.rooms = {};
 
 handler[Enums.RoomEvents.Back2Lobby] = function(socket, packet) {
     packet.event = Enums.RoomEvents.Join;
-    packet.value = (global.rooms[socket.roomId] != undefined);
+    packet.value = JSON.stringify({
+        c : socket.roomId,
+        r : false,
+        s : (global.rooms[socket.roomId] != undefined)
+    });
+
+    console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] back to lobby | code : ${socket.roomId}`);
 
     socket.send(packet.asPacket());
 }
@@ -71,15 +77,19 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
 }
 
 handler[Enums.RoomEvents.Quit] = function(socket, packet) {
-    packet.value = global.rooms[socket.roomId].tryQuit(socket);
+    room = global.rooms[soclet.roomId];
+
+    packet.value = room.tryQuit(socket);
     
     console.log('\x1b[33m%s\x1b[0m', `[RoomSystem] client ${packet.value ? 'succeed' : 'failed'} to quit room | code : ${socket.roomId}`);
 
     socket.send(packet.asPacket());
 
+    console.log(room.players.length);
+
     if(packet.value) {
         var otherQuitPacket = new Packet(Enums.Types.Room, Enums.RoomEvents.OtherQuit, '');
-        global.rooms[socket.roomId].host.send(otherQuitPacket.asPacket());
+        room.host.send(otherQuitPacket.asPacket());
         
         socket.roomId = undefined;
     }
