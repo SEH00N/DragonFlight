@@ -83,6 +83,7 @@ public class Client : MonoBehaviour
         handlers[(int)Types.RoomEvent] = gameObject.AddComponent<RoomHandler>();
         handlers[(int)Types.GameManagerEvent] = gameObject.AddComponent<GameManagerHandler>();
         handlers[(int)Types.InteractEvent] = gameObject.AddComponent<InteractHandler>();
+        handlers[(int)Types.ErrorEvent] = gameObject.AddComponent<ErrorHandler>();
 
         foreach(Handler handler in handlers)
             if(handler != null)

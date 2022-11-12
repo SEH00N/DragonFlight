@@ -35,3 +35,7 @@ exports.InteractEvents = {
     Ride : 5,
     TriggerAnim : 6,
 };
+
+exports.ErrorEvents = {
+    ErrorMessage : 0,
+}

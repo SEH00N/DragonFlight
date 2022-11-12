@@ -25,7 +25,7 @@ class Room {
 
     tryQuit(socket) {
         try {
-            this.players.filter(soc => soc != socket );
+            this.players = this.players.filter(soc => soc != socket );
             return true;
         } catch {
             return false;

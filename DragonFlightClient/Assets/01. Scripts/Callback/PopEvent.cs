@@ -5,7 +5,7 @@ public class PopEvent : MonoBehaviour
 {
     [SerializeField] RectTransform rect = null;
     [SerializeField] float duration = 0.5f;
-    private static bool onTweening = false;
+    private bool onTweening = false;
 
     public void DoPopUp()
     {

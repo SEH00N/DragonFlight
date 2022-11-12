@@ -5,12 +5,7 @@ using UnityEngine;
 
 public class JoinRoom : MonoBehaviour
 {
-    private TMP_InputField inputField = null;
-
-    private void Awake()
-    {
-        inputField = DEFINE.MainCanvas.Find("GamePanel/InputField").GetComponent<TMP_InputField>();
-    }
+    [SerializeField] TMP_InputField inputField = null;
 
     public void DoJoin()
     {

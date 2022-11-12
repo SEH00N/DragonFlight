@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noticePosition: {x: 0, y: 40, z: 0}
-  trailDuration: 1
+  trailDuration: 2
   trailDistance: 300

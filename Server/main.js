@@ -11,11 +11,11 @@ handlers[Enums.Types.GameManager] = require('./Handlers/GameManagerHandler.js').
 handlers[Enums.Types.Interact] = require('./Handlers/InteractHandler.js').handler;
 
 server.once('listening', () => {
-    console.log('\x1b[33m%s\x1b[0m', `[ServerSystem] server opened on port ${server.options.port}`);
+    console.log('\x1b[33m%s\x1b[0m', `[ServerManager] server opened on port ${server.options.port}`);
 });
 
 server.on('connection', (socket, req) => {
-    console.log('\x1b[33m%s\x1b[0m', '[ServerSystem] client connected');
+    console.log('\x1b[33m%s\x1b[0m', '[ServerManager] client connected');
 
     socket.on('message', msg => {
         data = JSON.parse(msg.toString());
