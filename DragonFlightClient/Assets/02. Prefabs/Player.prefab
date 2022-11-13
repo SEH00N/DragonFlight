@@ -3171,6 +3171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5697678438746639831}
   - component: {fileID: 7198622148362642609}
+  - component: {fileID: 3952694235486512184}
   - component: {fileID: 7198622148362642608}
   - component: {fileID: 7198622148362642623}
   - component: {fileID: 7198622148362642622}
@@ -3219,6 +3220,18 @@ MonoBehaviour:
   rayDistance: 10
   cameraOriginRotation: {x: 10, y: 0, z: 0}
   rideNoticeText: '[E] : RIDE'
+--- !u!114 &3952694235486512184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4925223813506209645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f4c53286166fe428ea2480c2410ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7198622148362642608
 MonoBehaviour:
   m_ObjectHideFlags: 0

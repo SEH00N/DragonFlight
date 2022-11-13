@@ -3,6 +3,7 @@ using WebSocketSharp;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Client : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class Client : MonoBehaviour
 
     [SerializeField] string ip = "localhost";
     [SerializeField] string port = "3030";
-    private WebSocket server;
+    [SerializeField] float autoConnectDelay = 3f;
+    private WebSocket socket;
     private object locker = new object();
 
     private Queue<Action> handlerActions = new Queue<Action>();
@@ -32,18 +34,26 @@ public class Client : MonoBehaviour
         if(instance != null)
             return;
 
-        server = new WebSocket($"ws://{ip}:{port}");
+        socket = new WebSocket($"ws://{ip}:{port}");
 
-        server.OnMessage += GetMessages;
+        socket.OnMessage += GetMessages;
         HandlerInit();
+    }
 
-        server.ConnectAsync();
+    private void Start()
+    {
+        StartCoroutine(AutoConnector());
     }
 
     private void Update()
     {
         while(handlerActions.Count > 0)
             handlerActions.Dequeue()?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();    
     }
 
     private void GetMessages(object sender, MessageEventArgs msg)
@@ -62,7 +72,7 @@ public class Client : MonoBehaviour
     {
         try {
             Packet packet = new Packet(type, eventType, value);
-            server.Send(JsonConvert.SerializeObject(packet));
+            socket.Send(JsonConvert.SerializeObject(packet));
         } catch (Exception err) {
             Debug.LogWarning(err.Message);
         }
@@ -72,7 +82,7 @@ public class Client : MonoBehaviour
     {
         try {
             Packet packet = new Packet(type, eventType, JsonConvert.SerializeObject(value));
-            server.Send(JsonConvert.SerializeObject(packet));
+            socket.Send(JsonConvert.SerializeObject(packet));
         } catch (Exception err) {
             Debug.LogWarning(err.Message);
         }
@@ -90,4 +100,35 @@ public class Client : MonoBehaviour
                 handler.CreateHandler();
     }
 
+    private IEnumerator AutoConnector()
+    {
+        socket.ConnectAsync();
+        yield return new WaitForSeconds(autoConnectDelay);
+        bool lastConnect = socket.IsAlive;
+        SceneLoader.Instance.Reconnect(!lastConnect);
+
+        while(true)
+        {
+            if(socket.IsAlive) {
+                if(!lastConnect)
+                {
+                    lastConnect = true;
+                    SceneLoader.Instance.Reconnect(false);
+
+                    Debug.Log("On Return of Connect");
+                }
+                yield return new WaitUntil(() => !socket.IsAlive);
+            } else {
+                if(lastConnect)
+                {
+                    lastConnect = false;
+                    SceneLoader.Instance.Reconnect(true);
+
+                    Debug.Log("On Reconnect");
+                }
+                socket.ConnectAsync();
+                yield return new WaitForSeconds(autoConnectDelay);
+            }
+        }
+    }
 }

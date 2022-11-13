@@ -8,7 +8,6 @@ public class Player : PoolableMono
         get {
             if(playerHealth == null)
                 playerHealth = GetComponent<PlayerHealth>();
-
             return playerHealth;
         }
     }
@@ -18,8 +17,16 @@ public class Player : PoolableMono
         get {
             if(playerMovement == null)
                 playerMovement = GetComponent<PlayerMovement>();
-
             return playerMovement;
+        }
+    }
+
+    private WeaponHandler weaponHandler = null;
+    public WeaponHandler WeaponHandler {
+        get {
+            if(weaponHandler == null)
+                weaponHandler = GetComponent<WeaponHandler>();
+            return weaponHandler;
         }
     }
 
@@ -28,7 +35,6 @@ public class Player : PoolableMono
         get {
             if(animator == null)
                 animator = GetComponent<Animator>();
-
             return animator;
         }
     }

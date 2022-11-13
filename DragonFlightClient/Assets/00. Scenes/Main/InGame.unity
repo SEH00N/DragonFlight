@@ -16556,7 +16556,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: 31a19128fdaedf840bc2e377f3f1cfe6, type: 2}
   m_sharedMaterial: {fileID: 6919974368793270953, guid: 31a19128fdaedf840bc2e377f3f1cfe6,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 6919974368793270953, guid: 31a19128fdaedf840bc2e377f3f1cfe6, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -17685,6 +17686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ip: localhost
   port: 3030
+  autoConnectDelay: 3
 --- !u!114 &1065980384
 MonoBehaviour:
   m_ObjectHideFlags: 0

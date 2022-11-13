@@ -18,6 +18,7 @@ public class SceneLoader : MonoBehaviour
 
     public Scene CurrentScene;
     private GameObject loadingPanel = null;
+    private GameObject reconnectPanel = null;
 
     private void Awake()
     {
@@ -26,7 +27,15 @@ public class SceneLoader : MonoBehaviour
 
         CurrentScene = SceneManager.GetActiveScene();
         loadingPanel = DEFINE.StaticCanvas.Find("LoadImage").gameObject;
+        reconnectPanel = DEFINE.StaticCanvas.Find("ReconnectPanel").gameObject;
     }
+
+    private void Start()
+    {
+        reconnectPanel.SetActive(true);
+    }
+
+    public void Reconnect(bool toggle) => reconnectPanel.SetActive(toggle);
 
     public void RemoveDontDestroyOnLoad(GameObject target) => SceneManager.MoveGameObjectToScene(target, CurrentScene);
 
