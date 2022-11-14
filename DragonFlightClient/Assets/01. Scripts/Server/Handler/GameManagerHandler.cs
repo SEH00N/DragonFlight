@@ -37,6 +37,7 @@ public class GameManagerHandler : Handler
         DEFINE.MainCanvas.Find("BlockPanel").gameObject.SetActive(false);
         DEFINE.Ready2Start = true;
         DEFINE.Player.PlayerMovement.Active = true;
+        DEFINE.Player.WeaponHandler.Active = true;
     }
 
     private void SetStageEvent(Packet packet)

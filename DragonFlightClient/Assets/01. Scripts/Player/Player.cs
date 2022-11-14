@@ -57,6 +57,8 @@ public class Player : PoolableMono
     {
         PlayerMovement.Active = false;
         playerMovement.StopSending();
+
+        WeaponHandler.Active = false;
         //디졸브 시작
     }
 }
