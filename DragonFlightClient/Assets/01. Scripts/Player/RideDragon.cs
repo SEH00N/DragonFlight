@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using Cinemachine;
 using UnityEngine;
 
 public class RideDragon : MonoBehaviour
@@ -22,11 +23,14 @@ public class RideDragon : MonoBehaviour
     private GameObject playerHPObj;
     private GameObject dragonHPObj;
 
+    private CinemachineVirtualCamera cmMainCam = null;
+
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerHPObj = DEFINE.MainCanvas.Find("HP/PlayerHPBar").gameObject;//.transform.GetChild(0).gameObject;
         dragonHPObj = DEFINE.MainCanvas.Find("HP/DragonHPBar").gameObject;//.transform.GetChild(1).gameObject;
+        cmMainCam = DEFINE.CmMainCam;
     }
 
     private void Update()
@@ -74,7 +78,7 @@ public class RideDragon : MonoBehaviour
         targetDragon = null;
         // Debug.DrawRay(rayPosition.position, playerMovement.cameraFollow.forward, Color.red, 1f);
 
-        bool isDragon = Physics.Raycast(rayPosition.position, playerMovement.cameraFollow.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
+        bool isDragon = Physics.Raycast(rayPosition.position, cmMainCam.transform.forward, out RaycastHit hit, rayDistance, DEFINE.DragonLayer);
         if(isDragon)
             isDragon &= hit.collider.transform.root.TryGetComponent<Dragon>(out targetDragon);
         if(isDragon)

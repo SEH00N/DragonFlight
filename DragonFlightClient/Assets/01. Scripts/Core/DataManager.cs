@@ -38,7 +38,7 @@ public class DataManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        SaveData<UserSetting>(instance.userSetting);
+        SaveData<UserSetting>(userSetting);
     }
 
     private bool TryReadJson<T>(out T data)

@@ -17,6 +17,7 @@ public class OtherPlayer : PoolableMono, IDamageable
 
     public void OnDamage(float damage)
     {
+        Debug.Log("아얏 시 발");
         DamagePacket damagePacket = new DamagePacket("Player", damage);
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Damage, damagePacket);
     }
