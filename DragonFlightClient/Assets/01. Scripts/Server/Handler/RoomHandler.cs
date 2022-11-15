@@ -45,7 +45,9 @@ public class RoomHandler : Handler
 
     private void OtherJoinEvent(Packet packet)
     {
-        DEFINE.MainCanvas.Find("OtherInfo").GetComponent<PlayerInfo>().Init("");
+        Transform otherInfo = DEFINE.MainCanvas.Find("OtherInfo");
+        if(otherInfo != null)
+            otherInfo.GetComponent<PlayerInfo>().Init("");
     }
 
     private void JoinEvent(Packet packet)

@@ -11,7 +11,6 @@ public class GameManagerHandler : Handler
     {
         base.CreateHandler();
 
-        handlers[(int)GameManagerEvents.MatchMaking] = MatchMakingEvent;
         handlers[(int)GameManagerEvents.Ready] = ReadyEvent;
         handlers[(int)GameManagerEvents.Start] = StartEvent;
         handlers[(int)GameManagerEvents.SetStage] = SetStageEvent;
@@ -54,10 +53,5 @@ public class GameManagerHandler : Handler
     private void ReadyEvent(Packet packet)
     {
         DEFINE.MainCanvas.Find("OtherInfo/ReadyButton/ReadyText").GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY!!" : ""; 
-    }
-
-    private void MatchMakingEvent(Packet packet)
-    {
-        // 보류
     }
 }

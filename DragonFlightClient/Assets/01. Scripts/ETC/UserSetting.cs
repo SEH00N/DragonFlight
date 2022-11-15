@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public struct UserSetting
+public class UserSetting : Data
 {
     [JsonProperty("volumes")] public Dictionary<string, float> volumes;
 
@@ -14,5 +14,13 @@ public struct UserSetting
         };
         
         return this;
+    }
+
+    public override bool IsNull()
+    {
+        if(volumes == null)
+            return true;
+
+        return false;
     }
 }

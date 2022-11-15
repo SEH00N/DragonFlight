@@ -41,13 +41,19 @@ public class DataManager : MonoBehaviour
         SaveData<UserSetting>(userSetting);
     }
 
-    private bool TryReadJson<T>(out T data)
+    private bool TryReadJson<T>(out T data) where T : Data
     {
         string json = File.ReadAllText(GetPath<T>());
 
         if (json.Length > 0)
         {
             data = JsonConvert.DeserializeObject<T>(json);
+
+            if(data.IsNull())
+            {
+                data = default(T);
+                return false;
+            }
 
             return true;
         }

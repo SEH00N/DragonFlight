@@ -5,6 +5,60 @@ const Packet = require('../Classes/Packet.js').Packet;
 const handler = [];
 const startInterval = 3;
 
+let matchMakingQueue = [];
+
+handler[Enums.GameManagerEvents.MatchMakingStop] = function (socket, packet) {
+    const index = matchMakingQueue.indexOf(socket);
+    if(index > -1)
+    {
+        matchMakingQueue.splice(matchMakingQueue.indexOf(socket), 1);
+        console.log('\x1b[33m%s\x1b[0m', `[GameManager] match making cancled`);
+    }
+}
+
+handler[Enums.GameManagerEvents.MatchMakingStart] = function (socket, packet) {
+    setTimeout(() => {
+        console.log('\x1b[33m%s\x1b[0m', `[GameManager] match making started`);
+        matchMakingQueue.push(socket);
+        console.log(matchMakingQueue.length);
+
+        if(matchMakingQueue.length >= 2)
+            matchMaking();
+    }, Math.random() * 10 * 1000)
+
+}
+
+const matchMaking = function() {
+        var host = matchMakingQueue.randPop();
+        var guest = matchMakingQueue.randPop();
+
+        var room = new Room(host);
+        host.roomId = room.id;
+
+        if(room.tryJoin(guest))
+            guest.roomId = room.id;
+        else 
+            throw new Error();
+    
+        global.rooms[room.id] = room;
+    
+        var packet = new Packet(Enums.Types.GameManager, Enums.GameManagerEvents.Start, "");
+        room.players.forEach(soc => {
+            soc.ready = false;
+            packet.value = (host == soc) ? 0 : 1;
+            soc.send(packet.asPacket());
+        });
+    
+        console.log('\x1b[33m%s\x1b[0m', `[GameManager] match made`);
+}
+
+Array.prototype.randPop = function() {
+    var randIndex = Math.floor(Math.random()* this.length);
+    var element = this[randIndex];
+    this.splice(randIndex, 1);
+    return element;
+}
+
 handler[Enums.GameManagerEvents.Finish] = function(socket, packet) {
     console.log('\x1b[33m%s\x1b[0m', `[GameManager] game finished | room : ${socket.roomId}`);
 
