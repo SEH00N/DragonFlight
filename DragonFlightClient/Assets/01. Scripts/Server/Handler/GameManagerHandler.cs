@@ -28,6 +28,8 @@ public class GameManagerHandler : Handler
         if(DEFINE.Player != null)
             DEFINE.Player.OnFinish();
 
+        DEFINE.Ready2Start = false;
+
         DEFINE.MainCanvas.Find("GameOverPanel").GetComponent<GameOverPanel>().GameOver(win);
     }
 
