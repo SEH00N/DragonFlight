@@ -13,7 +13,7 @@ handler[Enums.RoomEvents.Back2Lobby] = function(socket, packet) {
         s : (global.rooms[socket.roomId] != undefined)
     });
 
-    console.log('\x1b[33m%s\x1b[0m', `[RoomManager] back to lobby | code : ${socket.roomId}`);
+    console.log('\x1b[33m%s\x1b[0m', `[RoomManager] back to lobby | room : ${socket.roomId}`);
 
     socket.send(packet.asPacket());
 }
@@ -29,12 +29,12 @@ handler[Enums.RoomEvents.Create] = function(socket, packet) {
             s : true,
         });
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] room created | code : ${room.id}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] room created | room : ${room.id}`);
         socket.send(packet.asPacket());
     } catch {
         var errPacket = new Packet(Enums.Types.Error, Enums.ErrorEvents.ErrorMessage, "생성에 실패하였습니다.");
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] failed to creat room | code : ${room.id}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] failed to creat room | room : ${room.id}`);
         socket.send(errPacket.asPacket());
     }
 }
@@ -56,12 +56,12 @@ handler[Enums.RoomEvents.Join] = function(socket, packet) {
         else
             throw new Error();
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] client joined room | code : ${id}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] client joined room | room : ${id}`);
         socket.send(packet.asPacket());
     } catch {
         var errPacket = new Packet(Enums.Types.Error, Enums.ErrorEvents.ErrorMessage, "방 참가에 실패하였습니다.");
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] client failed to join room | code : ${id}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] client failed to join room | room : ${id}`);
         socket.send(errPacket.asPacket());
     }
 }
@@ -72,7 +72,7 @@ handler[Enums.RoomEvents.Quit] = function(socket, packet) {
 
     packet.value = room.tryQuit(socket);
     
-    console.log('\x1b[33m%s\x1b[0m', `[RoomManager] client ${packet.value ? 'succeed' : 'failed'} to quit room | code : ${socket.roomId}`);
+    console.log('\x1b[33m%s\x1b[0m', `[RoomManager] client ${packet.value ? 'succeed' : 'failed'} to quit room | room : ${socket.roomId}`);
 
     socket.send(packet.asPacket());
 
@@ -96,7 +96,7 @@ handler[Enums.RoomEvents.Remove] = function(socket, packet) {
         
         packet.value = true;
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] room removed | code : ${socket.roomId}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] room removed | room : ${socket.roomId}`);
 
         socket.roomId = undefined;
 
@@ -104,7 +104,7 @@ handler[Enums.RoomEvents.Remove] = function(socket, packet) {
     } catch {
         var errPacket = new Packet(Enums.Types.Error, Enums.ErrorEvents.ErrorMessage, "방 제거에 실패하였습니다.");
 
-        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] failed to remove room | code : ${socket.roomId}`);
+        console.log('\x1b[33m%s\x1b[0m', `[RoomManager] failed to remove room | room : ${socket.roomId}`);
         socket.send(errPacket.asPacket());
     }
 }
