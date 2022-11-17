@@ -6,6 +6,6 @@ public class BackToLobby : MonoBehaviour
 {
     public void DoBackToLobby()
     {
-        Client.Instance.SendMessages((int)Types.RoomEvent, (int)RoomEvents.Back2Lobby, "");
+        Client.Instance.SendMessages((int)Types.RoomEvent, (int)RoomEvents.Back2Lobby, " ");
     }
 }
