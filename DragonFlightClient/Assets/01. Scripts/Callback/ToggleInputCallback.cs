@@ -9,7 +9,7 @@ public class ToggleInputCallback : MonoBehaviour
 
     public bool OnA;
 
-    private void Update()
+    protected virtual void Update()
     {
         if(Input.GetKeyDown(inputKey))
         {

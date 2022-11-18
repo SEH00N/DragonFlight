@@ -24,7 +24,6 @@ public class DragonMovement : MonoBehaviour
     [SerializeField] float flyingSpeed = 15f;
 
     [Header("Factor")]
-    [SerializeField] float rotationFactor = 0.5f;
     [SerializeField] float speedIncreaseFactor = 3f;
     [SerializeField] float jumpFactor = 2f;
     [SerializeField] float rayDistance = 0.5f;
@@ -43,6 +42,8 @@ public class DragonMovement : MonoBehaviour
     public bool OnFlying => onFlying;
     [SerializeField] private bool onDash = false;
     public bool OnDash { get => onDash; set => onDash = value; }
+
+    public bool rotationable = true;
 
     private bool onGround = false;
 
@@ -66,7 +67,9 @@ public class DragonMovement : MonoBehaviour
         {
             Move();
             Fly();
-            Rotate();
+    
+            if(rotationable)
+                Rotate();
 
             animBlend = Mathf.Lerp(0, currentSpeed / flyingSpeed, Mathf.Abs(input.z));
             anim.SetFloat("Move", animBlend * 10f);

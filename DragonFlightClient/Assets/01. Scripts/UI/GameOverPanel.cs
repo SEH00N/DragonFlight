@@ -13,6 +13,10 @@ public class GameOverPanel : MonoBehaviour
         finishText = panel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
+    private void OnDisable()
+    {
+        DEFINE.GameOver = false;
+    }
 
     public void GameOver(bool win)
     {

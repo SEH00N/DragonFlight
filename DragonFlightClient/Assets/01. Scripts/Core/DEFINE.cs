@@ -10,6 +10,7 @@ public static class DEFINE
     public const int EnemyDragonLayer = 1 << 11;
     public const int EnemyPlayerLayer = 1 << 12;
     public static bool Ready2Start = false;
+    public static bool GameOver = false;
     public static float MouseSensitivity = 4f;
 
     #endregion

@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Factor")]
     [SerializeField] float speedIncreaseFactor = 5f;
-    [SerializeField] float rotationFactor = 4f;
     
     [Header("Transform")]
     public Transform cameraFollow = null;
@@ -38,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 input = new Vector3();
     private Vector3 dir = new Vector3();
 
+    private float currentGravity = 0f;
+
+    public bool rotationable = true;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -49,7 +52,12 @@ public class PlayerMovement : MonoBehaviour
         if(Active)
         {
             Move();
-            Rotate();
+            
+            if(characterController.isGrounded)
+                currentGravity = 0f;
+
+            if(rotationable)
+                Rotate();
 
             animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(Mathf.Abs(input.x) > Mathf.Abs(input.z) ? input.x : input.z));
             anim.SetFloat("Move", animBlend);
@@ -77,7 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
         dir = (input.x * transform.right + input.z * transform.forward);
 
-        dir.y += DEFINE.GravityScale;
+        currentGravity += DEFINE.GravityScale * Time.deltaTime;
+        dir.y += currentGravity;
 
         characterController.Move(dir * currentSpeed * Time.deltaTime);
     }

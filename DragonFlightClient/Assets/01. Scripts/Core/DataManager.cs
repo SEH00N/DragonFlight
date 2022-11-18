@@ -33,11 +33,17 @@ public class DataManager : MonoBehaviour
 
     // private void OnApplicationQuit()
     // {
+    //     if(instance != this)
+    //         return;
+    //
     //     SaveData<UserSetting>(userSetting);
     // }
 
     private void OnDestroy()
     {
+        if(instance != this)
+            return;
+        
         SaveData<UserSetting>(userSetting);
     }
 

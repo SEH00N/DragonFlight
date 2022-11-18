@@ -22,7 +22,7 @@ public class SensitivityController : MonoBehaviour
         lastText = inputField.text;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         DataManager.Instance.userSetting.mouseSensitivity = DEFINE.MouseSensitivity;
     }

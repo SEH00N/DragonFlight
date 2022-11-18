@@ -29,6 +29,7 @@ public class GameManagerHandler : Handler
             DEFINE.Player.OnFinish();
 
         DEFINE.Ready2Start = false;
+        DEFINE.GameOver = true;
 
         DEFINE.MainCanvas.Find("GameOverPanel").GetComponent<GameOverPanel>().GameOver(win);
         GameManager.Instance.CursorActive = true;
