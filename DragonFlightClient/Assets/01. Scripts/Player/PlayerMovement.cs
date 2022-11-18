@@ -85,8 +85,8 @@ public class PlayerMovement : MonoBehaviour
     private void Rotate()
     {
         Vector3 rotate = transform.eulerAngles;
-        float xFactor = Input.GetAxis("Mouse Y") * rotationFactor;
-        float yFactor = Input.GetAxis("Mouse X") * rotationFactor;
+        float xFactor = Input.GetAxis("Mouse Y") * DEFINE.MouseSensitivity;
+        float yFactor = Input.GetAxis("Mouse X") * DEFINE.MouseSensitivity;
 
         rotate.y += yFactor;
         transform.rotation = Quaternion.Euler(rotate);

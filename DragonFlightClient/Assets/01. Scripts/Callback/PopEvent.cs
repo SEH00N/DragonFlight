@@ -13,7 +13,9 @@ public class PopEvent : MonoBehaviour
 
         onTweening = true;
 
-        rect.DOScale(Vector3.one, duration).SetEase(Ease.Linear).OnComplete(() => onTweening = false );
+        rect.DOScale(Vector3.one, duration).SetEase(Ease.Linear).OnComplete(() => {
+            onTweening = false;
+        });
     }
 
     public void DoPopDown()

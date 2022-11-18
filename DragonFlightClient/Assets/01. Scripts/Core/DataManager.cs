@@ -64,8 +64,10 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void SaveData<T>(T data)
+    private void SaveData<T>(T data) where T : Data
     {
+        data.Save();
+
         string json = JsonConvert.SerializeObject(data);
 
         File.WriteAllText(GetPath<T>(), json);

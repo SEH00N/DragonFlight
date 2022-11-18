@@ -31,6 +31,7 @@ public class GameManagerHandler : Handler
         DEFINE.Ready2Start = false;
 
         DEFINE.MainCanvas.Find("GameOverPanel").GetComponent<GameOverPanel>().GameOver(win);
+        GameManager.Instance.CursorActive = true;
     }
 
     private void FightEvent(Packet packet)
@@ -39,6 +40,8 @@ public class GameManagerHandler : Handler
         DEFINE.Ready2Start = true;
         DEFINE.Player.PlayerMovement.Active = true;
         DEFINE.Player.WeaponHandler.Active = true;
+
+        GameManager.Instance.CursorActive = false;
     }
 
     private void SetStageEvent(Packet packet)

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 public class UserSetting : Data
 {
     [JsonProperty("volumes")] public Dictionary<string, float> volumes;
+    [JsonProperty("mouseSensitivity")] public float mouseSensitivity = 4f;
 
     public UserSetting Generate()
     {
@@ -12,6 +13,8 @@ public class UserSetting : Data
             ["sfxVolume"] = 0f,
             ["bgmVolume"] = 0f,
         };
+
+        mouseSensitivity = 4f;
         
         return this;
     }
@@ -22,5 +25,10 @@ public class UserSetting : Data
             return true;
 
         return false;
+    }
+
+    public override void Save()
+    {
+        mouseSensitivity = DEFINE.MouseSensitivity;
     }
 }
