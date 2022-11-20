@@ -129,8 +129,8 @@ public class DragonMovement : MonoBehaviour
     private void Rotate()
     {
         Vector3 rotate = transform.eulerAngles;
-        float xFactor = Input.GetAxis("Mouse Y") * DEFINE.MouseSensitivity;
-        float yFactor = Input.GetAxis("Mouse X") * DEFINE.MouseSensitivity;
+        float xFactor = Input.GetAxis("Mouse Y") * DataManager.Instance.userSetting.mouseSensitivity;
+        float yFactor = Input.GetAxis("Mouse X") * DataManager.Instance.userSetting.mouseSensitivity;
 
         rotate.y += yFactor;
 

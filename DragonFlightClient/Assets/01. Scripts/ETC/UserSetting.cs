@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class UserSetting : Data
 {
@@ -29,6 +30,6 @@ public class UserSetting : Data
 
     public override void Save()
     {
-        mouseSensitivity = DEFINE.MouseSensitivity;
+        Debug.Log("Do Nothing");
     }
 }

@@ -4,6 +4,7 @@ using Cinemachine;
 public static class DEFINE
 {
     #region consts
+
     public const float GravityScale = -9.81f;
     public const int GroundLayer = 1 << 7;
     public const int DragonLayer = 1 << 10; 
@@ -11,7 +12,6 @@ public static class DEFINE
     public const int EnemyPlayerLayer = 1 << 12;
     public static bool Ready2Start = false;
     public static bool GameOver = false;
-    public static float MouseSensitivity = 4f;
 
     #endregion
 

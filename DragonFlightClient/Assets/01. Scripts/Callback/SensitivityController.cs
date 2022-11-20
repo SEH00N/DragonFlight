@@ -16,20 +16,14 @@ public class SensitivityController : MonoBehaviour
 
     private void Start()
     {
-        DEFINE.MouseSensitivity = DataManager.Instance.userSetting.mouseSensitivity;
-        slider.value = DEFINE.MouseSensitivity;
-        inputField.text = DEFINE.MouseSensitivity.ToString("F");
+        slider.value = DataManager.Instance.userSetting.mouseSensitivity;
+        inputField.text = DataManager.Instance.userSetting.mouseSensitivity.ToString("F");
         lastText = inputField.text;
-    }
-
-    private void OnDisable()
-    {
-        DataManager.Instance.userSetting.mouseSensitivity = DEFINE.MouseSensitivity;
     }
 
     public void SetSensitivity()
     {
-        DEFINE.MouseSensitivity = slider.value;
+        DataManager.Instance.userSetting.mouseSensitivity = slider.value;
         inputField.text = $"{slider.value.ToString("F")}";
     }
 
@@ -39,7 +33,7 @@ public class SensitivityController : MonoBehaviour
         {
             sens = Mathf.Clamp(sens, slider.minValue, slider.maxValue);
             lastText = sens.ToString("F");
-            DEFINE.MouseSensitivity = sens;
+            DataManager.Instance.userSetting.mouseSensitivity = sens;
             slider.value = sens;
         }
 
