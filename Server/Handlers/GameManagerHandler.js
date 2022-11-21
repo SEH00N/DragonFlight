@@ -20,7 +20,6 @@ handler[Enums.GameManagerEvents.MatchMakingStart] = function (socket, packet) {
     // setTimeout(() => {
         console.log('\x1b[33m%s\x1b[0m', `[GameManager] match making started`);
         matchMakingQueue.push(socket);
-        console.log(matchMakingQueue.length);
 
         if(matchMakingQueue.length >= 2)
             matchMaking();

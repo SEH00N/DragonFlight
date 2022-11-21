@@ -24,6 +24,9 @@ public class SniperRifle : Weapon
     [SerializeField] float reboundAmount = 10f;
     [SerializeField] float reboundIncFactor = 5f;
 
+    [Header("Particle")]
+    [SerializeField] ParticleSystem fireParticle;
+
     private float defaultFov = 60f;
 
     private GameObject zoomPanel = null;
@@ -93,6 +96,8 @@ public class SniperRifle : Weapon
     {
         //빵야
         //파티클
+        fireParticle.Stop();
+        fireParticle.Play();
 
         //피융
         StartCoroutine(ReboundCoroutine());        

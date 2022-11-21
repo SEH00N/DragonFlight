@@ -3235,6 +3235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 7838280808592470512}
   activeKey: 323
+  Active: 0
 --- !u!114 &7198622148362642608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3252,8 +3253,8 @@ MonoBehaviour:
   runSpeed: 10
   currentSpeed: 0
   speedIncreaseFactor: 5
-  rotationFactor: 4
   cameraFollow: {fileID: 6693622883976115618}
+  rotationable: 1
 --- !u!114 &7198622148362642623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6449,8 +6450,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -6.418
       objectReference: {fileID: 0}
+    - target: {fileID: 7158564459251077757, guid: fc3ab43ac0ac3214697d7c6e7bbcb56f,
+        type: 3}
+      propertyPath: fireParticle
+      value: 
+      objectReference: {fileID: 2692841948829174577}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc3ab43ac0ac3214697d7c6e7bbcb56f, type: 3}
+--- !u!198 &2692841948829174577 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3080914952093182140, guid: fc3ab43ac0ac3214697d7c6e7bbcb56f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1125757723603886989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7832081687556457643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7146749040270173990, guid: fc3ab43ac0ac3214697d7c6e7bbcb56f,
