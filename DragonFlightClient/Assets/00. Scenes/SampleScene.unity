@@ -7779,6 +7779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 5328204815286966619}
   activeKey: 323
+  Active: 0
 --- !u!1 &3970091653460408820
 GameObject:
   m_ObjectHideFlags: 0
@@ -10200,8 +10201,8 @@ MonoBehaviour:
   runSpeed: 10
   currentSpeed: 0
   speedIncreaseFactor: 5
-  rotationFactor: 4
   cameraFollow: {fileID: 6693622882940040797}
+  rotationable: 1
 --- !u!4 &7257603189878891620
 Transform:
   m_ObjectHideFlags: 0
