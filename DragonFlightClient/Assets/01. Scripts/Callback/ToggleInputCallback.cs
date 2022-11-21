@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ToggleInputCallback : MonoBehaviour
+public abstract class ToggleInputCallback : MonoBehaviour
 {
     public KeyCode inputKey;
     public UnityEvent ACallbackAction;
@@ -16,6 +16,10 @@ public class ToggleInputCallback : MonoBehaviour
             UnityEvent temp = OnA ? ACallbackAction : BCallbackAction;
             temp?.Invoke();
             OnA = !OnA;
+            
+            CallbackEvent();
         }
     }
+
+    protected abstract void CallbackEvent();
 }

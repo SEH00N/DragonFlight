@@ -14,8 +14,11 @@ public class OptionPanelController : ToggleInputCallback
         if(DEFINE.GameOver || blockPanel.activeSelf)
             return;
 
-        base.Update();
+        base.Update();        
+    }
 
+    protected override void CallbackEvent()
+    {
         DEFINE.Player.PlayerMovement.rotationable = OnA;
         DEFINE.Dragon.DragonMovement.rotationable = OnA; 
     }
