@@ -96,6 +96,7 @@ public class SniperRifle : Weapon
     {
         //빵야
         //파티클
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Fire, "");
         fireParticle.Stop();
         fireParticle.Play();
 

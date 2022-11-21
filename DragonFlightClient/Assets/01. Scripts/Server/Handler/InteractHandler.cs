@@ -53,6 +53,15 @@ public class InteractHandler : Handler
         handlers[(int)InteractEvents.BoolAnim] = BoolAnimEvent;
         handlers[(int)InteractEvents.TriggerAnim] = TriggerAnimEvent;
         handlers[(int)InteractEvents.Ride] = RideEvent;
+        handlers[(int)InteractEvents.Fire] = FireEvent;
+    }
+
+    private void FireEvent(Packet packet)
+    {
+        if(!DEFINE.Ready2Start)
+            return;
+
+        OtherPlayer.DoFireEffect();
     }
 
     private void TriggerAnimEvent(Packet packet)

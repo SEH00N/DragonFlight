@@ -10,6 +10,8 @@ public class OtherPlayer : PoolableMono, IDamageable
 
     public Animator animator = null;
 
+    [SerializeField] ParticleSystem fireParticle = null;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -20,6 +22,12 @@ public class OtherPlayer : PoolableMono, IDamageable
         Debug.Log("아얏 시 발");
         DamagePacket damagePacket = new DamagePacket("Player", damage);
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Damage, damagePacket);
+    }
+
+    public void DoFireEffect()
+    {
+        fireParticle.Stop();
+        fireParticle.Play();
     }
 
     public void DoMove(Vector3 position, Vector3 rotation, float animValue)
