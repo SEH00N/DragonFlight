@@ -24,8 +24,9 @@ public class SniperRifle : Weapon
     [SerializeField] float reboundAmount = 10f;
     [SerializeField] float reboundIncFactor = 5f;
 
-    [Header("Particle")]
+    [Header("Effect")]
     [SerializeField] ParticleSystem fireParticle;
+    [SerializeField] Light fireLight;
 
     private float defaultFov = 60f;
 
