@@ -21,7 +21,11 @@ public class RoomHandler : Handler
 
     private void OtherQuitEvent(Packet packet)
     {
-        DEFINE.MainCanvas.Find("OtherInfo").GetComponent<PlayerInfo>().Quit();
+        GameObject otherInfoObject = DEFINE.MainCanvas.Find("OtherInfo").gameObject;
+        if(otherInfoObject == null)
+            return;
+            
+        otherInfoObject.GetComponent<PlayerInfo>().Quit();
 
         TextPrefab txt = PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
         txt.Init("상대방이 퇴장하였습니다.", DEFINE.StaticCanvas);

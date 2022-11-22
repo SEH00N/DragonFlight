@@ -26,7 +26,6 @@ public class SniperRifle : Weapon
 
     [Header("Effect")]
     [SerializeField] ParticleSystem fireParticle;
-    [SerializeField] Light fireLight;
 
     private float defaultFov = 60f;
 
