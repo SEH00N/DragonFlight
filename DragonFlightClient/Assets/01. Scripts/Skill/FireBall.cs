@@ -54,7 +54,9 @@ public class FireBall : PoolableMono
                 if (!ids.Contains(id))
                 {
                     ids.Add(id);
-                    Debug.LogWarning(enemy.transform.root.name);
+
+                    ParticlePrefab effect = PoolManager.Instance.Pop("HitEffect") as ParticlePrefab;
+                    effect.Init(enemy.transform.position);
                 }
 
         if (ids.Count <= 0)

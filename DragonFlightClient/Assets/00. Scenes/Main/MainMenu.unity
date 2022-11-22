@@ -11089,7 +11089,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 388205247}
-  - component: {fileID: 388205248}
+  - component: {fileID: 388205249}
   m_Layer: 5
   m_Name: OptionPanelMaster
   m_TagString: Untagged
@@ -11118,7 +11118,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &388205248
+--- !u!114 &388205249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11127,9 +11127,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 388205246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 224f6addf471b7c43b2c5b0569a5d15c, type: 3}
+  m_Script: {fileID: 11500000, guid: c9ef502e5cf8c8544a76b6e1ea200be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputKey: 27
+  ACallbackAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1288815635}
+        m_TargetAssemblyTypeName: PopEvent, Assembly-CSharp
+        m_MethodName: DoPopUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  BCallbackAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1288815635}
+        m_TargetAssemblyTypeName: PopEvent, Assembly-CSharp
+        m_MethodName: DoPopDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnA: 1
 --- !u!1 &392228821
 GameObject:
   m_ObjectHideFlags: 0
@@ -26583,6 +26615,7 @@ MonoBehaviour:
   - {fileID: 3076105360081512005, guid: e4b64e9c1de8e2344986636bc8599d58, type: 3}
   - {fileID: 7198622148362642622, guid: e1a2fb78622b9f74da915598e5689a9a, type: 3}
   - {fileID: 8853778659145954107, guid: 9100c48cf3db65e4e9cc300c9eb3eb50, type: 3}
+  - {fileID: -9116986340868972306, guid: b9b1b1bf0d9a59a459f234337a2a02f5, type: 3}
 --- !u!4 &1288660641
 Transform:
   m_ObjectHideFlags: 0
@@ -26828,6 +26861,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PopEvent, Assembly-CSharp
         m_MethodName: DoPopUp
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 388205249}
+        m_TargetAssemblyTypeName: BasicToggleInputCallback, Assembly-CSharp
+        m_MethodName: ActiveToggle
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

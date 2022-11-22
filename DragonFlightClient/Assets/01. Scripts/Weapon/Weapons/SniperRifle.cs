@@ -51,7 +51,11 @@ public class SniperRifle : Weapon
     {
         if(TryTargeting(out Collider enemy))
             if(enemy.transform.root.TryGetComponent<IDamageable>(out IDamageable id))
+            {
+                ParticlePrefab effect = PoolManager.Instance.Pop("HitEffect") as ParticlePrefab;
+                effect.Init(enemy.transform.position);
                 id.OnDamage(damage);
+            }
 
         FireEffect();
     }

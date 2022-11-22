@@ -21,8 +21,14 @@ public class BiteSkill : Skill
 
         foreach(Collider enemy in enemies)
             if(enemy.transform.root.TryGetComponent<IDamageable>(out IDamageable id))
+            {
                 if(!ids.Contains(id))
+                {
+                    ParticlePrefab effect = PoolManager.Instance.Pop("HitEffect") as ParticlePrefab;
+                    effect.Init(enemy.transform.position);
                     ids.Add(id);
+                }
+            }
 
         if(ids.Count <= 0)
             return;
