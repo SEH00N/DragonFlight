@@ -3218,7 +3218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayPosition: {fileID: 6693622882069318517}
-  rayDistance: 10
+  rayDistance: 3
   cameraOriginRotation: {x: 10, y: 0, z: 0}
   rideNoticeText: '[E] : RIDE'
 --- !u!114 &3952694235486512184

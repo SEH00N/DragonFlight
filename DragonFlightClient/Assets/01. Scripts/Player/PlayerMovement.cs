@@ -101,11 +101,10 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(rotate);
 
         Vector3 headRotate = cameraFollow.localEulerAngles;
+        headRotate.x = headRotate.x >= 180f ? headRotate.x - 360f : headRotate.x;
         headRotate.x -= xFactor;
-        if(headRotate.x >= 90f)
-            headRotate.x -= 360f;
 
-        headRotate.x = Mathf.Clamp(headRotate.x, -85f, 85f);
+        headRotate.x = Mathf.Clamp(headRotate.x, -85f, 60f);
         cameraFollow.localRotation = Quaternion.Euler(headRotate);
     }
 
