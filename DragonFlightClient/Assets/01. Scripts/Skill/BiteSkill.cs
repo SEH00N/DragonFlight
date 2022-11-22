@@ -15,6 +15,8 @@ public class BiteSkill : Skill
     public override void ActiveSkill()
     {
         dragon.Animator.SetTrigger("OnBite");
+        TriggerAnimPacket triggerAnimPacket = new TriggerAnimPacket("Dragon", "OnBite");
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
 
         Collider[] enemies = Physics.OverlapBox(biteRange.transform.position, biteRange.bounds.size / 2f, biteRange.transform.rotation, DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer);
         List<IDamageable> ids = new List<IDamageable>();

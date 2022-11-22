@@ -36,9 +36,12 @@ public class SniperRifle : Weapon
     private CinemachineVirtualCamera cmMainCam = null;
     private CinemachineBasicMultiChannelPerlin perlin = null;
 
+    private GameObject blockPanel = null;
+
     private void Awake()
     {
         zoomPanel = DEFINE.MainCanvas.Find("ZoomPanel").gameObject;
+        blockPanel = transform.parent.Find("BlockPanel").gameObject;
 
         cmMainCam = DEFINE.CmMainCam;
         perlin = cmMainCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -61,6 +64,9 @@ public class SniperRifle : Weapon
 
     private void Update()
     {
+        if(blockPanel.activeSelf)
+            return;
+
         if(Input.GetKeyDown(zoomKey))
             ZoomIn();
         if(Input.GetKeyUp(zoomKey))
