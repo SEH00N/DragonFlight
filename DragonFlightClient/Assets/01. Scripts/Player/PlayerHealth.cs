@@ -6,11 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] List<Renderer> renderers = new List<Renderer>();
     [SerializeField] float maxHp = 50f;
     public float MaxHp => maxHp;
-
-    [SerializeField] float dissolveTime = 1f;
 
     private float currentHp = 0f;
     public float CurrentHp { 
@@ -30,8 +27,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         player = GetComponent<Player>();
         hpBar = DEFINE.MainCanvas.Find("HP/PlayerHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
         CurrentHp = maxHp;
-
-        StartCoroutine(DissolveCoroutine());
     }
 
     public void OnDamage(float damage)
@@ -57,23 +52,5 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
 
         Client.Instance.SendMessages((int)Types.GameManagerEvent, (int)GameManagerEvents.Finish, "");
-
-        StartCoroutine(DissolveCoroutine());
-    }
-
-    private IEnumerator DissolveCoroutine()
-    {
-        float timer = 0f;
-
-        while(timer < dissolveTime)
-        {
-            foreach (Renderer r in renderers)
-                r.material.SetFloat("_Amount", Mathf.Lerp(-1, 0.7f, timer / dissolveTime));
-
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        yield return null;
     }
 }

@@ -111,7 +111,7 @@ public class RideDragon : MonoBehaviour
         HPBarController(false);
 
         playerMovement.Active = true;
-        currentDragon.DragonMovement.Active = false;
+        DEFINE.Dragon.DragonMovement.Active = false;
 
         transform.SetParent(null);
         transform.localRotation = Quaternion.Euler(Vector3.zero);

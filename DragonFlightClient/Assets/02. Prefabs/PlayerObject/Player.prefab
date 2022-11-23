@@ -3280,6 +3280,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06853ed2e4b25914696d892c8fee30e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 7848794554220374043}
+  - {fileID: 7587122144656121554}
+  - {fileID: 6264008242135790634}
+  - {fileID: 2531568057067291429}
+  - {fileID: 8846118772893078678}
+  - {fileID: 8016737087406782598}
+  - {fileID: 2751604337653453859}
+  - {fileID: 1791211221852166911}
+  - {fileID: 2375882480282365499}
+  - {fileID: 2356240786254183529}
+  - {fileID: 3679368927714743446}
+  - {fileID: 5486502709662107392}
+  - {fileID: 5283281455595409422}
+  - {fileID: 4382936213045303447}
+  - {fileID: 8570089485673440319}
+  dissolveTime: 3
 --- !u!95 &7198622148362642610
 Animator:
   serializedVersion: 4
@@ -4267,7 +4284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6693622882504194865}
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0.0000015795231, y: 0.001737833, z: -0.009858131}
+  m_LocalPosition: {x: -0.00000032782555, y: 0.0017359257, z: -0.009850502}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6481,3 +6498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628387d417a409941ae4d1663900339f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &7848794554220374043 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7166348099204189078, guid: fc3ab43ac0ac3214697d7c6e7bbcb56f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1125757723603886989}
+  m_PrefabAsset: {fileID: 0}

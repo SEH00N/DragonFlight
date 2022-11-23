@@ -9,6 +9,7 @@ handler[Enums.InteractEvents.BoolAnim] = (socket, data) => broadCast(socket, dat
 handler[Enums.InteractEvents.TriggerAnim] = (socket, data) => broadCast(socket, data, false);
 handler[Enums.InteractEvents.Ride] = (socket, data) => broadCast(socket, data, false);
 handler[Enums.InteractEvents.Fire] = (socket, data) => broadCast(socket, data, false);
+handler[Enums.InteractEvents.DragonDie] = (socket, data) => broadCast(socket, data, false);
 
 const broadCast = (socket, data, toAll = false) => {
     global.rooms[socket.roomId].players.forEach(soc => {

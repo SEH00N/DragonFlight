@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,5 +69,6 @@ public class DragonHealth : MonoBehaviour, IDamageable
 
         //dissolve 해야됨
         //드래곤 죽었을 때 서버에 보내기 (상대방 입장에서 디졸브)
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonDie, "");
     }
 }

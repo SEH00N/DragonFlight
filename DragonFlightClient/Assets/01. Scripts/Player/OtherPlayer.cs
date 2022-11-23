@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OtherPlayer : PoolableMono, IDamageable
@@ -10,10 +12,8 @@ public class OtherPlayer : PoolableMono, IDamageable
 
     [SerializeField] ParticleSystem fireParticle = null;
 
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
+    [SerializeField] List<Renderer> renderers = new List<Renderer>();
+    [SerializeField] float dissolveTime = 1f;
 
     public void OnDamage(float damage)
     {
@@ -49,8 +49,34 @@ public class OtherPlayer : PoolableMono, IDamageable
         }
     }
 
+    public void DoDissolve()
+    {
+        StartCoroutine(DissolveCoroutine());
+    }
+
+    private IEnumerator DissolveCoroutine()
+    {
+        float timer = 0f;
+
+        while(timer < dissolveTime)
+        {
+            foreach (Renderer r in renderers)
+                r.material.SetFloat("_Amount", Mathf.Lerp(-1, 0.7f, timer / dissolveTime));
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return null;
+
+        PoolManager.Instance.Push(this);
+    }
+
     public override void Reset()
     {
-
+        foreach (Renderer r in renderers)
+            r.material.SetFloat("_Amount", -1);
+        if(animator == null)
+            animator = GetComponent<Animator>();
     }
 }

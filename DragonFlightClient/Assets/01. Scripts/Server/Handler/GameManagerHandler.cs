@@ -27,6 +27,10 @@ public class GameManagerHandler : Handler
             DEFINE.Dragon.OnFinish();
         if(DEFINE.Player != null)
             DEFINE.Player.OnFinish();
+        if(DEFINE.OtherDragon != null)
+            DEFINE.OtherDragon.DoDissolve();
+        if(DEFINE.OtherPlayer != null)
+            DEFINE.OtherPlayer.DoDissolve();
 
         DEFINE.Ready2Start = false;
         DEFINE.GameOver = true;

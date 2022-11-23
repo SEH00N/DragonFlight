@@ -37,11 +37,19 @@ public class SniperRifle : Weapon
     private CinemachineBasicMultiChannelPerlin perlin = null;
 
     private GameObject blockPanel = null;
+    public GameObject BlockPanel {
+        get {
+            if(blockPanel == null)
+                blockPanel = DEFINE.MainCanvas.Find("BlockPanel").gameObject;
+
+            return blockPanel;
+        }
+    }
 
     private void Awake()
     {
         zoomPanel = DEFINE.MainCanvas.Find("ZoomPanel").gameObject;
-        blockPanel = transform.parent.Find("BlockPanel").gameObject;
+        blockPanel = DEFINE.MainCanvas.Find("BlockPanel").gameObject;
 
         cmMainCam = DEFINE.CmMainCam;
         perlin = cmMainCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -64,7 +72,7 @@ public class SniperRifle : Weapon
 
     private void Update()
     {
-        if(blockPanel.activeSelf)
+        if(BlockPanel.activeSelf)
             return;
 
         if(Input.GetKeyDown(zoomKey))

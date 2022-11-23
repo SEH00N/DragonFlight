@@ -1,5 +1,8 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Linq.Expressions;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class OtherDragon : PoolableMono, IDamageable
 {
@@ -11,10 +14,8 @@ public class OtherDragon : PoolableMono, IDamageable
 
     public Animator animator = null;
     
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
+    [SerializeField] List<Renderer> renderers = new List<Renderer>();
+    [SerializeField] float dissolveTime = 1f;
 
     public void OnDamage(float damage)
     {
@@ -29,8 +30,35 @@ public class OtherDragon : PoolableMono, IDamageable
         animator.SetFloat("Move", animValue);
     }
 
+    public void DoDissolve()
+    {
+        StartCoroutine(DissolveCoroutine());
+    }
+
+    private IEnumerator DissolveCoroutine()
+    {
+        float timer = 0f;
+
+        while(timer < dissolveTime)
+        {
+            foreach (Renderer r in renderers)
+                r.material.SetFloat("_Amount", Mathf.Lerp(-1, 0.7f, timer / dissolveTime));
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return null;
+
+        PoolManager.Instance.Push(this);
+    }
+
     public override void Reset()
     {
+        foreach (Renderer r in renderers)
+            r.material.SetFloat("_Amount", -1);
         
+        if(animator == null)
+            animator = GetComponent<Animator>();
     }
 }

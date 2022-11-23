@@ -1039,8 +1039,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f9232636807c348b7fb34fedebc1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCoolTime: 3
   activeKey: 324
+  skillCoolTime: 3
+  skillCoolTimer: 0
   firePosition: {fileID: 3076105358239686940}
   xRotation: {fileID: 3076105358332622288}
 --- !u!1 &3076105358684600484
@@ -4134,6 +4135,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRidePosition: {fileID: 3076105358894809180}
   animator: {fileID: 0}
+  renderers:
+  - {fileID: 3076105359307188085}
+  dissolveTime: 3
 --- !u!143 &3076105360081512014
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4705,8 +4709,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e21d90f462d6ed84287da96697a3abcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCoolTime: 2
   activeKey: 323
+  skillCoolTime: 2
+  skillCoolTimer: 0
   biteRange: {fileID: 3076105358356286602}
   damage: 10
 --- !u!1 &3076105360302668957

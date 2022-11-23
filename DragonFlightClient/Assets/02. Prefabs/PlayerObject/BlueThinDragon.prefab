@@ -3191,7 +3191,6 @@ MonoBehaviour:
   walkSpeed: 15
   runSpeed: 25
   flyingSpeed: 30
-  rotationFactor: 4
   speedIncreaseFactor: 3
   jumpFactor: 2
   rayDistance: 0.3
@@ -3199,6 +3198,7 @@ MonoBehaviour:
   playerRidePosition: {fileID: 196075101257175609}
   cameraFollow: {fileID: 196075103093665188}
   onDash: 0
+  rotationable: 1
 --- !u!114 &3888787317201255216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3225,6 +3225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8860ea5a990464084a73d6f7dfff21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 3888787317187749646}
+  dissolveTime: 3
   targetable: 1
 --- !u!143 &196075101151441283
 CharacterController:

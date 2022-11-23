@@ -36,6 +36,7 @@ exports.InteractEvents = {
     Ride : 5,
     TriggerAnim : 6,
     Fire : 7,
+    DragonDie : 8,
 };
 
 exports.ErrorEvents = {

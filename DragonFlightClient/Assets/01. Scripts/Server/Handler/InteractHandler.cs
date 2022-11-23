@@ -54,6 +54,12 @@ public class InteractHandler : Handler
         handlers[(int)InteractEvents.TriggerAnim] = TriggerAnimEvent;
         handlers[(int)InteractEvents.Ride] = RideEvent;
         handlers[(int)InteractEvents.Fire] = FireEvent;
+        handlers[(int)InteractEvents.DragonDie] = DragonDieEvent;
+    }
+
+    private void DragonDieEvent(Packet packet)
+    {
+        otherDragon.DoDissolve();
     }
 
     private void FireEvent(Packet packet)

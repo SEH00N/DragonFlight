@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : PoolableMono
@@ -41,13 +43,14 @@ public class Player : PoolableMono
     
     #endregion
 
-    private void Start()
-    {
-        Reset();
-    }
+    [SerializeField] List<Renderer> renderers = new List<Renderer>();
+    [SerializeField] float dissolveTime = 1f;
 
     public override void Reset()
     {
+        foreach (Renderer r in renderers)
+            r.material.SetFloat("_Amount", -1);
+
         PlayerHealth.CurrentHp = PlayerHealth.MaxHp;
 
         PlayerMovement.StartSendData();
@@ -59,6 +62,24 @@ public class Player : PoolableMono
         playerMovement.StopSending();
 
         WeaponHandler.Active = false;
+        StartCoroutine(DissolveCoroutine());
         //디졸브 시작
+    }
+
+    private IEnumerator DissolveCoroutine()
+    {
+        float timer = 0f;
+
+        while(timer < dissolveTime)
+        {
+            foreach (Renderer r in renderers)
+                r.material.SetFloat("_Amount", Mathf.Lerp(-1, 0.7f, timer / dissolveTime));
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return null;
+        PoolManager.Instance.Push(this);
     }
 }
