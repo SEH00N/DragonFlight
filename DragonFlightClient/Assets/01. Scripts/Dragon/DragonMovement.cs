@@ -50,13 +50,16 @@ public class DragonMovement : MonoBehaviour
     private Animator anim = null;
     private CharacterController characterController = null;
 
+    private Dragon dragon = null;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        dragon = GetComponent<Dragon>();
     }
 
-    private void Start()
+    public void Init()
     {
         currentSpeed = walkSpeed;
     }
@@ -183,6 +186,27 @@ public class DragonMovement : MonoBehaviour
         if (onGround) return true;
 
         return Physics.Raycast(characterController.bounds.center, Vector3.down, rayDistance, DEFINE.GroundLayer);
+    }
+
+    public void OnDieFallingEvent(float holdingTime) => StartCoroutine(FallingCoroutine(holdingTime));
+
+    private IEnumerator FallingCoroutine(float holdingTime)
+    {
+        float timer = 0f;
+
+        while(timer <= holdingTime)
+        {
+            // if(!onGround)
+            //     transform.position -= Vector3.down * DEFINE.GravityScale * Time.deltaTime;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        //dissolve 해야됨
+        //드래곤 죽었을 때 서버에 보내기 (상대방 입장에서 디졸브)
+        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonDie, "");
+        dragon.DoDissolve();
     }
 
     public void StartSendData() => StartCoroutine(SendData());

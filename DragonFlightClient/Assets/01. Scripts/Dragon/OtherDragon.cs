@@ -19,6 +19,8 @@ public class OtherDragon : PoolableMono, IDamageable
 
     public void OnDamage(float damage)
     {
+        animator.SetTrigger("OnDamage");
+        
         DamagePacket damagePacket = new DamagePacket("Dragon", damage);
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Damage, damagePacket);
     }

@@ -40,6 +40,15 @@ public class Player : PoolableMono
             return animator;
         }
     }
+
+    private RideDragon rideDragon = null;
+    public RideDragon RideDragon {
+        get {
+            if(rideDragon == null)
+                rideDragon = GetComponent<RideDragon>();
+            return rideDragon;
+        }
+    }
     
     #endregion
 
@@ -51,9 +60,10 @@ public class Player : PoolableMono
         foreach (Renderer r in renderers)
             r.material.SetFloat("_Amount", -1);
 
-        PlayerHealth.CurrentHp = PlayerHealth.MaxHp;
-
         PlayerMovement.StartSendData();
+
+        RideDragon.Init();
+        PlayerHealth.Init();
     }
 
     public void OnFinish()

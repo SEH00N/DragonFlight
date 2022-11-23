@@ -25,8 +25,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Awake()
     {
         player = GetComponent<Player>();
+    }
+
+    public void Init()
+    {
+        CurrentHp = MaxHp;
         hpBar = DEFINE.MainCanvas.Find("HP/PlayerHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
-        CurrentHp = maxHp;
     }
 
     public void OnDamage(float damage)

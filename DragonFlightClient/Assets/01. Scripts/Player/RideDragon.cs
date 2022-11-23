@@ -28,6 +28,10 @@ public class RideDragon : MonoBehaviour
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    public void Init()
+    {
         playerHPObj = DEFINE.MainCanvas.Find("HP/PlayerHPBar").gameObject;//.transform.GetChild(0).gameObject;
         dragonHPObj = DEFINE.MainCanvas.Find("HP/DragonHPBar").gameObject;//.transform.GetChild(1).gameObject;
         cmMainCam = DEFINE.CmMainCam;

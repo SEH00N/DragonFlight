@@ -19,13 +19,16 @@ public class DragonHealth : MonoBehaviour, IDamageable
                 hpBar.fillAmount = currentHp / maxHp;
         }
     }
-
     private Dragon dragon = null;
     private Image hpBar = null;
 
     private void Awake()
     {
         dragon = GetComponent<Dragon>();
+    }
+
+    public void Init()
+    {
         hpBar = DEFINE.MainCanvas.Find("HP/DragonHPBar").GetChild(0).GetChild(0).GetComponent<Image>();
     }
 
@@ -53,22 +56,6 @@ public class DragonHealth : MonoBehaviour, IDamageable
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
         dragon.Animator.SetTrigger("OnDie");
 
-        StartCoroutine(FallingDown());
-    }
-
-    private IEnumerator FallingDown()
-    {
-        float timer = 0f;
-
-        while(timer <= holdingTime)
-        {
-            transform.position -= Vector3.down * DEFINE.GravityScale * Time.deltaTime;
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        //dissolve 해야됨
-        //드래곤 죽었을 때 서버에 보내기 (상대방 입장에서 디졸브)
-        Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.DragonDie, "");
+        dragon.DragonMovement.OnDieFallingEvent(holdingTime);
     }
 }

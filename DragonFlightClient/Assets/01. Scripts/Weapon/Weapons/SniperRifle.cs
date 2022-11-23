@@ -30,6 +30,15 @@ public class SniperRifle : Weapon
     private float defaultFov = 60f;
 
     private GameObject zoomPanel = null;
+    public GameObject ZoomPanel {
+        get {
+            if(zoomPanel == null)
+                zoomPanel = DEFINE.MainCanvas.Find("ZoomPanel").gameObject;
+
+            return zoomPanel;
+        }
+    }
+
     private Transform defaultCamFollow;
     private Transform camParent;
 
@@ -62,8 +71,9 @@ public class SniperRifle : Weapon
         if(TryTargeting(out Collider enemy))
             if(enemy.transform.root.TryGetComponent<IDamageable>(out IDamageable id))
             {
-                ParticlePrefab effect = PoolManager.Instance.Pop("HitEffect") as ParticlePrefab;
-                effect.Init(enemy.transform.position);
+                SpawnPacket spawnPacket = new SpawnPacket("HitEffect", enemy.transform.position, Vector3.zero);
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Spawn, spawnPacket);
+                
                 id.OnDamage(damage);
             }
 
@@ -83,7 +93,7 @@ public class SniperRifle : Weapon
 
     private void ZoomIn()
     {
-        zoomPanel.SetActive(true);
+        ZoomPanel.SetActive(true);
         cmMainCam.m_Lens.FieldOfView = zoomFov;
         
         defaultCamFollow = cmMainCam.m_Follow;
@@ -92,7 +102,7 @@ public class SniperRifle : Weapon
 
     private void ZoomOut()
     {
-        zoomPanel.SetActive(false);
+        ZoomPanel.SetActive(false);
         cmMainCam.m_Lens.FieldOfView = defaultFov;
         
         if(cmMainCam.m_Follow == zoomCamFollow)

@@ -62,6 +62,10 @@ public class GameManagerHandler : Handler
 
     private void ReadyEvent(Packet packet)
     {
-        DEFINE.MainCanvas.Find("OtherInfo/ReadyButton/ReadyText").GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY!!" : ""; 
+        Transform readyTextObject = DEFINE.MainCanvas.Find("OtherInfo/ReadyButton/ReadyText");
+        if(readyTextObject == null)
+            return;
+
+        readyTextObject.GetComponent<TextMeshProUGUI>().text = packet.value == "true" ? "READY!!" : ""; 
     }
 }

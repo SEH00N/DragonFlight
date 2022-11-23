@@ -64,14 +64,23 @@ public class Dragon : PoolableMono
             r.material.SetFloat("_Amount", -1);
 
         DragonHealth.CurrentHp = DragonHealth.MaxHp;
-
         DragonMovement.StartSendData();
+
+        DragonHealth.Init();
+        DragonMovement.Init();
     }
 
     public void OnFinish()
     {
         DragonMovement.Active = false;
         DragonMovement.StopSending();
+
+        if(gameObject.activeSelf)
+            DoDissolve();
+    }
+
+    public void DoDissolve()
+    {
         StartCoroutine(DissolveCoroutine());
     }
 
