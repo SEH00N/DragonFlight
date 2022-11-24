@@ -39,11 +39,16 @@ public class SniperRifle : Weapon
         }
     }
 
+    private Player player = null;
+
     private Transform defaultCamFollow;
     private Transform camParent;
+    private Vector3 hitPos;
 
     private CinemachineVirtualCamera cmMainCam = null;
     private CinemachineBasicMultiChannelPerlin perlin = null;
+
+    private LineRenderer lineRenderer = null;
 
     private GameObject blockPanel = null;
     public GameObject BlockPanel {
@@ -64,25 +69,26 @@ public class SniperRifle : Weapon
         perlin = cmMainCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         camParent = cmMainCam.transform.parent;
+        lineRenderer = GetComponent<LineRenderer>();
+    }
+
+    private void Start()
+    {
+        player = DEFINE.Player;
     }
 
     public override void ActiveWeapon()
     {
         if(TryTargeting(out Collider enemy))
             if(enemy.transform.root.TryGetComponent<IDamageable>(out IDamageable id))
-            {
-                SpawnPacket spawnPacket = new SpawnPacket("HitEffect", enemy.transform.position, Vector3.zero);
-                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Spawn, spawnPacket);
-                
                 id.OnDamage(damage);
-            }
 
         FireEffect();
     }
 
     private void Update()
     {
-        if(BlockPanel.activeSelf)
+        if(BlockPanel.activeSelf || !player.WeaponHandler.Active)
             return;
 
         if(Input.GetKeyDown(zoomKey))
@@ -115,6 +121,14 @@ public class SniperRifle : Weapon
         bool returnValue = Physics.Raycast(cmMainCam.transform.position, cmMainCam.transform.forward, out RaycastHit hit, fireDistance, DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer);
         // Debug.DrawRay(cmMainCam.transform.position, cmMainCam.transform.forward * fireDistance, Color.red, 1f);
         other = returnValue ? hit.collider : null;
+        hitPos = returnValue ? hit.point : cmMainCam.transform.forward * fireDistance + fireParticle.transform.position;
+
+        if(returnValue)
+        {
+            SpawnPacket spawnPacket = new SpawnPacket("HitEffect", hit.point, Vector3.zero);
+            Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Spawn, spawnPacket);
+        }
+        
 
         return returnValue;
     }
@@ -128,11 +142,31 @@ public class SniperRifle : Weapon
         fireParticle.Stop();
         fireParticle.Play();
 
+        StartCoroutine(LineCoroutine());
+
         //피융
         StartCoroutine(ReboundCoroutine());        
 
         //shake cam
         StartCoroutine(ShakeCamCoroutine());
+    }
+
+    private IEnumerator LineCoroutine()
+    {
+        float timer = 0f;
+
+        lineRenderer.SetPosition(0, fireParticle.transform.position);
+        lineRenderer.SetPosition(1, hitPos);
+        lineRenderer.enabled = true;
+
+        while(timer <= 0.1f)
+        {
+            lineRenderer.SetPosition(0, fireParticle.transform.position);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        lineRenderer.enabled = false;
     }
 
     private IEnumerator ReboundCoroutine()

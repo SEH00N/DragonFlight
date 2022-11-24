@@ -15,6 +15,7 @@ public class RideDragon : MonoBehaviour
     [SerializeField] string rideNoticeText = "[E] : RIDE";
 
     private PlayerMovement playerMovement = null;
+    private WeaponHandler weaponHandler = null;
     private Dragon currentDragon = null;
 
     private TextPrefab currentRideText = null;
@@ -28,6 +29,7 @@ public class RideDragon : MonoBehaviour
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        weaponHandler = GetComponent<WeaponHandler>();
     }
 
     public void Init()
@@ -97,6 +99,7 @@ public class RideDragon : MonoBehaviour
         HPBarController(true);
 
         playerMovement.Active = false;
+        weaponHandler.Active = false;
         currentDragon.DragonMovement.Active = true;
 
         transform.position = currentDragon.DragonMovement.playerRidePosition.position;
@@ -115,6 +118,7 @@ public class RideDragon : MonoBehaviour
         HPBarController(false);
 
         playerMovement.Active = true;
+        weaponHandler.Active = true;
         DEFINE.Dragon.DragonMovement.Active = false;
 
         transform.SetParent(null);
