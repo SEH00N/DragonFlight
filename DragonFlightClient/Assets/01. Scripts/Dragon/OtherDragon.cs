@@ -29,7 +29,7 @@ public class OtherDragon : PoolableMono, IDamageable
     {
         transform.position = position;
         transform.rotation = Quaternion.Euler(rotation);
-        animator.SetFloat("Move", animValue);
+        animator.SetFloat("Move", animValue * 10f);
     }
 
     public void DoDissolve()

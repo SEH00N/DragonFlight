@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// #include <devSeok>
+// #define devSeok "art"
 public class OtherPlayer : PoolableMono, IDamageable
 {
     public float MaxHp => throw new System.NotImplementedException();
