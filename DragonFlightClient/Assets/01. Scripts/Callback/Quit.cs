@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class Quit : MonoBehaviour
 {
-    public void DoQuit() => Application.Quit();
+    public void DoQuit(float delay) => StartCoroutine(QuitCoroutine(delay));
+
+    private IEnumerator QuitCoroutine(float delay) 
+    {
+        yield return new WaitForSeconds(delay);
+        Application.Quit();
+    }
 }

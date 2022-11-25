@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +16,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> clips = new List<AudioClip>();
     private Dictionary<string, AudioClip> clipPool = new Dictionary<string, AudioClip>();
 
-    private AudioSource bgmPlayer = null;
+    [SerializeField] AudioSource bgmPlayer = null;
+    [SerializeField] AudioSource systemPlayer = null;
 
     private void Awake()
     {
@@ -29,6 +29,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(string clipName) => PlayAudio(clipName, bgmPlayer);
     public void PauseBGM() => bgmPlayer.Pause();
+    public void PlaySystem(string clipName) => PlayAudio(clipName, systemPlayer);
+    public void PauseSystem() => systemPlayer.Pause();
 
     public void PlayAudio(string clipName, AudioSource player)
     {
