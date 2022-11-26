@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        saveFolderPath = Path.Combine(Application.dataPath, saveFolderPath);
+        saveFolderPath = Path.Combine(Application.persistentDataPath, saveFolderPath);
         
         if(instance != null)
             return;
