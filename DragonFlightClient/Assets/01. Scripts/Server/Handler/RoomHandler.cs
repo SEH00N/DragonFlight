@@ -21,7 +21,7 @@ public class RoomHandler : Handler
 
     private void OtherQuitEvent(Packet packet)
     {
-        GameObject otherInfoObject = DEFINE.MainCanvas.Find("OtherInfo").gameObject;
+        Transform otherInfoObject = DEFINE.MainCanvas.Find("OtherInfo");
         if(otherInfoObject == null)
             return;
             

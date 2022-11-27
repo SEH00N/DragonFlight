@@ -25,9 +25,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Factor")]
     [SerializeField] float speedIncreaseFactor = 5f;
+    [SerializeField] float rayDistance = 3f;
     
     [Header("Transform")]
     public Transform cameraFollow = null;
+
+    [Header("SoundPlayer")]
+    [SerializeField] AudioSource walkSoundPlayer = null;
 
     private CharacterController characterController = null;
 
@@ -40,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentGravity = 0f;
 
     public bool rotationable = true;
+    private bool onWalksoundPlaying = false;
 
     private void Awake()
     {
@@ -88,6 +93,17 @@ public class PlayerMovement : MonoBehaviour
         currentGravity += DEFINE.GravityScale * Time.deltaTime;
         dir.y += currentGravity;
 
+        if((dir.x != 0 || dir.z != 0) && IsGround()) {
+            if(!onWalksoundPlaying)
+            {
+                onWalksoundPlaying = true;
+                AudioManager.Instance.PlayAudio("PlayerWalk", walkSoundPlayer);
+            }
+        } else {
+            onWalksoundPlaying = false;
+            walkSoundPlayer.Pause();
+        }
+
         characterController.Move(dir * currentSpeed * Time.deltaTime);
     }
 
@@ -107,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
         headRotate.x = Mathf.Clamp(headRotate.x, -85f, 60f);
         cameraFollow.localRotation = Quaternion.Euler(headRotate);
     }
+
+    private bool IsGround() => Physics.Raycast(walkSoundPlayer.transform.position, Vector3.down, rayDistance, DEFINE.GroundLayer);
 
     public void StartSendData() => StartCoroutine(SendData());
     public void StopSending() => StopAllCoroutines();

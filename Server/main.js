@@ -5,6 +5,7 @@ const Enums = require('./Enums/Enums.js');
 const Packet = require('./Classes/Packet.js').Packet;
 
 const handlers = []; //handler list
+//172.31.2.239
 
 handlers[Enums.Types.Room] = require('./Handlers/RoomHandler.js').handler;
 handlers[Enums.Types.GameManager] = require('./Handlers/GameManagerHandler.js').handler;

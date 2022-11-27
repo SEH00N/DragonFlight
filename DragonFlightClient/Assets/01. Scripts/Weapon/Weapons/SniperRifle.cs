@@ -26,6 +26,8 @@ public class SniperRifle : Weapon
 
     [Header("Effect")]
     [SerializeField] ParticleSystem fireParticle;
+    [SerializeField] AudioSource fireSoundPlayer;
+    [SerializeField] AudioSource zoomSoundPlayer;
 
     private float defaultFov = 60f;
 
@@ -99,6 +101,8 @@ public class SniperRifle : Weapon
 
     private void ZoomIn()
     {
+        AudioManager.Instance.PlayAudio("Zoom", zoomSoundPlayer);
+
         ZoomPanel.SetActive(true);
         cmMainCam.m_Lens.FieldOfView = zoomFov;
         
@@ -108,6 +112,8 @@ public class SniperRifle : Weapon
 
     private void ZoomOut()
     {
+        AudioManager.Instance.PlayAudio("ZoomOut", zoomSoundPlayer);
+
         ZoomPanel.SetActive(false);
         cmMainCam.m_Lens.FieldOfView = defaultFov;
         
@@ -145,7 +151,8 @@ public class SniperRifle : Weapon
         StartCoroutine(LineCoroutine());
 
         //피융
-        StartCoroutine(ReboundCoroutine());        
+        StartCoroutine(ReboundCoroutine());
+        AudioManager.Instance.PlayAudio("RifleFire", fireSoundPlayer);    
 
         //shake cam
         StartCoroutine(ShakeCamCoroutine());

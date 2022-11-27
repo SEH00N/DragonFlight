@@ -27,6 +27,11 @@ public class AudioManager : MonoBehaviour
             CreateAudioPool(clip);
     }
 
+    private void Start()
+    {
+        PlayBGM("IntroBGM");
+    }
+
     public void PlayBGM(string clipName) => PlayAudio(clipName, bgmPlayer);
     public void PauseBGM() => bgmPlayer.Pause();
     public void PlaySystem(string clipName) => PlayAudio(clipName, systemPlayer);
@@ -34,6 +39,12 @@ public class AudioManager : MonoBehaviour
 
     public void PlayAudio(string clipName, AudioSource player)
     {
+        if(!clipPool.ContainsKey(clipName))
+        {
+            Debug.LogWarning("Current name of auido clip doesnt exist");
+            return;
+        }
+
         player.clip = clipPool[clipName];
 
         player.Play();
@@ -43,7 +54,7 @@ public class AudioManager : MonoBehaviour
     {
         if(clipPool.ContainsKey(clip.name))
         {
-            Debug.LogWarning("Current name of audio clip is already exsit");
+            Debug.LogWarning("Current name of audio clip is already exist");
             return;
         }
 
