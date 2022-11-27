@@ -26969,6 +26969,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3318647ce77143a4ebb57ca7aa26c510, type: 3}
   - {fileID: 8300000, guid: 5a63a9b1391c28e4fbc2d502d0532bdf, type: 3}
   - {fileID: 8300000, guid: f89a25ba243b8494287bb5bc0a16d1a7, type: 3}
+  - {fileID: 8300000, guid: 185f3f87f08f85f4f846b674dfedeade, type: 3}
+  - {fileID: 8300000, guid: a32089342653d034ea2bd913acc7aa0a, type: 3}
   bgmPlayer: {fileID: 201553393}
   systemPlayer: {fileID: 953622933}
 --- !u!1 &1288815631

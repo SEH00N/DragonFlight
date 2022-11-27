@@ -38,6 +38,8 @@ public class RoomHandler : Handler
                 TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
                 txt.Init("퇴장되었습니다.", DEFINE.StaticCanvas);
                 txt.DoNoticeTrail();
+
+                AudioManager.Instance.PlayBGM("IntroBGM");
             }); 
         else {
             TextPrefab txt =  PoolManager.Instance.Pop("NoticeTextPrefab") as TextPrefab;
@@ -61,6 +63,8 @@ public class RoomHandler : Handler
             SceneLoader.Instance.LoadAsync("Lobby", () => {
                 SetUI(false, roomPacket.otherReady, roomPacket.code);
                 Client.Instance.SendMessages((int)Types.RoomEvent, (int)RoomEvents.OtherJoin, "");
+                
+                AudioManager.Instance.PlayBGM("LobbyBGM");
             });
     }
 
@@ -72,6 +76,8 @@ public class RoomHandler : Handler
             SceneLoader.Instance.LoadAsync("Lobby", () => {
                 SetUI(true, false, roomPacket.code);
                 GUIUtility.systemCopyBuffer = roomPacket.code;
+
+                AudioManager.Instance.PlayBGM("LobbyBGM");
             });
     }
 

@@ -57,7 +57,11 @@ public class GameManagerHandler : Handler
     private void StartEvent(Packet packet)
     {
         if(int.TryParse(packet.value, out int order))
-            SceneLoader.Instance.LoadAsync("InGame", () => GameManager.Instance.SetGame(order) );
+            SceneLoader.Instance.LoadAsync("InGame", () => {
+                GameManager.Instance.SetGame(order); 
+
+                AudioManager.Instance.PlayBGM("InGameBGM");
+            });
     }
 
     private void ReadyEvent(Packet packet)
