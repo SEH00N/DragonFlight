@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DragonHealth : MonoBehaviour, IDamageable
 {
+    [SerializeField] AudioSource damageSoundPlayer = null;
     [SerializeField] float holdingTime = 3f;
 
     [SerializeField] float maxHp = 100f;
@@ -44,6 +45,8 @@ public class DragonHealth : MonoBehaviour, IDamageable
             Die();
         else
             dragon.Animator.SetTrigger("OnDamage");
+
+        AudioManager.Instance.PlayAudio("DragonOnDamage", damageSoundPlayer);
     }
 
     private void Die()
@@ -55,6 +58,8 @@ public class DragonHealth : MonoBehaviour, IDamageable
         TriggerAnimPacket triggerAnimPacket = new TriggerAnimPacket("Dragon", "OnDie");
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
         dragon.Animator.SetTrigger("OnDie");
+
+        AudioManager.Instance.PlayAudio("DragonDie", damageSoundPlayer);
 
         dragon.DragonMovement.OnDieFallingEvent(holdingTime);
     }

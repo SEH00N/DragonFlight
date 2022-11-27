@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
         set {
             characterController.enabled = value;
             active = value;
+            if(value == false)
+                walkSoundPlayer.Pause();
 
             if(!value)
             {
@@ -44,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
     private float currentGravity = 0f;
 
     public bool rotationable = true;
-    private bool onWalksoundPlaying = false;
 
     private void Awake()
     {
@@ -94,15 +95,10 @@ public class PlayerMovement : MonoBehaviour
         dir.y += currentGravity;
 
         if((dir.x != 0 || dir.z != 0) && IsGround()) {
-            if(!onWalksoundPlaying)
-            {
-                onWalksoundPlaying = true;
+            if(!walkSoundPlayer.isPlaying)
                 AudioManager.Instance.PlayAudio("PlayerWalk", walkSoundPlayer);
-            }
-        } else {
-            onWalksoundPlaying = false;
+        } else
             walkSoundPlayer.Pause();
-        }
 
         characterController.Move(dir * currentSpeed * Time.deltaTime);
     }

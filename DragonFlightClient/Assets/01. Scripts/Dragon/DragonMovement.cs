@@ -52,6 +52,8 @@ public class DragonMovement : MonoBehaviour
 
     private Dragon dragon = null;
 
+    [SerializeField] AudioSource walkSoundPlayer = null;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -177,6 +179,12 @@ public class DragonMovement : MonoBehaviour
         dir = (input.z * transform.forward + input.x * transform.right);
         if(!onFlying)
             dir.y += DEFINE.GravityScale * Time.deltaTime;
+
+        if((dir.x != 0 || dir.z != 0) && !onFlying) {
+            if(!walkSoundPlayer.isPlaying)
+                AudioManager.Instance.PlayAudio("DragonWalk", walkSoundPlayer);
+        } else
+            walkSoundPlayer.Pause();
 
         characterController.Move(dir * (onDash ? currentSpeed * dashFactor : currentSpeed) * Time.deltaTime);
     }

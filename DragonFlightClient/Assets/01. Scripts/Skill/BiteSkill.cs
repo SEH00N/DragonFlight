@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BiteSkill : Skill
 {
+    [SerializeField] AudioSource biteSoundPlayer = null;
     [SerializeField] Collider biteRange = null;
     [SerializeField] float damage = 10f;
     private Dragon dragon;
@@ -17,6 +18,8 @@ public class BiteSkill : Skill
         dragon.Animator.SetTrigger("OnBite");
         TriggerAnimPacket triggerAnimPacket = new TriggerAnimPacket("Dragon", "OnBite");
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
+
+        AudioManager.Instance.PlayAudio("DragonBite", biteSoundPlayer);
 
         Collider[] enemies = Physics.OverlapBox(biteRange.transform.position, biteRange.bounds.size / 2f, biteRange.transform.rotation, DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer);
         List<IDamageable> ids = new List<IDamageable>();
