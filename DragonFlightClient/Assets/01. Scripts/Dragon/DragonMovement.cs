@@ -106,6 +106,8 @@ public class DragonMovement : MonoBehaviour
             cameraFollow.localRotation = Quaternion.Euler(rotate);
             
             currentSpeed = flyingSpeed;
+
+            walkSoundPlayer.Pause();
         }
 
         // Do Grounding
@@ -119,6 +121,8 @@ public class DragonMovement : MonoBehaviour
             Vector3 rotate = transform.eulerAngles;
             rotate.x = 0f;
             transform.rotation = Quaternion.Euler(rotate);
+
+            walkSoundPlayer.Pause();
         }
 
         onGround = CheckGround();
@@ -180,11 +184,18 @@ public class DragonMovement : MonoBehaviour
         if(!onFlying)
             dir.y += DEFINE.GravityScale * Time.deltaTime;
 
-        if((dir.x != 0 || dir.z != 0) && !onFlying) {
-            if(!walkSoundPlayer.isPlaying)
-                AudioManager.Instance.PlayAudio("DragonWalk", walkSoundPlayer);
-        } else
-            walkSoundPlayer.Pause();
+        if (onGround) { //On Ground Sound
+            if (dir.x != 0 || dir.z != 0) {
+                if (!walkSoundPlayer.isPlaying) {
+                    AudioManager.Instance.PlayAudio("DragonWalk", walkSoundPlayer);
+                }
+            } else {
+                walkSoundPlayer.Pause();
+            }
+        } else { //On Fly Sound
+            if (!walkSoundPlayer.isPlaying)
+                AudioManager.Instance.PlayAudio("DragonFly", walkSoundPlayer);
+        }
 
         characterController.Move(dir * (onDash ? currentSpeed * dashFactor : currentSpeed) * Time.deltaTime);
     }

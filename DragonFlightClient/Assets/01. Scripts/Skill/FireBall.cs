@@ -45,7 +45,12 @@ public class FireBall : PoolableMono
     //터지는 거
     private void Bomb(Collider collider)
     {
-        Collider[] enemies = Physics.OverlapBox(transform.position, collider.bounds.size / 2f, Quaternion.identity, DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer);
+        Collider[] enemies = Physics.OverlapBox(
+            transform.position, 
+            collider.bounds.size / 2f, 
+            Quaternion.identity, 
+            DEFINE.EnemyDragonLayer | DEFINE.EnemyPlayerLayer
+        );
 
         List<IDamageable> ids = new List<IDamageable>();
 
