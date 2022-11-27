@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +18,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private Player player = null;
     private Image hpBar = null;
+
+    [SerializeField] AudioSource damageSoundPlayer = null;
 
     private void Awake()
     {
@@ -48,6 +47,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
 
         player.Animator.SetTrigger("OnDamage");
+        AudioManager.Instance.PlayAudio("PlayerOnDamage", damageSoundPlayer);
     }
 
     private void OnDie()
@@ -56,5 +56,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.TriggerAnim, triggerAnimPacket);
 
         Client.Instance.SendMessages((int)Types.GameManagerEvent, (int)GameManagerEvents.Finish, "");
+
+        AudioManager.Instance.PlayAudio("PlayerDie", damageSoundPlayer);
     }
 }

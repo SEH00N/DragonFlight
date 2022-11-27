@@ -43,6 +43,7 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadAsyncCoroutine(string name, Action callback)
     {
+        AudioManager.Instance.PauseBGM();
         AsyncOperation oper = SceneManager.LoadSceneAsync(name);
         loadingPanel.SetActive(true);
 

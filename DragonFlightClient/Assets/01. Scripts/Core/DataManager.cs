@@ -14,14 +14,14 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private string saveFolderPath = "./Save";
+    private string saveFolderPath = "/Save";
 
     public UserSetting userSetting;
 
     private void Awake()
     {
         saveFolderPath = Path.Combine(Application.persistentDataPath, saveFolderPath);
-        
+
         if(instance != null)
             return;
 

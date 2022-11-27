@@ -11,18 +11,18 @@ public class ParticlePrefab : PoolableMono
         timer = 0f;
     }
 
-    public void Init(Vector3 position, Vector3 rotation)
+    public virtual void Init(Vector3 position, Vector3 rotation)
     {
         transform.position = position;
         transform.rotation = Quaternion.Euler(rotation);
     }
 
-    public void Init(Vector3 position)
+    public virtual void Init(Vector3 position)
     {
         transform.position = position;
     }
 
-    public void Init(Vector3 position, Quaternion rotation)
+    public virtual void Init(Vector3 position, Quaternion rotation)
     {
         transform.position = position;
         transform.rotation = rotation;

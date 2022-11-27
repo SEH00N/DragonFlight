@@ -6,6 +6,9 @@ public class FireBallSkill : Skill
     [SerializeField] Transform firePosition = null;
     [SerializeField] Transform xRotation = null;
 
+    [Header("SoundPlayer")]
+    [SerializeField] AudioSource fireSoundPlayer = null;
+
     public override void ActiveSkill()
     {
         //서버한테 요청 후 res로 소환하는 방식으로 수정해야됨
@@ -16,5 +19,7 @@ public class FireBallSkill : Skill
 
         SpawnPacket spawnPacket = new SpawnPacket("FireBall", firePosition.position, new Vector3(xRotation.eulerAngles.x, transform.eulerAngles.y));
         Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.Spawn, spawnPacket);
+
+        AudioManager.Instance.PlayAudio("FireBallFire", fireSoundPlayer);
     }
 }
