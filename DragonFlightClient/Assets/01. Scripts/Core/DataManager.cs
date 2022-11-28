@@ -31,21 +31,21 @@ public class DataManager : MonoBehaviour
             userSetting = new UserSetting().Generate();
     }
 
-    // private void OnApplicationQuit()
-    // {
-    //     if(instance != this)
-    //         return;
-    //
-    //     SaveData<UserSetting>(userSetting);
-    // }
-
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
         if(instance != this)
             return;
-        
+    
         SaveData<UserSetting>(userSetting);
     }
+
+    // private void OnDestroy()
+    // {
+    //     if(instance != this)
+    //         return;
+        
+    //     SaveData<UserSetting>(userSetting);
+    // }
 
     private bool TryReadJson<T>(out T data) where T : Data
     {
