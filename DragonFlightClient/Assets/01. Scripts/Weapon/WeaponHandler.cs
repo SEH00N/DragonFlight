@@ -3,6 +3,7 @@ using UnityEngine;
 public class WeaponHandler : MonoBehaviour
 {
     [SerializeField] Weapon currentWeapon = null;
+    public Weapon CurrentWeapon => currentWeapon;
     [SerializeField] KeyCode activeKey = KeyCode.Mouse0;
     private float timer = 0f;
 

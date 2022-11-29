@@ -3382,8 +3382,9 @@ MonoBehaviour:
   active: 0
   walkSpeed: 5
   runSpeed: 10
-  currentSpeed: 0
+  jumpSpeed: 5
   speedIncreaseFactor: 5
+  jumpIncreaseFactor: 200
   rayDistance: 0.5
   cameraFollow: {fileID: 6693622883976115618}
   walkSoundPlayer: {fileID: 4764938727471204304}

@@ -5,7 +5,7 @@ public static class DEFINE
 {
     #region consts
 
-    public const float GravityScale = -9.81f;
+    public const float GravityScale = -9.81f * 2f;
     public const int GroundLayer = 1 << 7;
     public const int DragonLayer = 1 << 10; 
     public const int EnemyDragonLayer = 1 << 11;

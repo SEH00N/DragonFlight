@@ -23,10 +23,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Speed")]
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float runSpeed = 10f;
-    [SerializeField] private float currentSpeed = 0f;
+    [SerializeField] float jumpSpeed = 8f;
+    private float currentSpeed = 0f;
 
     [Header("Factor")]
     [SerializeField] float speedIncreaseFactor = 5f;
+    [SerializeField] float jumpIncreaseFactor = 20f;
     [SerializeField] float rayDistance = 3f;
     
     [Header("Transform")]
@@ -47,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool rotationable = true;
 
+    private bool onJump = false;
+    private bool isJumping = false;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -57,7 +62,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Active)
         {
+            if(Input.GetButtonDown("Jump") && IsGround() && !onJump)
+            {
+                onJump = true;
+                isJumping = true;
+                anim.SetBool("OnJump", isJumping);
+
+                BoolAnimPacket boolAnimPacket = new BoolAnimPacket("Player", "OnJump", isJumping);
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.BoolAnim, boolAnimPacket);
+
+            }
+
             Move();
+            Jump();
+
+            if(isJumping && currentGravity < 0 && IsGround())
+            {
+                isJumping = false;
+                anim.SetBool("OnJump", isJumping);
+                
+                BoolAnimPacket boolAnimPacket = new BoolAnimPacket("Player", "OnJump", isJumping);
+                Client.Instance.SendMessages((int)Types.InteractEvent, (int)InteractEvents.BoolAnim, boolAnimPacket);
+            }
             
             if(characterController.isGrounded)
                 currentGravity = 0f;
@@ -67,6 +93,16 @@ public class PlayerMovement : MonoBehaviour
 
             animBlend = Mathf.Lerp(0, currentSpeed, Mathf.Abs(Mathf.Abs(input.x) > Mathf.Abs(input.z) ? input.x : input.z));
             anim.SetFloat("Move", animBlend);
+        }
+    }
+
+    private void Jump()
+    {
+        if(onJump) {
+            currentGravity += jumpIncreaseFactor * Time.deltaTime;
+
+            if(currentGravity >= jumpSpeed)
+                onJump = false;
         }
     }
 
@@ -89,9 +125,10 @@ public class PlayerMovement : MonoBehaviour
 
         currentSpeed = Mathf.Max(0f, currentSpeed);
 
-        dir = (input.x * transform.right + input.z * transform.forward);
+        dir = (input.x * transform.right + input.z * transform.forward) * currentSpeed;
 
-        currentGravity += DEFINE.GravityScale * Time.deltaTime;
+        if(!onJump)
+            currentGravity += DEFINE.GravityScale * Time.deltaTime;
         dir.y += currentGravity;
 
         if((dir.x != 0 || dir.z != 0) && IsGround()) {
@@ -100,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         } else
             walkSoundPlayer.Pause();
 
-        characterController.Move(dir * currentSpeed * Time.deltaTime);
+        characterController.Move(dir * Time.deltaTime);
     }
 
     private void Rotate()

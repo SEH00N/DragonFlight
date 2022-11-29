@@ -110,7 +110,7 @@ public class SniperRifle : Weapon
         cmMainCam.m_Follow = zoomCamFollow;
     }
 
-    private void ZoomOut()
+    public void ZoomOut()
     {
         AudioManager.Instance.PlayAudio("ZoomOut", zoomSoundPlayer);
 

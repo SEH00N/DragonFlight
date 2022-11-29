@@ -72,6 +72,8 @@ public class Player : PoolableMono
         playerMovement.StopSending();
 
         WeaponHandler.Active = false;
+        SniperRifle sniperRifle = weaponHandler.CurrentWeapon as SniperRifle;
+        sniperRifle.ZoomOut();
         StartCoroutine(DissolveCoroutine());
         //디졸브 시작
     }
