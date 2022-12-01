@@ -18,6 +18,9 @@ ModelImporter:
   - first:
       74: 1040030770821179939
     second: Jump_Down
+  - first:
+      74: -4936251570423720521
+    second: human_male_jumpup
   externalObjects: {}
   materials:
     materialImportMode: 1
